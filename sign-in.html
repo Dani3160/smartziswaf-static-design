@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Smart ZISWAF</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body class="flex items-center justify-center min-h-screen bg-[#F5F6FA]">
+
+    <div class="flex flex-col md:flex-row w-full max-w-4xl bg-white rounded-lg shadow-lg overflow-hidden">
+
+        <!-- Left Side -->
+        <div class="relative w-full md:w-1/2 flex flex-col bg-white p-10 rounded-l-lg">
+
+            <!-- Logo kiri atas -->
+            <img src="images/logo.png" class="w-28 h-auto absolute top-6 left-6" />
+
+            <!-- Konten tengah -->
+            <div class="flex flex-1 flex-col justify-center items-center text-center">
+                <h1 class="text-2xl md:text-3xl font-bold text-[#223300] mb-6 mt-10 md:mt-12">
+                    Selamat Datang!
+                </h1>
+                <img src="images/mesjid.jpg" alt="Ilustrasi Masjid" class="max-w-xs md:max-w-sm">
+            </div>
+        </div>
+
+        <!-- Right Side -->
+        <div class="w-full md:w-1/2 p-10 flex flex-col justify-center">
+            <h2 class="text-2xl font-bold text-gray-800 mb-2">Login</h2>
+            <p class="text-sm text-gray-500 mb-6">Silakan login menggunakan akun Anda.</p>
+
+            <form id="loginForm" class="space-y-5">
+                <!-- Username -->
+                <div>
+                    <label for="username" class="block text-sm font-medium text-gray-600 text-left">User Name</label>
+                    <input type="text" id="username" name="username" placeholder="username@gmail.com"
+                        class="w-full px-3 py-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#223300]">
+                </div>
+
+                <!-- Password -->
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-600 text-left">Password</label>
+                    <input type="password" id="password" name="password" placeholder="********"
+                        class="w-full px-3 py-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#223300]">
+                </div>
+
+                <!-- Remember & Forgot -->
+                <div class="flex items-center justify-between">
+                    <label class="flex items-center text-sm text-gray-600">
+                        <input type="checkbox" class="mr-2 text-purple-500 focus:ring-purple-400">
+                        Ingat Aku
+                    </label>
+                    <a href="#" class="text-sm text-black hover:underline">Lupa Sandi?</a>
+                </div>
+
+                <!-- Button -->
+                <button type="submit"
+                    class="w-full bg-[#4B5D16] text-white py-2 rounded-md font-medium hover:bg-[#223300] transition">
+                    Login
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Handle form submission
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Get form values (optional - for validation)
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Basic validation (optional)
+            if (username && password) {
+                // Redirect to dashboard
+                window.location.href = 'dashboard.html';
+            } else {
+                // Optional: Show error message
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Peringatan',
+                    text: 'Silakan isi username dan password',
+                    confirmButtonColor: '#4B5D16'
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

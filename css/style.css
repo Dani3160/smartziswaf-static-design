@@ -1,0 +1,26 @@
+body {
+    scroll-behavior: smooth;
+}
+
+@keyframes loop-scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.scrolling {
+    animation: loop-scroll 25s linear infinite;
+    width: max-content;
+}
+
+.scrolling:hover {
+    animation-play-state: paused;
+}
+
+.testimonial-card {
+    flex: 0 0 auto;
+}
