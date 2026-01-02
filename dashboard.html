@@ -1111,7 +1111,7 @@
             <!-- Navigation -->
             <nav class="flex flex-col flex-1 px-2 py-6 space-y-2 overflow-y-auto sidebar-nav">
                 <!-- Beranda (Active) -->
-                <a href="dashboard2.html" class="menu-item-modern active flex items-center space-x-4 px-4 py-3.5">
+                <a href="dashboard.html" class="menu-item-modern active flex items-center space-x-4 px-4 py-3.5">
                     <svg class="w-5 h-5 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                         viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -1156,16 +1156,16 @@
                             </svg>
                             <span>Data Umat</span>
                         </a>
-                        <a href="#"
+                        <a href="jenis-kurban.html"
                             class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
                             <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                             <span>Jenis Kurban</span>
                         </a>
-                        <a href="#"
+                        <a href="cluster.html"
                             class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
                             <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
@@ -1197,7 +1197,7 @@
                         </svg>
                     </a>
                     <div id="manajemenZakat" class="dropdown-menu-modern">
-                        <a href="#"
+                        <a href="kelola-zakat-fitrah.html"
                             class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
                             <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
@@ -1206,7 +1206,7 @@
                             </svg>
                             <span>Kelola Zakat Fitrah</span>
                         </a>
-                        <a href="#"
+                        <a href="data-mustahik.html"
                             class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
                             <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
@@ -1611,7 +1611,7 @@
                                 class="w-5 h-5 filter brightness-0 invert">
                             Laporan
                         </button>
-                        <button class="btn-modern accent">
+                        <button class="btn-modern accent" onclick="window.location.href='data-umat.html'">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -2242,154 +2242,61 @@
 
         closeModalBtn.addEventListener('click', closeModal);
 
-        // Close modal when clicking overlay
-        tambahDataMuzakkiModal.addEventListener('click', (e) => {
-            if (e.target === tambahDataMuzakkiModal) {
-                closeModal();
-            }
-        });
-
-        // Close modal with Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && tambahDataMuzakkiModal.classList.contains('show')) {
-                closeModal();
-            }
-        });
-
-        // Handle option selection
-        zakatFitrahOption.addEventListener('click', () => {
-            zakatFitrahOption.classList.add('active');
-            zakatMalOption.classList.remove('active');
-            // Here you can add navigation or form opening logic
-            setTimeout(() => {
-                Swal.fire({
-                    icon: 'info',
-                    title: 'Zakat Fitrah',
-                    text: 'Membuka form Zakat Fitrah...',
-                    timer: 1500,
-                    showConfirmButton: false
-                });
-                closeModal();
-            }, 300);
-        });
-
-        zakatMalOption.addEventListener('click', () => {
-            zakatMalOption.classList.add('active');
-            zakatFitrahOption.classList.remove('active');
-            // Here you can add navigation or form opening logic
-            setTimeout(() => {
-                Swal.fire({
-                    icon: 'info',
-                    title: 'Zakat Mal',
-                    text: 'Membuka form Zakat Mal...',
-                    timer: 1500,
-                    showConfirmButton: false
-                });
-                closeModal();
-            }, 300);
-        });
-
-        // Filter Modal
-        const filterBtn = document.getElementById('filterBtn');
-        const filterModal = document.getElementById('filterModal');
-        const resetFilterBtn = document.getElementById('resetFilterBtn');
-        const applyFilterBtn = document.getElementById('applyFilterBtn');
-        const dateFrom = document.getElementById('dateFrom');
-        const dateTo = document.getElementById('dateTo');
-        const yearSelect = document.getElementById('yearSelect');
-
-        // Initialize Flatpickr for date inputs
-        let dateFromPicker, dateToPicker;
-
-        // Initialize datepickers once
-        function initializeDatePickers() {
-            if (!dateFromPicker && dateFrom) {
-                dateFromPicker = flatpickr(dateFrom, {
-                    dateFormat: "d/m/Y",
-                    placeholder: "dd/mm/yyyy",
-                    locale: "id",
-                    allowInput: false,
-                    clickOpens: true,
-                    maxDate: new Date()
-                });
+        // Handle semua link dengan href="#" untuk menampilkan SweetAlert2 info
+        document.addEventListener('DOMContentLoaded', () => {
+            // Function untuk menampilkan SweetAlert2 info
+            function showPageNotReadyInfo(pageName) {
+                if (typeof Swal !== 'undefined') {
+                    Swal.fire({
+                        icon: 'info',
+                        title: pageName || 'Halaman Belum Tersedia',
+                        html: `<p style="font-size: 16px; color: #64748b; margin-top: 10px;">Halaman <strong>"${pageName || 'ini'}"</strong> sedang dalam pengembangan dan akan segera tersedia.</p><p style="font-size: 14px; color: #94a3b8; margin-top: 8px;">Terima kasih atas pengertian Anda.</p>`,
+                        confirmButtonText: 'Mengerti',
+                        confirmButtonColor: '#223301',
+                        width: '500px',
+                        padding: '2rem',
+                        customClass: {
+                            popup: 'rounded-2xl',
+                            title: 'text-2xl font-bold text-gray-900',
+                            confirmButton: 'px-6 py-3 rounded-lg font-semibold'
+                        }
+                    });
+                } else {
+                    alert(`Halaman "${pageName || 'ini'}" sedang dalam pengembangan dan akan segera tersedia.`);
+                }
             }
 
-            if (!dateToPicker && dateTo) {
-                dateToPicker = flatpickr(dateTo, {
-                    dateFormat: "d/m/Y",
-                    placeholder: "dd/mm/yyyy",
-                    locale: "id",
-                    allowInput: false,
-                    clickOpens: true,
-                    maxDate: new Date()
-                });
-            }
-        }
-
-        // Initialize on page load
-        if (typeof flatpickr !== 'undefined') {
-            initializeDatePickers();
-        } else {
-            // Wait for flatpickr to load
-            window.addEventListener('load', () => {
-                setTimeout(initializeDatePickers, 100);
-            });
-        }
-
-        // Open filter modal
-        filterBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            filterModal.classList.add('show');
-            document.body.style.overflow = 'hidden';
-        });
-
-        // Close filter modal
-        function closeFilterModal() {
-            filterModal.classList.remove('show');
-            document.body.style.overflow = '';
-        }
-
-        // Close modal when clicking overlay
-        filterModal.addEventListener('click', (e) => {
-            if (e.target === filterModal) {
-                closeFilterModal();
-            }
-        });
-
-        // Close modal with Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && filterModal.classList.contains('show')) {
-                closeFilterModal();
-            }
-        });
-
-        // Reset filter
-        resetFilterBtn.addEventListener('click', () => {
-            if (dateFromPicker) dateFromPicker.clear();
-            if (dateToPicker) dateToPicker.clear();
-            yearSelect.value = '2025';
-        });
-
-        // Apply filter
-        applyFilterBtn.addEventListener('click', () => {
-            const fromDate = dateFromPicker ? dateFromPicker.selectedDates[0] : null;
-            const toDate = dateToPicker ? dateToPicker.selectedDates[0] : null;
-            const year = yearSelect.value;
-
-            // Here you can add your filter logic
-            console.log('Filter Applied:', {
-                fromDate: fromDate ? dateFromPicker.formatDate(fromDate, 'd/m/Y') : null,
-                toDate: toDate ? dateToPicker.formatDate(toDate, 'd/m/Y') : null,
-                year: year
+            // Handle semua link sidebar dengan href="#"
+            const sidebarLinks = document.querySelectorAll('aside a[href="#"]');
+            sidebarLinks.forEach(link => {
+                // Skip link yang memiliki onclick (untuk dropdown toggle)
+                if (!link.hasAttribute('onclick')) {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const pageName = link.querySelector('span')?.textContent || link.textContent.trim() || 'Halaman';
+                        showPageNotReadyInfo(pageName);
+                    });
+                }
             });
 
-            // Close modal after applying
-            closeFilterModal();
-
-            // You can add notification or update data here
-            // alert('Filter diterapkan!');
+            // Handle link di dropdown profile
+            const profileLinks = document.querySelectorAll('#profileDropdown a[href="#"]');
+            profileLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const pageName = link.querySelector('span')?.textContent || link.textContent.trim() || 'Halaman';
+                    showPageNotReadyInfo(pageName);
+                    // Close profile dropdown
+                    const profileDropdown = document.getElementById('profileDropdown');
+                    if (profileDropdown) {
+                        profileDropdown.classList.remove('show');
+                    }
+                });
+            });
         });
     </script>
+
+    </div>
 </body>
 
 </html>

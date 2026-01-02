@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Masjid Terhapus - SMART ZISWAF</title>
+    <title>Data Mustahik - SMART ZISWAF</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
@@ -13,6 +13,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <!-- SweetAlert2 CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css"
+        rel="stylesheet" />
     <style>
         * {
             margin: 0;
@@ -314,9 +318,10 @@
         }
 
         .menu-item-modern.active {
-            background: linear-gradient(135deg, rgba(34, 51, 1, 0.12) 0%, rgba(45, 74, 10, 0.08) 100%);
+            background: linear-gradient(135deg, rgba(34, 51, 1, 0.18) 0%, rgba(45, 74, 10, 0.15) 100%);
             border-left: 4px solid #223301;
-            box-shadow: 0 2px 8px rgba(34, 51, 1, 0.15);
+            box-shadow: 0 2px 12px rgba(34, 51, 1, 0.2);
+            border-radius: 12px;
         }
 
         .menu-item-modern.active::before {
@@ -468,6 +473,20 @@
         .dropdown-menu-modern.open {
             max-height: 500px;
             opacity: 1;
+        }
+
+        /* Active sub-menu item styling */
+        .dropdown-menu-modern .menu-item-modern.active {
+            background: linear-gradient(135deg, rgba(34, 51, 1, 0.15) 0%, rgba(45, 74, 10, 0.12) 100%);
+            border-left: 3px solid #223301;
+            border-radius: 8px;
+            margin-left: 8px;
+            margin-right: 8px;
+            font-weight: 600;
+        }
+
+        .dropdown-menu-modern .menu-item-modern.active:hover {
+            background: linear-gradient(135deg, rgba(34, 51, 1, 0.2) 0%, rgba(45, 74, 10, 0.15) 100%);
         }
 
         .menu-group {
@@ -1085,142 +1104,6 @@
             background: rgba(34, 51, 1, 0.1);
         }
 
-        /* Button Restore dan Hapus Permanen Styles */
-        .action-btn-group {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
-
-        .btn-action {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-action::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.4s ease, height 0.4s ease;
-        }
-
-        .btn-action:hover::before {
-            width: 100%;
-            height: 100%;
-        }
-
-        .btn-restore {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
-        }
-
-        .btn-restore:hover {
-            transform: scale(1.15) rotate(5deg);
-            box-shadow: 0 4px 16px rgba(16, 185, 129, 0.5);
-            background: linear-gradient(135deg, #059669 0%, #047857 100%);
-        }
-
-        .btn-restore:active {
-            transform: scale(1.05) rotate(0deg);
-        }
-
-        .btn-delete {
-            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
-        }
-
-        .btn-delete:hover {
-            transform: scale(1.15) rotate(-5deg);
-            box-shadow: 0 4px 16px rgba(239, 68, 68, 0.5);
-            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
-        }
-
-        .btn-delete:active {
-            transform: scale(1.05) rotate(0deg);
-        }
-
-        .btn-action svg {
-            width: 18px;
-            height: 18px;
-            color: white;
-            position: relative;
-            z-index: 1;
-            transition: transform 0.3s ease;
-        }
-
-        .btn-restore:hover svg {
-            transform: rotate(-90deg);
-        }
-
-        .btn-delete:hover svg {
-            transform: scale(1.1);
-        }
-
-        /* Tooltip */
-        .btn-action[data-tooltip] {
-            position: relative;
-        }
-
-        .btn-action[data-tooltip]::after {
-            content: attr(data-tooltip);
-            position: absolute;
-            bottom: calc(100% + 8px);
-            left: 50%;
-            transform: translateX(-50%) translateY(-5px);
-            padding: 6px 12px;
-            background: #1e293b;
-            color: white;
-            font-size: 12px;
-            font-weight: 500;
-            border-radius: 6px;
-            white-space: nowrap;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            pointer-events: none;
-            z-index: 1000;
-        }
-
-        .btn-action[data-tooltip]::before {
-            content: '';
-            position: absolute;
-            bottom: calc(100% + 2px);
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 0;
-            border-left: 5px solid transparent;
-            border-right: 5px solid transparent;
-            border-top: 5px solid #1e293b;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            pointer-events: none;
-            z-index: 1000;
-        }
-
-        .btn-action[data-tooltip]:hover::after,
-        .btn-action[data-tooltip]:hover::before {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(-50%) translateY(0);
-        }
-
         /* Form Modal Styles */
         .form-group {
             margin-bottom: 24px;
@@ -1314,6 +1197,130 @@
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(34, 51, 1, 0.4);
         }
+
+        /* Select2 Custom Styles - Match form-input styling exactly */
+        .select2-container {
+            width: 100% !important;
+            margin: 0 !important;
+        }
+
+        .select2-container--default .select2-selection--single {
+            border: 2px solid #e5e7eb !important;
+            border-radius: 12px !important;
+            background: white !important;
+            transition: all 0.3s ease;
+            height: 48px !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            box-sizing: border-box !important;
+        }
+
+        .select2-container--default.select2-container--focus .select2-selection--single,
+        .select2-container--default.select2-container--open .select2-selection--single {
+            outline: none !important;
+            border-color: #223301 !important;
+            box-shadow: 0 0 0 3px rgba(34, 51, 1, 0.1) !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            padding: 12px 40px 12px 16px !important;
+            color: #1e293b !important;
+            font-size: 14px !important;
+            line-height: 24px !important;
+            display: flex !important;
+            align-items: center !important;
+            height: 100% !important;
+            box-sizing: border-box !important;
+            margin: 0 !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__placeholder {
+            color: #9ca3af !important;
+            font-size: 14px !important;
+            line-height: 24px !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 100% !important;
+            right: 12px !important;
+            top: 0 !important;
+            width: 20px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow b {
+            border-color: #6b7280 transparent transparent transparent !important;
+            border-width: 5px 4px 0 4px !important;
+            margin-left: 0 !important;
+            margin-top: 0 !important;
+        }
+
+        .select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
+            border-color: transparent transparent #6b7280 transparent !important;
+            border-width: 0 4px 5px 4px !important;
+            margin-top: 0 !important;
+        }
+
+        .select2-dropdown {
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            margin-top: 4px;
+            overflow: hidden;
+        }
+
+        .select2-container--default .select2-results__option {
+            padding: 12px 16px;
+            font-size: 14px;
+            color: #1e293b;
+            transition: all 0.2s ease;
+        }
+
+        .select2-container--default .select2-results__option--highlighted[aria-selected] {
+            background-color: rgba(34, 51, 1, 0.1);
+            color: #223301;
+            font-weight: 500;
+        }
+
+        .select2-container--default .select2-results__option[aria-selected=true] {
+            background-color: rgba(34, 51, 1, 0.15);
+            color: #223301;
+            font-weight: 600;
+        }
+
+        .select2-container--default .select2-results__option--highlighted[aria-selected]:hover {
+            background-color: rgba(34, 51, 1, 0.15);
+        }
+
+        .select2-results__option {
+            padding-left: 16px !important;
+        }
+
+        .select2-search--dropdown .select2-search__field {
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 14px;
+            margin: 8px;
+            width: calc(100% - 16px);
+        }
+
+        .select2-search--dropdown .select2-search__field:focus {
+            outline: none;
+            border-color: #223301;
+            box-shadow: 0 0 0 3px rgba(34, 51, 1, 0.1);
+        }
+
+        /* Fix Select2 z-index */
+        .select2-container {
+            z-index: 9999;
+        }
+
+        .select2-dropdown {
+            z-index: 9999;
+        }
     </style>
 </head>
 
@@ -1352,7 +1359,7 @@
 
                 <!-- Data Master -->
                 <div class="menu-group">
-                    <a href="#" class="menu-item-modern active flex items-center justify-between px-4 py-3.5"
+                    <a href="#" class="menu-item-modern flex items-center justify-between px-4 py-3.5"
                         onclick="toggleDropdown(event, 'dataMaster')">
                         <div class="flex items-center space-x-4">
                             <svg class="w-5 h-5 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
@@ -1362,15 +1369,14 @@
                             </svg>
                             <span class="menu-text text-sm font-medium" style="color: #223301;">Data Master</span>
                         </div>
-                        <svg class="dropdown-icon-modern w-4 h-4 text-gray-500 rotated" fill="none"
-                            stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="dropdown-icon-modern w-4 h-4 text-gray-500" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </a>
-                    <div id="dataMaster" class="dropdown-menu-modern open">
+                    <div id="dataMaster" class="dropdown-menu-modern">
                         <a href="data-mesjid.html"
-                            class="menu-item-modern active flex items-center space-x-3 px-4 py-2.5 text-sm"
-                            style="color: #223301;">
+                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
                             <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -1379,7 +1385,7 @@
                             <span>Data Mesjid</span>
                         </a>
                         <a href="data-umat.html"
-                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm">
                             <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -1412,22 +1418,22 @@
 
                 <!-- Manajemen Zakat -->
                 <div class="menu-group">
-                    <a href="#" class="menu-item-modern flex items-center justify-between px-4 py-3.5"
+                    <a href="#" class="menu-item-modern active flex items-center justify-between px-4 py-3.5"
                         onclick="toggleDropdown(event, 'manajemenZakat')">
                         <div class="flex items-center space-x-4">
-                            <svg class="w-5 h-5 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor"
+                            <svg class="w-5 h-5 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                             </svg>
-                            <span class="menu-text text-sm text-gray-700 font-medium">Manajemen Zakat</span>
+                            <span class="menu-text text-sm font-medium" style="color: #223301;">Manajemen Zakat</span>
                         </div>
-                        <svg class="dropdown-icon-modern w-4 h-4 text-gray-500" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24">
+                        <svg class="dropdown-icon-modern w-4 h-4 text-gray-500 rotated" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </a>
-                    <div id="manajemenZakat" class="dropdown-menu-modern">
+                    <div id="manajemenZakat" class="dropdown-menu-modern open">
                         <a href="kelola-zakat-fitrah.html"
                             class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
                             <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
@@ -1438,7 +1444,7 @@
                             <span>Kelola Zakat Fitrah</span>
                         </a>
                         <a href="data-mustahik.html"
-                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            class="menu-item-modern active flex items-center space-x-3 px-4 py-2.5 text-sm">
                             <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -1634,9 +1640,8 @@
                 <div class="header-hero-content px-8 py-6">
                     <div class="flex justify-between items-center">
                         <div>
-                            <h1 class="text-3xl font-bold text-white mb-2">Data Masjid Terhapus</h1>
-                            <p class="text-white/80 text-sm">Data Master / Data Masjid / Data Masjid Di Tempat Sampah
-                            </p>
+                            <h1 class="text-3xl font-bold text-white mb-2">Kelola Mustahik (Asnaf)</h1>
+                            <p class="text-white/80 text-sm">Manajemen Zakat / Kelola Mustahik (Asnaf)</p>
                         </div>
                         <div class="flex items-center space-x-4">
                             <!-- Notification Button -->
@@ -1815,84 +1820,136 @@
             <!-- Main Content Area -->
             <main class="main-content-bg flex-1 overflow-y-auto">
                 <div class="p-6 space-y-6">
-                    <!-- Search and Back Button -->
-                    <div class="flex flex-wrap items-center gap-4 fade-in-up">
-                        <!-- Search Bar -->
-                        <div class="flex-1 min-w-[300px] relative">
-                            <input type="text" placeholder="Cari"
-                                class="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#223301] focus:border-transparent">
-                            <svg class="w-5 h-5 text-gray-400 absolute right-4 top-1/2 transform -translate-y-1/2"
-                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                            </svg>
+                    <!-- Search and Filter Section -->
+                    <div class="fade-in-up">
+                        <div class="flex flex-col md:flex-row gap-4 mb-6">
+                            <!-- Search Input -->
+                            <div class="relative flex-1">
+                                <input type="text" placeholder="Cari"
+                                    class="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#223301] focus:border-transparent">
+                                <svg class="w-5 h-5 text-gray-400 absolute right-4 top-1/2 transform -translate-y-1/2"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                            </div>
+                            <!-- Year Filter -->
+                            <div class="relative">
+                                <select id="yearFilter"
+                                    class="px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#223301] focus:border-transparent bg-white appearance-none pr-10 cursor-pointer">
+                                    <option value="">Tahun</option>
+                                    <option value="2025" selected>2025</option>
+                                    <option value="2024">2024</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2021">2021</option>
+                                </select>
+                                <svg class="w-5 h-5 text-gray-400 absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </div>
                         </div>
-                        <!-- Back Button -->
-                        <button onclick="window.location.href='data-mesjid.html'" class="btn-modern secondary">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                            </svg>
-                            Kembali
-                        </button>
+
+                        <!-- Action Buttons -->
+                        <div class="flex flex-wrap gap-3 mb-6">
+                            <button class="btn-modern primary inline-flex items-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 4v16m8-8H4" />
+                                </svg>
+                                Tambah Data Asnaf
+                            </button>
+                            <button class="btn-modern accent inline-flex items-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+                                </svg>
+                                Arsip Data Asnaf
+                            </button>
+                        </div>
                     </div>
 
-                    <!-- Data Masjid Terhapus Table -->
+                    <!-- Data Asnaf Table -->
                     <div class="fade-in-up-delay-1">
-                        <h2 class="text-lg font-semibold text-gray-900 mb-4">Data Masjid Terhapus</h2>
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="text-lg font-semibold text-gray-900">Data Asnaf</h2>
+                            <div class="flex gap-3">
+                                <button class="btn-modern primary inline-flex items-center gap-2 text-sm py-2 px-4">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                    </svg>
+                                    Import
+                                </button>
+                                <button class="btn-modern secondary inline-flex items-center gap-2 text-sm py-2 px-4"
+                                    style="background: #ef4444; color: white; border: none;">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                    </svg>
+                                    Export
+                                </button>
+                            </div>
+                        </div>
                         <div class="table-modern">
-                            <table class="w-full">
+                            <table class="w-full border-collapse">
                                 <thead>
-                                    <tr>
+                                    <tr style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);">
                                         <th
-                                            class="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">
+                                            class="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
                                             No</th>
                                         <th
-                                            class="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">
-                                            Nama Masjid</th>
+                                            class="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
+                                            Nama Asnaf</th>
                                         <th
-                                            class="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">
-                                            Alamat Masjid</th>
+                                            class="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
+                                            Cluster</th>
                                         <th
-                                            class="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">
-                                            Sub Domain</th>
+                                            class="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
+                                            Blok</th>
                                         <th
-                                            class="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">
+                                            class="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
+                                            Alamat</th>
+                                        <th
+                                            class="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
+                                            Umur</th>
+                                        <th
+                                            class="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
+                                            Jenis Asnaf</th>
+                                        <th
+                                            class="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
                                             Aksi</th>
                                     </tr>
                                 </thead>
-                                <tbody class="divide-y divide-gray-200 bg-white">
-                                    <tr class="bg-white">
-                                        <td class="px-6 py-4 text-sm text-gray-700 font-medium bg-white">1</td>
-                                        <td class="px-6 py-4 text-sm text-gray-900 font-semibold bg-white">demo masjid
+                                <tbody class="bg-white">
+                                    <tr class="bg-white hover:bg-gray-50">
+                                        <td class="px-4 py-3 text-sm text-gray-700 font-medium border border-gray-200">1
                                         </td>
-                                        <td class="px-6 py-4 text-sm text-gray-700 bg-white">demo</td>
-                                        <td class="px-6 py-4 text-sm text-gray-700 bg-white">demo</td>
-                                        <td class="px-6 py-4 text-sm bg-white">
-                                            <div class="action-btn-group">
-                                                <button onclick="restoreData(1)" class="btn-action btn-restore"
-                                                    data-tooltip="Restore Data">
-                                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2"
-                                                            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                                                    </svg>
-                                                </button>
-                                                <button onclick="deletePermanen(1)" class="btn-action btn-delete"
-                                                    data-tooltip="Hapus Permanen">
-                                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2"
-                                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                                    </svg>
-                                                </button>
-                                            </div>
+                                        <td
+                                            class="px-4 py-3 text-sm text-gray-900 font-semibold border border-gray-200">
+                                            Amir</td>
+                                        <td class="px-4 py-3 text-sm text-gray-700 border border-gray-200">BANDUNG</td>
+                                        <td class="px-4 py-3 text-sm text-gray-700 border border-gray-200">M10</td>
+                                        <td class="px-4 py-3 text-sm text-gray-700 border border-gray-200">Jln ABC</td>
+                                        <td class="px-4 py-3 text-sm text-gray-700 border border-gray-200">32</td>
+                                        <td class="px-4 py-3 text-sm text-gray-700 border border-gray-200">Fakir Miskin
+                                        </td>
+                                        <td class="px-4 py-3 text-sm text-gray-700 border border-gray-200">
+                                            <button class="p-2 text-[#223301] hover:bg-gray-100 rounded-lg transition">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                </svg>
+                                            </button>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <div
-                                class="px-6 py-4 flex items-center justify-between border-t border-gray-200 bg-gray-50">
+                            <div class="px-6 py-4 flex items-center justify-between border-t border-gray-200 bg-white">
                                 <div class="flex items-center gap-4">
                                     <div class="text-sm text-gray-700">
                                         Halaman <span class="font-semibold">1</span> dari <span
@@ -1946,81 +2003,6 @@
                     </div>
                     <br><br>
             </main>
-        </div>
-    </div>
-
-    <!-- Modal Tambah/Edit Data Masjid -->
-    <div id="tambahEditMasjidModal" class="modal-overlay">
-        <div class="modal-container" style="max-width: 900px;">
-            <div class="modal-header">
-                <h2 class="modal-title" id="modalMasjidTitle">Tambah Data Masjid</h2>
-                <button class="modal-close-btn" id="closeMasjidModalBtn">
-                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-            <form id="formDataMasjid">
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label class="form-label">Nama Masjid <span style="color: #ef4444;">*</span></label>
-                        <input type="text" id="namaMasjid" name="namaMasjid" class="form-input"
-                            placeholder="Masukkan nama masjid" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Sub Domain <span style="color: #ef4444;">*</span></label>
-                        <input type="text" id="subDomain" name="subDomain" class="form-input"
-                            placeholder="Masukkan sub domain" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Alamat Masjid <span style="color: #ef4444;">*</span></label>
-                    <input type="text" id="alamatMasjid" name="alamatMasjid" class="form-input"
-                        placeholder="Masukkan alamat masjid" required>
-                </div>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label class="form-label">Provinsi <span style="color: #ef4444;">*</span></label>
-                        <select id="provinsi" name="provinsi" class="form-select" required>
-                            <option value="">Pilih Provinsi</option>
-                            <option value="SUMATERA UTARA">SUMATERA UTARA</option>
-                            <option value="SUMATERA BARAT">SUMATERA BARAT</option>
-                            <option value="RIAU">RIAU</option>
-                            <option value="JAMBI">JAMBI</option>
-                            <option value="SUMATERA SELATAN">SUMATERA SELATAN</option>
-                            <option value="BENGKULU">BENGKULU</option>
-                            <option value="LAMPUNG">LAMPUNG</option>
-                            <option value="DKI JAKARTA">DKI JAKARTA</option>
-                            <option value="JAWA BARAT">JAWA BARAT</option>
-                            <option value="JAWA TENGAH">JAWA TENGAH</option>
-                            <option value="JAWA TIMUR">JAWA TIMUR</option>
-                            <!-- Tambahkan provinsi lain sesuai kebutuhan -->
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Kota/Kabupaten <span style="color: #ef4444;">*</span></label>
-                        <input type="text" id="kota" name="kota" class="form-input"
-                            placeholder="Masukkan kota/kabupaten" required>
-                    </div>
-                </div>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label class="form-label">Kecamatan <span style="color: #ef4444;">*</span></label>
-                        <input type="text" id="kecamatan" name="kecamatan" class="form-input"
-                            placeholder="Masukkan kecamatan" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Desa/Kelurahan <span style="color: #ef4444;">*</span></label>
-                        <input type="text" id="desa" name="desa" class="form-input"
-                            placeholder="Masukkan desa/kelurahan" required>
-                    </div>
-                </div>
-                <div class="form-actions">
-                    <button type="button" id="cancelMasjidBtn" class="btn-cancel">Batal</button>
-                    <button type="submit" class="btn-submit" id="submitMasjidBtn">Simpan</button>
-                </div>
-            </form>
         </div>
     </div>
 
@@ -2188,6 +2170,10 @@
 
     <!-- SweetAlert2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- jQuery (required for Select2) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <!-- Flatpickr JS -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/id.js"></script>
@@ -2359,8 +2345,246 @@
         if (closeModalBtn && tambahDataMuzakkiModal) {
             closeModalBtn.addEventListener('click', closeModal);
 
+            // Close modal when clicking overlay
+            tambahDataMuzakkiModal.addEventListener('click', (e) => {
+                if (e.target === tambahDataMuzakkiModal) {
+                    closeModal();
+                }
             });
 
+            // Close modal with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && tambahDataMuzakkiModal.classList.contains('show')) {
+                    closeModal();
+                }
+            });
+        }
+
+        // Handle option selection (only if elements exist)
+        if (zakatFitrahOption) {
+            zakatFitrahOption.addEventListener('click', () => {
+                zakatFitrahOption.classList.add('active');
+                if (zakatMalOption) zakatMalOption.classList.remove('active');
+                // Here you can add navigation or form opening logic
+                setTimeout(() => {
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Zakat Fitrah',
+                        text: 'Membuka form Zakat Fitrah...',
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                    closeModal();
+                }, 300);
+            });
+        }
+
+        if (zakatMalOption) {
+            zakatMalOption.addEventListener('click', () => {
+                zakatMalOption.classList.add('active');
+                if (zakatFitrahOption) zakatFitrahOption.classList.remove('active');
+                // Here you can add navigation or form opening logic
+                setTimeout(() => {
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Zakat Mal',
+                        text: 'Membuka form Zakat Mal...',
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                    closeModal();
+                }, 300);
+            });
+        }
+
+        // Filter Modal (only if elements exist)
+        const filterBtn = document.getElementById('filterBtn');
+        const filterModal = document.getElementById('filterModal');
+        const resetFilterBtn = document.getElementById('resetFilterBtn');
+        const applyFilterBtn = document.getElementById('applyFilterBtn');
+        const dateFrom = document.getElementById('dateFrom');
+        const dateTo = document.getElementById('dateTo');
+        const yearSelect = document.getElementById('yearSelect');
+
+        // Initialize Flatpickr for date inputs
+        let dateFromPicker, dateToPicker;
+
+        // Initialize datepickers once
+        function initializeDatePickers() {
+            if (!dateFromPicker && dateFrom) {
+                dateFromPicker = flatpickr(dateFrom, {
+                    dateFormat: "d/m/Y",
+                    placeholder: "dd/mm/yyyy",
+                    locale: "id",
+                    allowInput: false,
+                    clickOpens: true,
+                    maxDate: new Date()
+                });
+            }
+
+            if (!dateToPicker && dateTo) {
+                dateToPicker = flatpickr(dateTo, {
+                    dateFormat: "d/m/Y",
+                    placeholder: "dd/mm/yyyy",
+                    locale: "id",
+                    allowInput: false,
+                    clickOpens: true,
+                    maxDate: new Date()
+                });
+            }
+        }
+
+        // Initialize on page load
+        if (typeof flatpickr !== 'undefined') {
+            initializeDatePickers();
+        } else {
+            // Wait for flatpickr to load
+            window.addEventListener('load', () => {
+                setTimeout(initializeDatePickers, 100);
+            });
+        }
+
+        // Initialize Select2
+        function initializeSelect2() {
+            // Initialize Select2 for all select elements
+            if (typeof $ !== 'undefined' && typeof $.fn.select2 !== 'undefined') {
+                $('.form-select, .year-select').select2({
+                    theme: 'bootstrap-5',
+                    width: '100%',
+                    language: {
+                        noResults: function () {
+                            return "Tidak ada hasil ditemukan";
+                        },
+                        searching: function () {
+                            return "Mencari...";
+                        }
+                    }
+                });
+            }
+        }
+
+        // Open Manajemen Zakat dropdown on page load for data-mustahik.html
+        window.addEventListener('DOMContentLoaded', () => {
+            // Initialize Select2
+            initializeSelect2();
+
+            // Close all dropdowns first
+            document.querySelectorAll('.dropdown-menu-modern').forEach(menu => {
+                menu.classList.remove('open');
+            });
+            document.querySelectorAll('.dropdown-icon-modern').forEach(icon => {
+                icon.classList.remove('rotated');
+            });
+
+            // Open only Manajemen Zakat dropdown
+            const manajemenZakatDropdown = document.getElementById('manajemenZakat');
+            const manajemenZakatIcon = document.querySelector('[onclick*="manajemenZakat"] .dropdown-icon-modern');
+            if (manajemenZakatDropdown) {
+                manajemenZakatDropdown.classList.add('open');
+                if (manajemenZakatIcon) {
+                    manajemenZakatIcon.classList.add('rotated');
+                }
+            }
+        });
+
+        // Open filter modal (only if elements exist)
+        if (filterBtn && filterModal) {
+            filterBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                filterModal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            });
+        }
+
+        // Close filter modal
+        function closeFilterModal() {
+            if (filterModal) {
+                filterModal.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Close modal when clicking overlay (only if elements exist)
+        if (filterModal) {
+            filterModal.addEventListener('click', (e) => {
+                if (e.target === filterModal) {
+                    closeFilterModal();
+                }
+            });
+
+            // Close modal with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && filterModal.classList.contains('show')) {
+                    closeFilterModal();
+                }
+            });
+        }
+
+        // Reset filter (only if elements exist)
+        if (resetFilterBtn) {
+            resetFilterBtn.addEventListener('click', () => {
+                if (dateFromPicker) dateFromPicker.clear();
+                if (dateToPicker) dateToPicker.clear();
+                if (yearSelect) yearSelect.value = '2025';
+            });
+        }
+
+        // Apply filter (only if elements exist)
+        if (applyFilterBtn) {
+            applyFilterBtn.addEventListener('click', () => {
+                const fromDate = dateFromPicker ? dateFromPicker.selectedDates[0] : null;
+                const toDate = dateToPicker ? dateToPicker.selectedDates[0] : null;
+                const year = yearSelect.value;
+
+                // Here you can add your filter logic
+                console.log('Filter Applied:', {
+                    fromDate: fromDate ? dateFromPicker.formatDate(fromDate, 'd/m/Y') : null,
+                    toDate: toDate ? dateToPicker.formatDate(toDate, 'd/m/Y') : null,
+                    year: year
+                });
+
+                // Close modal after applying
+                closeFilterModal();
+
+                // You can add notification or update data here
+                // alert('Filter diterapkan!');
+            });
+        }
+
+        // Handle semua link dengan href="#" untuk menampilkan SweetAlert2 info
+        document.addEventListener('DOMContentLoaded', () => {
+            // Function untuk menampilkan SweetAlert2 info
+            function showPageNotReadyInfo(pageName) {
+                if (typeof Swal !== 'undefined') {
+                    Swal.fire({
+                        icon: 'info',
+                        title: pageName || 'Halaman Belum Tersedia',
+                        html: `<p style="font-size: 16px; color: #64748b; margin-top: 10px;">Halaman <strong>"${pageName || 'ini'}"</strong> sedang dalam pengembangan dan akan segera tersedia.</p><p style="font-size: 14px; color: #94a3b8; margin-top: 8px;">Terima kasih atas pengertian Anda.</p>`,
+                        confirmButtonText: 'Mengerti',
+                        confirmButtonColor: '#223301',
+                        width: '500px',
+                        padding: '2rem',
+                        customClass: {
+                            popup: 'rounded-2xl',
+                            title: 'text-2xl font-bold text-gray-900',
+                            confirmButton: 'px-6 py-3 rounded-lg font-semibold'
+                        }
+                    });
+                } else {
+                    alert(`Halaman "${pageName || 'ini'}" sedang dalam pengembangan dan akan segera tersedia.`);
+                }
+            }
+
+            // Handle semua link sidebar dengan href="#"
+            const sidebarLinks = document.querySelectorAll('aside a[href="#"]');
+            sidebarLinks.forEach(link => {
+                // Skip link yang memiliki onclick (untuk dropdown toggle)
+                if (!link.hasAttribute('onclick')) {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const pageName = link.querySelector('span')?.textContent || link.textContent.trim() || 'Halaman';
+                        showPageNotReadyInfo(pageName);
+                    });
                 }
             });
 
@@ -2378,13 +2602,8 @@
                     }
                 });
             });
-
-            // Close modal when clicking overlay
-            
         });
-
-
-    </div>
+    </script>
 </body>
 
 </html>

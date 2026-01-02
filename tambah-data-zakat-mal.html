@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah Data Muzakki Zakat Mal - SMART ZISWAF</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f7fa;
+        }
+
+        /* Modern Sidebar - Copy from dashboard.html */
+        .sidebar-modern {
+            background: #ffffff;
+            box-shadow: 4px 0 30px rgba(0, 0, 0, 0.08);
+            border-right: 1px solid rgba(226, 232, 240, 0.8);
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .sidebar-modern.collapsed {
+            width: 80px;
+        }
+
+        .sidebar-modern.collapsed .menu-text,
+        .sidebar-modern.collapsed .logo-text {
+            opacity: 0;
+            width: 0;
+            overflow: hidden;
+            margin: 0;
+        }
+
+        .sidebar-modern.collapsed .dropdown-icon-modern {
+            display: none;
+        }
+
+        .sidebar-modern.collapsed .menu-item-modern {
+            justify-content: center !important;
+            padding: 0 !important;
+            margin: 4px auto !important;
+            width: 48px !important;
+            height: 48px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            min-width: 48px !important;
+            position: relative;
+        }
+
+        .sidebar-modern.collapsed .menu-item-modern.active {
+            border-left: none;
+        }
+
+        .sidebar-modern.collapsed .menu-item-modern.active::before {
+            display: none;
+        }
+
+        .sidebar-modern.collapsed .menu-item-modern svg {
+            margin: 0 auto !important;
+            flex-shrink: 0;
+            display: block !important;
+        }
+
+        .sidebar-modern.collapsed .menu-item-modern .menu-text {
+            display: none !important;
+        }
+
+        .sidebar-modern.collapsed .menu-item-modern .flex {
+            justify-content: center !important;
+            width: 100%;
+            display: flex !important;
+            align-items: center !important;
+        }
+
+        .sidebar-modern.collapsed .menu-item-modern.space-x-4>*+* {
+            margin-left: 0 !important;
+        }
+
+        .sidebar-modern.collapsed .menu-item-modern>*:not(svg):not(.flex) {
+            display: none !important;
+        }
+
+        .sidebar-modern.collapsed .menu-item-modern>svg {
+            margin: 0 auto !important;
+            display: block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+
+        .sidebar-modern.collapsed .menu-item-modern .flex>*:not(svg:first-child):not(.menu-text) {
+            display: none !important;
+        }
+
+        .sidebar-modern.collapsed .menu-item-modern .flex>svg:first-child {
+            margin: 0 auto !important;
+            display: block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            width: 20px !important;
+            height: 20px !important;
+        }
+
+        .sidebar-modern.collapsed .menu-item-modern.active .flex svg,
+        .sidebar-modern.collapsed .menu-item-modern.active>svg {
+            color: #223301 !important;
+            stroke: #223301 !important;
+        }
+
+        .sidebar-modern.collapsed .logo-section .flex {
+            justify-content: center;
+            width: 100%;
+        }
+
+        .sidebar-modern.collapsed .logo-section img {
+            margin: 0 auto;
+        }
+
+        .sidebar-modern.collapsed .menu-group>a {
+            justify-content: center !important;
+            padding: 0 !important;
+            width: 48px !important;
+            height: 48px !important;
+            margin: 4px auto !important;
+            min-width: 48px !important;
+            position: relative;
+            display: flex !important;
+            align-items: center !important;
+        }
+
+        .sidebar-modern.collapsed .menu-group>a svg {
+            margin: 0 auto !important;
+            flex-shrink: 0;
+            display: block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+
+        .sidebar-modern.collapsed .menu-group>a .menu-text {
+            display: none !important;
+        }
+
+        .sidebar-modern.collapsed .menu-group>a .flex {
+            justify-content: center !important;
+            width: 100%;
+            display: flex !important;
+            align-items: center !important;
+        }
+
+        .sidebar-modern.collapsed .menu-group>a .dropdown-icon-modern {
+            display: none !important;
+        }
+
+        .sidebar-modern.collapsed .menu-group>a .flex>*:not(svg:first-child) {
+            display: none !important;
+        }
+
+        .sidebar-modern.collapsed .menu-group>a .flex svg:first-child {
+            margin: 0 auto !important;
+            display: block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            color: #6b7280 !important;
+            width: 20px !important;
+            height: 20px !important;
+        }
+
+        /* Ensure all icons are visible when collapsed */
+        .sidebar-modern.collapsed nav svg {
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+
+        .sidebar-modern.collapsed .menu-item-modern>svg {
+            width: 20px !important;
+            height: 20px !important;
+        }
+
+        .sidebar-modern.collapsed .menu-item-modern:not(.active) svg,
+        .sidebar-modern.collapsed .menu-group>a:not(.active) svg,
+        .sidebar-modern.collapsed .menu-item-modern:not(.active) .flex svg,
+        .sidebar-modern.collapsed .menu-group>a:not(.active) .flex svg {
+            color: #6b7280 !important;
+            stroke: #6b7280 !important;
+            fill: none !important;
+        }
+
+        .sidebar-modern:not(.collapsed) .dropdown-menu-modern {
+            position: static !important;
+            top: auto !important;
+        }
+
+        .menu-item-modern {
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 12px;
+            margin: 4px 0;
+        }
+
+        .menu-item-modern:hover {
+            background: rgba(34, 51, 1, 0.05);
+            transform: translateX(4px);
+        }
+
+        .menu-item-modern.active {
+            background: linear-gradient(135deg, rgba(34, 51, 1, 0.12) 0%, rgba(45, 74, 10, 0.08) 100%);
+            border-left: 4px solid #223301;
+            box-shadow: 0 2px 8px rgba(34, 51, 1, 0.15);
+        }
+
+        .menu-item-modern.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 60%;
+            background: linear-gradient(180deg, #223301 0%, #2d4a0a 100%);
+            border-radius: 0 4px 4px 0;
+        }
+
+        /* Header */
+        .header-hero {
+            background-image: url('images/bg6.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            min-height: 200px;
+        }
+
+        .header-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(34, 51, 1, 0.75) 0%, rgba(34, 51, 1, 0.65) 100%);
+            z-index: -10;
+        }
+
+        .header-hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .main-content-bg {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            min-height: 100vh;
+        }
+
+        /* Form Styles */
+        .form-container {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 14px;
+            color: #1e293b;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #223301;
+            box-shadow: 0 0 0 3px rgba(34, 51, 1, 0.1);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 12px 16px;
+            padding-right: 40px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 14px;
+            color: #1e293b;
+            background: white;
+            appearance: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: #223301;
+            box-shadow: 0 0 0 3px rgba(34, 51, 1, 0.1);
+        }
+
+        .select-wrapper {
+            position: relative;
+        }
+
+        .select-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            color: #6b7280;
+            pointer-events: none;
+        }
+
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .checkbox-input {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #223301;
+        }
+
+        .checkbox-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            cursor: pointer;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 24px;
+            margin-top: 32px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .section-title:first-child {
+            margin-top: 0;
+        }
+
+        .btn-modern {
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-modern.primary {
+            background: linear-gradient(135deg, #223301 0%, #2d4a0a 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(34, 51, 1, 0.3);
+        }
+
+        .btn-modern.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(34, 51, 1, 0.4);
+        }
+
+        .btn-modern.secondary {
+            background: white;
+            color: #1e293b;
+            border: 1px solid #e2e8f0;
+        }
+
+        .btn-modern.secondary:hover {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+        }
+
+        .dropdown-panel {
+            position: absolute;
+            top: calc(100% + 12px);
+            right: 0;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px) scale(0.95);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            max-height: 300px;
+            overflow-y: auto;
+            min-width: 250px;
+        }
+
+        .dropdown-panel.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        .dropdown-item {
+            padding: 12px 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .dropdown-item:hover {
+            background: #f8fafc;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .badge-notification {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            width: 12px;
+            height: 12px;
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+
+        .dropdown-menu-modern {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+            opacity: 0;
+            margin-left: 16px;
+            padding-left: 16px;
+            border-left: 2px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .dropdown-menu-modern.open {
+            max-height: 500px;
+            opacity: 1;
+        }
+
+        .dropdown-icon-modern {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dropdown-icon-modern.rotated {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar-modern w-72 flex flex-col relative z-50">
+            <!-- Logo Section -->
+            <div class="logo-section px-6 py-6"
+                style="background: #ffffff; border-bottom: 1px solid rgba(226, 232, 240, 0.8); position: relative;">
+                <div class="flex items-center space-x-3 relative z-10 w-full">
+                    <img src="images/logo-sidebar.png" alt="SMART ZISWAF"
+                        class="w-12 h-12 object-contain flex-shrink-0">
+                    <div class="logo-text text-gray-900 transition-all duration-300">
+                        <div class="text-lg font-bold leading-tight">SMART</div>
+                        <div class="text-lg font-bold leading-tight" style="color: #223301;">ZISWAF</div>
+                    </div>
+                </div>
+                <button id="toggleSidebar" class="toggle-btn-header"
+                    style="position: absolute; right: -14px; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; border-radius: 50%; background: #223301; border: 2px solid white; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10;">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        style="width: 16px; height: 16px; color: white;">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="flex flex-col flex-1 px-2 py-6 space-y-2 overflow-y-auto" style="padding: 16px 8px;">
+                <a href="dashboard.html" class="menu-item-modern flex items-center space-x-4 px-4 py-3.5">
+                    <svg class="w-5 h-5 flex-shrink-0 text-gray-600" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                    </svg>
+                    <span class="menu-text text-sm font-medium text-gray-700">Beranda</span>
+                </a>
+
+                <!-- Data Master -->
+                <div class="menu-group" style="position: relative;">
+                    <a href="#" class="menu-item-modern flex items-center justify-between px-4 py-3.5"
+                        onclick="toggleDropdown(event, 'dataMaster')">
+                        <div class="flex items-center space-x-4">
+                            <svg class="w-5 h-5 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
+                            </svg>
+                            <span class="menu-text text-sm text-gray-700 font-medium">Data Master</span>
+                        </div>
+                        <svg class="dropdown-icon-modern w-4 h-4 text-gray-500" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </a>
+                    <div id="dataMaster" class="dropdown-menu-modern">
+                        <a href="data-mesjid.html"
+                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                            </svg>
+                            <span>Data Mesjid</span>
+                        </a>
+                        <a href="data-umat.html"
+                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg>
+                            <span>Data Umat</span>
+                        </a>
+                        <a href="jenis-kurban.html"
+                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span>Jenis Kurban</span>
+                        </a>
+                        <a href="cluster.html"
+                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            <span>Cluster / Wilayah</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Manajemen Zakat -->
+                <div class="menu-group">
+                    <a href="#" class="menu-item-modern active flex items-center justify-between px-4 py-3.5"
+                        onclick="toggleDropdown(event, 'manajemenZakat')">
+                        <div class="flex items-center space-x-4">
+                            <svg class="w-5 h-5 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                            </svg>
+                            <span class="menu-text text-sm text-gray-700 font-medium">Manajemen Zakat</span>
+                        </div>
+                        <svg class="dropdown-icon-modern w-4 h-4 text-gray-500" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </a>
+                    <div id="manajemenZakat" class="dropdown-menu-modern open">
+                        <a href="kelola-zakat-fitrah.html"
+                            class="menu-item-modern active flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span style="color: #223301; font-weight: 600;">Kelola Zakat Fitrah</span>
+                        </a>
+                        <a href="data-mustahik.html"
+                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg>
+                            <span>Data Mustahik</span>
+                        </a>
+                        <a href="#"
+                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                            </svg>
+                            <span>Perhitungan Kalkulasi</span>
+                        </a>
+                        <a href="#"
+                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                            </svg>
+                            <span>Kalkulasi Pembagian</span>
+                        </a>
+                        <a href="#"
+                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                            </svg>
+                            <span>Distribusi Zakat</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Manajemen Kurban -->
+                <div class="menu-group">
+                    <a href="#" class="menu-item-modern flex items-center justify-between px-4 py-3.5"
+                        onclick="toggleDropdown(event, 'manajemenKurban')">
+                        <div class="flex items-center space-x-4">
+                            <svg class="w-5 h-5 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            <span class="menu-text text-sm text-gray-700 font-medium">Manajemen Kurban</span>
+                        </div>
+                        <svg class="dropdown-icon-modern w-4 h-4 text-gray-500" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </a>
+                    <div id="manajemenKurban" class="dropdown-menu-modern">
+                        <a href="#"
+                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            <span>Daftar Kurban</span>
+                        </a>
+                        <a href="#"
+                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                            </svg>
+                            <span>Distribusi Kurban</span>
+                        </a>
+                        <a href="#"
+                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                            </svg>
+                            <span>Laporan Kegiatan</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Catatan -->
+                <div class="menu-group">
+                    <a href="#" class="menu-item-modern flex items-center justify-between px-4 py-3.5"
+                        onclick="toggleDropdown(event, 'catatan')">
+                        <div class="flex items-center space-x-4">
+                            <svg class="w-5 h-5 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            <span class="menu-text text-sm text-gray-700 font-medium">Catatan</span>
+                        </div>
+                        <svg class="dropdown-icon-modern w-4 h-4 text-gray-500" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </a>
+                    <div id="catatan" class="dropdown-menu-modern">
+                        <a href="#"
+                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            <span>Catatan Pengeluaran</span>
+                        </a>
+                        <a href="#"
+                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                            </svg>
+                            <span>Kategori Pengeluaran</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Pengaturan -->
+                <div class="menu-group">
+                    <a href="#" class="menu-item-modern flex items-center justify-between px-4 py-3.5"
+                        onclick="toggleDropdown(event, 'pengaturan')">
+                        <div class="flex items-center space-x-4">
+                            <svg class="w-5 h-5 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            <span class="menu-text text-sm text-gray-700 font-medium">Pengaturan</span>
+                        </div>
+                        <svg class="dropdown-icon-modern w-4 h-4 text-gray-500" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </a>
+                    <div id="pengaturan" class="dropdown-menu-modern">
+                        <a href="#"
+                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+                            </svg>
+                            <span>Bahasa Aplikasi</span>
+                        </a>
+                        <a href="#"
+                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            <span>Pencatatan</span>
+                        </a>
+                    </div>
+                </div>
+
+                <a href="#" class="menu-item-modern flex items-center space-x-4 px-4 py-3.5">
+                    <svg class="w-5 h-5 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    <span class="menu-text text-sm text-gray-700 font-medium">Laporan</span>
+                </a>
+
+                <!-- Wizard -->
+                <div class="mt-auto pt-4 border-t border-gray-200">
+                    <a href="#" class="menu-item-modern flex items-center space-x-4 px-4 py-3.5">
+                        <svg class="w-5 h-5 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <span class="menu-text text-sm text-gray-700 font-medium">Wizard</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Header -->
+            <header class="header-hero">
+                <div class="header-hero-content px-8 py-6">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="text-white/80 text-sm mb-1">Manajemen Zakat / Kelola Zakat Fitrah / Tambah Data
+                                Muzakki Zakat Mal</p>
+                            <h1 class="text-3xl font-bold text-white">Tambah Data Muzakki</h1>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <!-- Notification Button -->
+                            <div class="relative">
+                                <button id="notificationBtn"
+                                    class="relative p-3 bg-white/10 hover:bg-white/20 rounded-xl transition backdrop-blur-sm">
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                                    </svg>
+                                    <span class="badge-notification"></span>
+                                </button>
+                            </div>
+
+                            <div class="h-8 w-px bg-white/20"></div>
+
+                            <!-- Profile Button -->
+                            <div class="relative">
+                                <button id="profileBtn"
+                                    class="flex items-center space-x-3 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-xl transition backdrop-blur-sm">
+                                    <div class="w-10 h-10 rounded-xl flex items-center justify-center border-2 border-white/30"
+                                        style="background: linear-gradient(135deg, #223301 0%, #2d4a0a 100%);">
+                                        <span class="text-white text-sm font-bold">A</span>
+                                    </div>
+                                    <div class="text-left">
+                                        <div class="text-sm font-semibold text-white">Amilin</div>
+                                        <div class="text-xs text-white/70">Administrator</div>
+                                    </div>
+                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content Area -->
+            <main class="main-content-bg flex-1 overflow-y-auto">
+                <div class="p-6">
+                    <div class="form-container">
+                        <!-- Checkbox untuk ambil data sebelumnya -->
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" id="ambilDataSebelumnya" class="checkbox-input">
+                            <label for="ambilDataSebelumnya" class="checkbox-label">Ambil data muzakki
+                                sebelumnya</label>
+                        </div>
+
+                        <!-- Dropdown Muzakki (muncul jika checkbox dicentang) -->
+                        <div id="muzakkiDropdownWrapper" class="mb-6" style="display: none;">
+                            <label class="form-label">Pilih Muzakki</label>
+                            <div class="select-wrapper relative">
+                                <select id="muzakkiSelect" class="form-select">
+                                    <option value="">-- Pilih Muzakki --</option>
+                                    <option value="ahmad-sulaiman">Ahmad Sulaiman</option>
+                                    <option value="budi-santoso">Budi Santoso</option>
+                                    <option value="siti-nurhaliza">Siti Nurhaliza</option>
+                                </select>
+                                <svg class="select-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Form Fields -->
+                        <div class="grid grid-cols-1 md:grid-cols-1 gap-6">
+                            <!-- Left Column -->
+                            <div class="space-y-6">
+                                <div>
+                                    <label class="form-label">Nama Kepala Keluarga</label>
+                                    <input type="text" id="namaKepalaKeluarga" class="form-input"
+                                        placeholder="Enter your user name">
+                                </div>
+                                <div>
+                                    <label class="form-label">Zakat Mal</label>
+                                    <input type="text" id="zakatMal" class="form-input"
+                                        placeholder="Enter your user name">
+                                </div>
+                                <div>
+                                    <label class="form-label">Jenis Pembayaran</label>
+                                    <div class="select-wrapper relative">
+                                        <select id="jenisPembayaran" class="form-select">
+                                            <option value="">-- Pilih Jenis Pembayaran --</option>
+                                            <option value="tunai">Tunai</option>
+                                            <option value="transfer">Transfer</option>
+                                        </select>
+                                        <svg class="select-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </div>
+                                </div>
+
+                                <!-- Data Tambahan Section -->
+                                <div>
+                                    <h3 class="section-title">Data Tambahan</h3>
+                                    <div class="space-y-6">
+                                        <div>
+                                            <label class="form-label">Cluster</label>
+                                            <div class="select-wrapper relative">
+                                                <select id="cluster" class="form-select">
+                                                    <option value="">-- Pilih Cluster --</option>
+                                                    <option value="bandung">Bandung</option>
+                                                    <option value="batam">Batam</option>
+                                                    <option value="jakarta">Jakarta</option>
+                                                    <option value="surabaya">Surabaya</option>
+                                                </select>
+                                                <svg class="select-icon" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2" d="M19 9l-7 7-7-7" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="form-label">Nomor Telepon</label>
+                                            <input type="text" id="nomorTelepon" class="form-input"
+                                                placeholder="Enter your user name">
+                                        </div>
+                                        <div>
+                                            <label class="form-label">Blok</label>
+                                            <input type="text" id="blok" class="form-input"
+                                                placeholder="Enter your user name">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="flex justify-end gap-4 mt-8 pt-6 border-t border-gray-200">
+                            <button type="button" id="batalBtn" class="btn-modern secondary">
+                                Batal
+                            </button>
+                            <button type="button" id="simpanBtn" class="btn-modern primary">
+                                Simpan
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <br><br><br><br><br><br><br><br>
+            </main>
+        </div>
+    </div>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        // Function to close all dropdowns
+        function closeAllDropdowns() {
+            document.querySelectorAll('.dropdown-menu-modern').forEach(menu => {
+                menu.classList.remove('open');
+            });
+            document.querySelectorAll('.dropdown-icon-modern').forEach(icon => {
+                icon.classList.remove('rotated');
+            });
+        }
+
+        // Toggle Sidebar
+        const sidebar = document.getElementById('sidebar');
+        const toggleSidebar = document.getElementById('toggleSidebar');
+
+        toggleSidebar?.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            closeAllDropdowns();
+            sidebar.classList.toggle('collapsed');
+            const iconPath = toggleSidebar.querySelector('svg path');
+            if (sidebar.classList.contains('collapsed')) {
+                iconPath.setAttribute('d', 'M9 5l7 7-7 7');
+            } else {
+                iconPath.setAttribute('d', 'M15 19l-7-7 7-7');
+            }
+        });
+
+        // Toggle Dropdown
+        function toggleDropdown(event, dropdownId) {
+            event.preventDefault();
+            event.stopPropagation();
+            const dropdown = document.getElementById(dropdownId);
+            const icon = event.currentTarget.querySelector('.dropdown-icon-modern');
+            document.querySelectorAll('.dropdown-menu-modern').forEach(menu => {
+                if (menu.id !== dropdownId && menu.classList.contains('open')) {
+                    menu.classList.remove('open');
+                    const menuGroup = menu.closest('.menu-group');
+                    if (menuGroup) {
+                        const otherIcon = menuGroup.querySelector('.dropdown-icon-modern');
+                        if (otherIcon) otherIcon.classList.remove('rotated');
+                    }
+                }
+            });
+            dropdown.classList.toggle('open');
+            if (icon) icon.classList.toggle('rotated');
+        }
+
+        // Checkbox untuk ambil data sebelumnya
+        const ambilDataSebelumnya = document.getElementById('ambilDataSebelumnya');
+        const muzakkiDropdownWrapper = document.getElementById('muzakkiDropdownWrapper');
+        const muzakkiSelect = document.getElementById('muzakkiSelect');
+
+        ambilDataSebelumnya?.addEventListener('change', (e) => {
+            if (e.target.checked) {
+                muzakkiDropdownWrapper.style.display = 'block';
+            } else {
+                muzakkiDropdownWrapper.style.display = 'none';
+                muzakkiSelect.value = '';
+            }
+        });
+
+        // Load data when muzakki is selected
+        muzakkiSelect?.addEventListener('change', (e) => {
+            const selectedValue = e.target.value;
+            if (selectedValue) {
+                // Simulate loading data
+                // In real app, you would fetch data from API
+                const sampleData = {
+                    'ahmad-sulaiman': {
+                        nama: 'Ahmad Sulaiman',
+                        zakatMal: '500000',
+                        jenisPembayaran: 'tunai',
+                        nomorTelepon: '081234567890',
+                        cluster: 'bandung',
+                        blok: 'M10'
+                    },
+                    'budi-santoso': {
+                        nama: 'Budi Santoso',
+                        zakatMal: '750000',
+                        jenisPembayaran: 'transfer',
+                        nomorTelepon: '081987654321',
+                        cluster: 'batam',
+                        blok: 'A5'
+                    },
+                    'siti-nurhaliza': {
+                        nama: 'Siti Nurhaliza',
+                        zakatMal: '1000000',
+                        jenisPembayaran: 'tunai',
+                        nomorTelepon: '081112223344',
+                        cluster: 'jakarta',
+                        blok: 'B12'
+                    }
+                };
+
+                const data = sampleData[selectedValue];
+                if (data) {
+                    document.getElementById('namaKepalaKeluarga').value = data.nama;
+                    document.getElementById('zakatMal').value = data.zakatMal;
+                    document.getElementById('jenisPembayaran').value = data.jenisPembayaran;
+                    document.getElementById('nomorTelepon').value = data.nomorTelepon;
+                    document.getElementById('cluster').value = data.cluster;
+                    document.getElementById('blok').value = data.blok;
+                }
+            }
+        });
+
+        // Load data from URL parameters (for edit mode)
+        const urlParams = new URLSearchParams(window.location.search);
+        const editMode = urlParams.get('edit');
+        const editData = urlParams.get('data');
+
+        if (editMode === 'true' && editData) {
+            try {
+                const data = JSON.parse(decodeURIComponent(editData));
+                // Populate form with data
+                if (data.nama) document.getElementById('namaKepalaKeluarga').value = data.nama;
+                if (data.zakatMal) document.getElementById('zakatMal').value = data.zakatMal;
+                if (data.jenisPembayaran) document.getElementById('jenisPembayaran').value = data.jenisPembayaran;
+                if (data.nomorTelepon) document.getElementById('nomorTelepon').value = data.nomorTelepon;
+                if (data.cluster) document.getElementById('cluster').value = data.cluster;
+                if (data.blok) document.getElementById('blok').value = data.blok;
+            } catch (e) {
+                console.error('Error parsing edit data:', e);
+            }
+        }
+
+        // Batal Button
+        const batalBtn = document.getElementById('batalBtn');
+        batalBtn?.addEventListener('click', () => {
+            window.location.href = 'kelola-zakat-fitrah.html';
+        });
+
+        // Simpan Button
+        const simpanBtn = document.getElementById('simpanBtn');
+        simpanBtn?.addEventListener('click', () => {
+            // Validate form
+            const namaKepalaKeluarga = document.getElementById('namaKepalaKeluarga').value;
+            const zakatMal = document.getElementById('zakatMal').value;
+
+            if (!namaKepalaKeluarga) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Nama Kepala Keluarga harus diisi!'
+                });
+                return;
+            }
+
+            if (!zakatMal) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Zakat Mal harus diisi!'
+                });
+                return;
+            }
+
+            // Show success message
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil',
+                text: 'Data berhasil disimpan!',
+                timer: 2000,
+                showConfirmButton: false
+            }).then(() => {
+                window.location.href = 'kelola-zakat-fitrah.html';
+            });
+        });
+    </script>
+        
+        // Handle semua link dengan href="#" untuk menampilkan SweetAlert2 info
+        document.addEventListener('DOMContentLoaded', () => {
+            // Function untuk menampilkan SweetAlert2 info
+            function showPageNotReadyInfo(pageName) {
+                if (typeof Swal !== 'undefined') {
+                    Swal.fire({
+                        icon: 'info',
+                        title: pageName || 'Halaman Belum Tersedia',
+                        html: `<p style="font-size: 16px; color: #64748b; margin-top: 10px;">Halaman <strong>"${pageName || 'ini'}"</strong> sedang dalam pengembangan dan akan segera tersedia.</p><p style="font-size: 14px; color: #94a3b8; margin-top: 8px;">Terima kasih atas pengertian Anda.</p>`,
+                        confirmButtonText: 'Mengerti',
+                        confirmButtonColor: '#223301',
+                        width: '500px',
+                        padding: '2rem',
+                        customClass: {
+                            popup: 'rounded-2xl',
+                            title: 'text-2xl font-bold text-gray-900',
+                            confirmButton: 'px-6 py-3 rounded-lg font-semibold'
+                        }
+                    });
+                } else {
+                    alert(`Halaman "${pageName || 'ini'}" sedang dalam pengembangan dan akan segera tersedia.`);
+                }
+            }
+
+            // Handle semua link sidebar dengan href="#"
+            const sidebarLinks = document.querySelectorAll('aside a[href="#"]');
+            sidebarLinks.forEach(link => {
+                // Skip link yang memiliki onclick (untuk dropdown toggle)
+                if (!link.hasAttribute('onclick')) {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const pageName = link.querySelector('span')?.textContent || link.textContent.trim() || 'Halaman';
+                        showPageNotReadyInfo(pageName);
+                    });
+                }
+            });
+
+            // Handle link di dropdown profile
+            const profileLinks = document.querySelectorAll('#profileDropdown a[href="#"]');
+            profileLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const pageName = link.querySelector('span')?.textContent || link.textContent.trim() || 'Halaman';
+                    showPageNotReadyInfo(pageName);
+                    // Close profile dropdown
+                    const profileDropdown = document.getElementById('profileDropdown');
+                    if (profileDropdown) {
+                        profileDropdown.classList.remove('show');
+                    }
+                });
+            });
+        });
+
+                }
+            });
+
+            // Handle link di dropdown profile
+            const profileLinks = document.querySelectorAll('#profileDropdown a[href="#"]');
+            profileLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const pageName = link.querySelector('span')?.textContent || link.textContent.trim() || 'Halaman';
+                    showPageNotReadyInfo(pageName);
+                    // Close profile dropdown
+                    const profileDropdown = document.getElementById('profileDropdown');
+                    if (profileDropdown) {
+                        profileDropdown.classList.remove('show');
+                    }
+                });
+            });
+
+            // Close modal when clicking overlay
+            
+        });
+
+
+    </div>
+</body>
+
+</html>
