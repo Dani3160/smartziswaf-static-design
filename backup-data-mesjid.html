@@ -2358,31 +2358,111 @@
 
         if (closeModalBtn && tambahDataMuzakkiModal) {
             closeModalBtn.addEventListener('click', closeModal);
+        }
 
-            });
-
+        // Close modal when clicking overlay
+        if (tambahDataMuzakkiModal) {
+            tambahDataMuzakkiModal.addEventListener('click', (e) => {
+                if (e.target === tambahDataMuzakkiModal) {
+                    closeModal();
                 }
             });
+        }
 
-            // Handle link di dropdown profile
-            const profileLinks = document.querySelectorAll('#profileDropdown a[href="#"]');
-            profileLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const pageName = link.querySelector('span')?.textContent || link.textContent.trim() || 'Halaman';
-                    showPageNotReadyInfo(pageName);
-                    // Close profile dropdown
-                    const profileDropdown = document.getElementById('profileDropdown');
-                    if (profileDropdown) {
-                        profileDropdown.classList.remove('show');
+        // Handle page not ready links - Only for links that don't have other handlers
+        // This should not interfere with existing modals and swal dialogs
+        (function() {
+            // Function untuk menampilkan SweetAlert2 info
+            function showPageNotReadyInfo(pageName) {
+                if (typeof Swal !== 'undefined') {
+                    Swal.fire({
+                        icon: 'info',
+                        title: pageName || 'Halaman Belum Tersedia',
+                        html: `<p style="font-size: 16px; color: #64748b; margin-top: 10px;">Halaman <strong>"${pageName || 'ini'}"</strong> sedang dalam pengembangan dan akan segera tersedia.</p><p style="font-size: 14px; color: #94a3b8; margin-top: 8px;">Terima kasih atas pengertian Anda.</p>`,
+                        confirmButtonText: 'Mengerti',
+                        confirmButtonColor: '#223301',
+                        width: '500px',
+                        padding: '2rem',
+                        customClass: {
+                            popup: 'rounded-2xl',
+                            title: 'text-2xl font-bold text-gray-900',
+                            confirmButton: 'px-6 py-3 rounded-lg font-semibold'
+                        }
+                    });
+                } else {
+                    alert(`Halaman "${pageName || 'ini'}" sedang dalam pengembangan dan akan segera tersedia.`);
+                }
+            }
+
+            // Wait for DOM to be fully loaded
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initPageNotReadyHandler);
+            } else {
+                // DOM already loaded, run immediately but after other scripts
+                setTimeout(initPageNotReadyHandler, 100);
+            }
+
+            function initPageNotReadyHandler() {
+                // Handle sidebar links with href="#"
+                const sidebarLinks = document.querySelectorAll('aside.sidebar-modern a[href="#"]');
+                sidebarLinks.forEach(link => {
+                    // Skip if link has onclick (for dropdown toggle)
+                    if (link.hasAttribute('onclick')) return;
+                    
+                    // Skip if link is inside a modal
+                    if (link.closest('.modal-overlay') || link.closest('.modal')) return;
+                    
+                    // Add click handler only if link doesn't already have one
+                    if (!link.dataset.pageNotReadyHandler) {
+                        link.dataset.pageNotReadyHandler = 'true';
+                        link.addEventListener('click', function(e) {
+                            // Don't interfere if event was already handled
+                            if (e.defaultPrevented) return;
+                            
+                            const pageName = this.querySelector('span')?.textContent || 
+                                           this.textContent.trim() || 
+                                           'Halaman';
+                            
+                            e.preventDefault();
+                            showPageNotReadyInfo(pageName);
+                        });
                     }
                 });
-            });
 
-            // Close modal when clicking overlay
-            
-        });
+                // Handle profile dropdown links with href="#"
+                const profileLinks = document.querySelectorAll('#profileDropdown a[href="#"]');
+                profileLinks.forEach(link => {
+                    // Skip if link is inside a modal
+                    if (link.closest('.modal-overlay') || link.closest('.modal')) return;
+                    
+                    // Add click handler only if link doesn't already have one
+                    if (!link.dataset.pageNotReadyHandler) {
+                        link.dataset.pageNotReadyHandler = 'true';
+                        link.addEventListener('click', function(e) {
+                            // Don't interfere if event was already handled
+                            if (e.defaultPrevented) return;
+                            
+                            const pageName = this.querySelector('span')?.textContent || 
+                                           this.textContent.trim() || 
+                                           'Halaman';
+                            
+                            e.preventDefault();
+                            showPageNotReadyInfo(pageName);
+                            
+                            // Close profile dropdown
+                            setTimeout(() => {
+                                const profileDropdown = document.getElementById('profileDropdown');
+                                if (profileDropdown) {
+                                    profileDropdown.classList.remove('show');
+                                }
+                            }, 100);
+                        });
+                    }
+                });
+            }
+        })();
 
+    </script>
 
     </div>
 </body>

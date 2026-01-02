@@ -1852,8 +1852,15 @@
     <!-- Modal Filter -->
     <div id="filterModal" class="modal-overlay">
         <div class="filter-modal-container">
-            <div class="filter-modal-header">
+            <div class="filter-modal-header"
+                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;">
                 <h2 class="filter-modal-title">Filter</h2>
+                <button class="modal-close-btn" id="closeFilterModalBtn">
+                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
             </div>
             <form id="filterForm">
                 <!-- Tanggal Section -->
@@ -2341,6 +2348,31 @@
 
         closeModalBtn?.addEventListener('click', closeModal);
 
+        // Handle Zakat Fitrah Option Click - Redirect to tambah-data-muzakki.html
+        zakatFitrahOption?.addEventListener('click', () => {
+            closeModal();
+            window.location.href = 'tambah-data-muzakki.html';
+        });
+
+        // Handle Zakat Mal Option Click - Redirect to tambah-data-zakat-mal.html
+        zakatMalOption?.addEventListener('click', () => {
+            closeModal();
+            window.location.href = 'tambah-data-zakat-mal.html';
+        });
+
+        // Handle Edit Button Click - Redirect to tambah-data-muzakki.html with edit mode
+        // Use event delegation to handle dynamically added buttons
+        document.addEventListener('click', (e) => {
+            const editBtn = e.target.closest('.edit-btn');
+            if (editBtn) {
+                e.preventDefault();
+                e.stopPropagation();
+                const dataId = editBtn.getAttribute('data-id');
+                // Redirect to edit page, you can pass ID as query parameter if needed
+                window.location.href = `tambah-data-muzakki.html?edit=${dataId}`;
+            }
+        });
+
         // Detail Modal
         const detailModal = document.getElementById('detailModal');
         const closeDetailModal = document.getElementById('closeDetailModal');
@@ -2417,61 +2449,94 @@
             document.body.style.overflow = '';
         });
 
-        // Handle semua link dengan href="#" untuk menampilkan SweetAlert2 info
-        document.addEventListener('DOMContentLoaded', () => {
-            // Function untuk menampilkan SweetAlert2 info
-            function showPageNotReadyInfo(pageName) {
-                if (typeof Swal !== 'undefined') {
-                    Swal.fire({
-                        icon: 'info',
-                        title: pageName || 'Halaman Belum Tersedia',
-                        html: `<p style="font-size: 16px; color: #64748b; margin-top: 10px;">Halaman <strong>"${pageName || 'ini'}"</strong> sedang dalam pengembangan dan akan segera tersedia.</p><p style="font-size: 14px; color: #94a3b8; margin-top: 8px;">Terima kasih atas pengertian Anda.</p>`,
-                        confirmButtonText: 'Mengerti',
-                        confirmButtonColor: '#223301',
-                        width: '500px',
-                        padding: '2rem',
-                        customClass: {
-                            popup: 'rounded-2xl',
-                            title: 'text-2xl font-bold text-gray-900',
-                            confirmButton: 'px-6 py-3 rounded-lg font-semibold'
-                        }
+        // Filter Modal
+        const filterBtn = document.getElementById('filterBtn');
+        const filterModal = document.getElementById('filterModal');
+        const resetFilterBtn = document.getElementById('resetFilterBtn');
+        const applyFilterBtn = document.getElementById('applyFilterBtn');
+        const closeFilterModalBtn = document.getElementById('closeFilterModalBtn');
+
+        // Open filter modal
+        filterBtn?.addEventListener('click', () => {
+            filterModal?.classList.add('show');
+            document.body.style.overflow = 'hidden';
+
+            // Initialize Flatpickr for date inputs
+            if (typeof flatpickr !== 'undefined') {
+                const dateFrom = document.getElementById('dateFrom');
+                const dateTo = document.getElementById('dateTo');
+
+                if (dateFrom && !dateFrom._flatpickr) {
+                    flatpickr(dateFrom, {
+                        dateFormat: 'd/m/Y',
+                        locale: 'id',
+                        allowInput: true
                     });
-                } else {
-                    alert(`Halaman "${pageName || 'ini'}" sedang dalam pengembangan dan akan segera tersedia.`);
+                }
+
+                if (dateTo && !dateTo._flatpickr) {
+                    flatpickr(dateTo, {
+                        dateFormat: 'd/m/Y',
+                        locale: 'id',
+                        allowInput: true
+                    });
                 }
             }
-
-            // Handle semua link sidebar dengan href="#"
-            const sidebarLinks = document.querySelectorAll('aside a[href="#"]');
-            sidebarLinks.forEach(link => {
-                // Skip link yang memiliki onclick (untuk dropdown toggle)
-                if (!link.hasAttribute('onclick')) {
-                    link.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        const pageName = link.querySelector('span')?.textContent || link.textContent.trim() || 'Halaman';
-                        showPageNotReadyInfo(pageName);
-                    });
-                }
-            });
-
-            // Handle link di dropdown profile
-            const profileLinks = document.querySelectorAll('#profileDropdown a[href="#"]');
-            profileLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const pageName = link.querySelector('span')?.textContent || link.textContent.trim() || 'Halaman';
-                    showPageNotReadyInfo(pageName);
-                    // Close profile dropdown
-                    const profileDropdown = document.getElementById('profileDropdown');
-                    if (profileDropdown) {
-                        profileDropdown.classList.remove('show');
-                    }
-                });
-            });
         });
-    </script>
 
-    </div>
+        // Close filter modal
+        function closeFilterModalFunc() {
+            filterModal?.classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
+        // Close modal button
+        closeFilterModalBtn?.addEventListener('click', closeFilterModalFunc);
+
+        // Close modal when clicking overlay
+        filterModal?.addEventListener('click', (e) => {
+            if (e.target === filterModal) {
+                closeFilterModalFunc();
+            }
+        });
+
+        // Reset filter
+        resetFilterBtn?.addEventListener('click', () => {
+            const filterForm = document.getElementById('filterForm');
+            if (filterForm) {
+                filterForm.reset();
+            }
+        });
+
+        // Apply filter
+        applyFilterBtn?.addEventListener('click', () => {
+            // Get filter values
+            const dateFrom = document.getElementById('dateFrom')?.value;
+            const dateTo = document.getElementById('dateTo')?.value;
+            const year = document.getElementById('yearSelect')?.value;
+            const cluster = document.getElementById('clusterSelect')?.value;
+            const semua = document.getElementById('semuaSelect')?.value;
+
+            // Here you can add your filter logic
+            console.log('Filter applied:', { dateFrom, dateTo, year, cluster, semua });
+
+            // Close modal after applying
+            closeFilterModalFunc();
+
+            // You can add notification or reload data here
+            if (typeof Swal !== 'undefined') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Filter Diterapkan',
+                    text: 'Filter berhasil diterapkan',
+                    confirmButtonColor: '#223301',
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+            }
+        });
+
+    </script>
 </body>
 
 </html>

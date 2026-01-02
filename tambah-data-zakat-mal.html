@@ -1116,10 +1116,10 @@
                 window.location.href = 'kelola-zakat-fitrah.html';
             });
         });
-    </script>
-        
-        // Handle semua link dengan href="#" untuk menampilkan SweetAlert2 info
-        document.addEventListener('DOMContentLoaded', () => {
+
+        // Handle page not ready links - Only for links that don't have other handlers
+        // This should not interfere with existing modals and swal dialogs
+        (function () {
             // Function untuk menampilkan SweetAlert2 info
             function showPageNotReadyInfo(pageName) {
                 if (typeof Swal !== 'undefined') {
@@ -1142,57 +1142,74 @@
                 }
             }
 
-            // Handle semua link sidebar dengan href="#"
-            const sidebarLinks = document.querySelectorAll('aside a[href="#"]');
-            sidebarLinks.forEach(link => {
-                // Skip link yang memiliki onclick (untuk dropdown toggle)
-                if (!link.hasAttribute('onclick')) {
-                    link.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        const pageName = link.querySelector('span')?.textContent || link.textContent.trim() || 'Halaman';
-                        showPageNotReadyInfo(pageName);
-                    });
-                }
-            });
+            // Wait for DOM to be fully loaded
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initPageNotReadyHandler);
+            } else {
+                // DOM already loaded, run immediately but after other scripts
+                setTimeout(initPageNotReadyHandler, 100);
+            }
 
-            // Handle link di dropdown profile
-            const profileLinks = document.querySelectorAll('#profileDropdown a[href="#"]');
-            profileLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const pageName = link.querySelector('span')?.textContent || link.textContent.trim() || 'Halaman';
-                    showPageNotReadyInfo(pageName);
-                    // Close profile dropdown
-                    const profileDropdown = document.getElementById('profileDropdown');
-                    if (profileDropdown) {
-                        profileDropdown.classList.remove('show');
+            function initPageNotReadyHandler() {
+                // Handle sidebar links with href="#"
+                const sidebarLinks = document.querySelectorAll('aside.sidebar-modern a[href="#"]');
+                sidebarLinks.forEach(link => {
+                    // Skip if link has onclick (for dropdown toggle)
+                    if (link.hasAttribute('onclick')) return;
+
+                    // Skip if link is inside a modal
+                    if (link.closest('.modal-overlay') || link.closest('.modal')) return;
+
+                    // Add click handler only if link doesn't already have one
+                    if (!link.dataset.pageNotReadyHandler) {
+                        link.dataset.pageNotReadyHandler = 'true';
+                        link.addEventListener('click', function (e) {
+                            // Don't interfere if event was already handled
+                            if (e.defaultPrevented) return;
+
+                            const pageName = this.querySelector('span')?.textContent ||
+                                this.textContent.trim() ||
+                                'Halaman';
+
+                            e.preventDefault();
+                            showPageNotReadyInfo(pageName);
+                        });
                     }
                 });
-            });
-        });
 
-                }
-            });
+                // Handle profile dropdown links with href="#"
+                const profileLinks = document.querySelectorAll('#profileDropdown a[href="#"]');
+                profileLinks.forEach(link => {
+                    // Skip if link is inside a modal
+                    if (link.closest('.modal-overlay') || link.closest('.modal')) return;
 
-            // Handle link di dropdown profile
-            const profileLinks = document.querySelectorAll('#profileDropdown a[href="#"]');
-            profileLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const pageName = link.querySelector('span')?.textContent || link.textContent.trim() || 'Halaman';
-                    showPageNotReadyInfo(pageName);
-                    // Close profile dropdown
-                    const profileDropdown = document.getElementById('profileDropdown');
-                    if (profileDropdown) {
-                        profileDropdown.classList.remove('show');
+                    // Add click handler only if link doesn't already have one
+                    if (!link.dataset.pageNotReadyHandler) {
+                        link.dataset.pageNotReadyHandler = 'true';
+                        link.addEventListener('click', function (e) {
+                            // Don't interfere if event was already handled
+                            if (e.defaultPrevented) return;
+
+                            const pageName = this.querySelector('span')?.textContent ||
+                                this.textContent.trim() ||
+                                'Halaman';
+
+                            e.preventDefault();
+                            showPageNotReadyInfo(pageName);
+
+                            // Close profile dropdown
+                            setTimeout(() => {
+                                const profileDropdown = document.getElementById('profileDropdown');
+                                if (profileDropdown) {
+                                    profileDropdown.classList.remove('show');
+                                }
+                            }, 100);
+                        });
                     }
                 });
-            });
-
-            // Close modal when clicking overlay
-            
-        });
-
+            }
+        })();
+    </script>
 
     </div>
 </body>

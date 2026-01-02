@@ -1331,7 +1331,8 @@
                 <div class="header-hero-content px-8 py-6">
                     <div class="flex justify-between items-center">
                         <div>
-                            <p class="text-white/80 text-sm mb-1">Manajemen Zakat / Kelola Zakat Fitrah / Arsip Data Muzakki</p>
+                            <p class="text-white/80 text-sm mb-1">Manajemen Zakat / Kelola Zakat Fitrah / Arsip Data
+                                Muzakki</p>
                             <h1 class="text-3xl font-bold text-white">Arsip Data Muzakki</h1>
                         </div>
                         <div class="flex items-center space-x-4">
@@ -1973,29 +1974,6 @@
             document.body.style.overflow = '';
         }
 
-        });
-
-                }
-            });
-
-            // Handle link di dropdown profile
-            const profileLinks = document.querySelectorAll('#profileDropdown a[href="#"]');
-            profileLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const pageName = link.querySelector('span')?.textContent || link.textContent.trim() || 'Halaman';
-                    showPageNotReadyInfo(pageName);
-                    // Close profile dropdown
-                    const profileDropdown = document.getElementById('profileDropdown');
-                    if (profileDropdown) {
-                        profileDropdown.classList.remove('show');
-                    }
-                });
-            });
-
-            // Close modal when clicking overlay
-            
-        });
     </script>
 
     </div>

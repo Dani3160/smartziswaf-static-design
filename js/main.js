@@ -24,21 +24,80 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Smooth scroll for all anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({ behavior: 'smooth' });
-            const mobileMenu = document.getElementById('mobile-menu');
-            if (mobileMenu && mobileMenu.classList.contains('translate-x-0')) {
-                mobileMenu.classList.remove('translate-x-0');
-                mobileMenu.classList.add('translate-x-full');
-            }
+// Smooth scroll for all anchor links (only for links that actually point to elements on the page)
+// Only run this on index.html (landing page), not on dashboard pages
+// Check if we're on the landing page by looking for specific elements
+const isLandingPage = document.getElementById('navbar') || document.getElementById('back-to-top') ||
+    window.location.pathname.includes('index.html') ||
+    window.location.pathname === '/' ||
+    window.location.pathname.endsWith('/');
+
+if (isLandingPage) {
+    // Use DOMContentLoaded to ensure DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initSmoothScroll);
+    } else {
+        initSmoothScroll();
+    }
+}
+
+function initSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        // Skip if already has other click handlers (check for data attributes or classes)
+        if (anchor.hasAttribute('data-modal') || anchor.hasAttribute('data-toggle') ||
+            anchor.hasAttribute('data-bs-toggle') || anchor.hasAttribute('onclick') ||
+            anchor.classList.contains('modal-trigger') || anchor.classList.contains('swal-trigger')) {
+            return;
         }
+
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+
+            // Skip if href is just "#" or empty (used for modals/swal/other functionality)
+            if (!href || href === '#' || href === '#!' || href === 'javascript:void(0)') {
+                return;
+            }
+
+            // Skip if link has onclick attribute (likely for modals/swal)
+            if (this.hasAttribute('onclick')) {
+                return;
+            }
+
+            // Skip if link has data attributes commonly used for modals
+            if (this.hasAttribute('data-toggle') || this.hasAttribute('data-modal') ||
+                this.hasAttribute('data-target') || this.hasAttribute('data-bs-toggle') ||
+                this.hasAttribute('data-bs-target')) {
+                return;
+            }
+
+            // Skip if link is inside sidebar, dropdown, modal, button, or table (likely for navigation/modals)
+            if (this.closest('aside') || this.closest('.dropdown-panel') ||
+                this.closest('#profileDropdown') || this.closest('.modal') ||
+                this.closest('.modal-overlay') || this.closest('button') ||
+                this.closest('table') || this.closest('.btn') || this.closest('[role="button"]')) {
+                return;
+            }
+
+            // Only prevent default and scroll if target element actually exists and has an ID
+            try {
+                const target = document.querySelector(href);
+                if (target && target.id && href.startsWith('#')) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (mobileMenu && mobileMenu.classList.contains('translate-x-0')) {
+                        mobileMenu.classList.remove('translate-x-0');
+                        mobileMenu.classList.add('translate-x-full');
+                    }
+                }
+            } catch (err) {
+                // Silently fail if there's any error
+                console.debug('Smooth scroll error:', err);
+            }
+        }, { capture: false, passive: false });
     });
-});
+}
 
 // Counter Animation
 const counters = document.querySelectorAll('.counter');
