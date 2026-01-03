@@ -707,6 +707,7 @@
         .main-content-bg {
             background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
             min-height: 100vh;
+            padding-bottom: 2rem;
         }
 
         /* Modal Styles */
@@ -1321,6 +1322,95 @@
         .select2-dropdown {
             z-index: 9999;
         }
+
+        /* Detail Modal Styles */
+        .detail-modal-container {
+            background: white;
+            border-radius: 20px;
+            padding: 32px;
+            max-width: 700px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transform: scale(0.9) translateY(20px);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .modal-overlay.show .detail-modal-container {
+            transform: scale(1) translateY(0);
+        }
+
+        .detail-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .detail-modal-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1e293b;
+            margin: 0;
+        }
+
+        .detail-section {
+            margin-bottom: 24px;
+        }
+
+        .detail-section-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #64748b;
+        }
+
+        .detail-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1e293b;
+            text-align: right;
+        }
+
+        .detail-value.status {
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .detail-value.status.muzakki {
+            background: rgba(34, 51, 1, 0.1);
+            color: #223301;
+        }
+
+        .detail-value.status.mustahik {
+            background: rgba(249, 115, 22, 0.1);
+            color: #f97316;
+        }
     </style>
 </head>
 
@@ -1452,7 +1542,7 @@
                             </svg>
                             <span>Data Mustahik</span>
                         </a>
-                        <a href="#"
+                        <a href="perhitungan-kalkulasi.html"
                             class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
                             <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
@@ -1461,7 +1551,7 @@
                             </svg>
                             <span>Perhitungan Kalkulasi</span>
                         </a>
-                        <a href="#"
+                        <a href="kalkulasi-pembagian.html"
                             class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
                             <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
@@ -1470,7 +1560,7 @@
                             </svg>
                             <span>Kalkulasi Pembagian</span>
                         </a>
-                        <a href="#"
+                        <a href="distribusi-zakat.html"
                             class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
                             <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
@@ -1500,7 +1590,7 @@
                         </svg>
                     </a>
                     <div id="manajemenKurban" class="dropdown-menu-modern">
-                        <a href="#"
+                        <a href="daftar-kurban.html"
                             class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
                             <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
@@ -1589,7 +1679,7 @@
                         </svg>
                     </a>
                     <div id="pengaturan" class="dropdown-menu-modern">
-                        <a href="#"
+                        <a href="bahasa-aplikasi.html"
                             class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
                             <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
@@ -1598,7 +1688,7 @@
                             </svg>
                             <span>Bahasa Aplikasi</span>
                         </a>
-                        <a href="#"
+                        <a href="pencatatan.html"
                             class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
                             <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
@@ -1621,7 +1711,7 @@
 
                 <!-- Wizard -->
                 <div class="mt-auto pt-4 border-t border-gray-200">
-                    <a href="#" class="menu-item-modern flex items-center space-x-4 px-4 py-3.5">
+                    <a href="wizard.html" class="menu-item-modern flex items-center space-x-4 px-4 py-3.5">
                         <svg class="w-5 h-5 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -2074,6 +2164,24 @@
         </div>
     </div>
 
+    <!-- Modal Detail Data Umat -->
+    <div id="detailDataUmatModal" class="modal-overlay">
+        <div class="detail-modal-container">
+            <div class="detail-modal-header">
+                <h2 class="detail-modal-title">Detail Data Umat</h2>
+                <button class="modal-close-btn" id="closeDetailModalBtn">
+                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div id="detailContent">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
     <!-- Modal Filter -->
     <div id="filterModal" class="modal-overlay">
         <div class="filter-modal-container">
@@ -2318,9 +2426,147 @@
             });
         }
 
+        // Detail Data Umat Modal
+        const detailDataUmatModal = document.getElementById('detailDataUmatModal');
+        const closeDetailModalBtn = document.getElementById('closeDetailModalBtn');
+        const detailContent = document.getElementById('detailContent');
+
+        // Sample data - in real app, this would come from API
+        const dataUmat = {
+            1: {
+                nama: 'Lani',
+                status: 'Muzakki',
+                alamat: 'Jl. Merdeka No. 123, Bandung',
+                noTelepon: '081234567890',
+                email: 'lani@example.com',
+                cluster: 'BANDUNG',
+                blok: 'A10',
+                tanggalDaftar: '15 Januari 2024'
+            },
+            2: {
+                nama: 'Amir',
+                status: 'Mustahik',
+                alamat: 'Jl. Sudirman No. 45, Bandung',
+                noTelepon: '081987654321',
+                email: 'amir@example.com',
+                cluster: 'BANDUNG',
+                blok: 'B05',
+                tanggalDaftar: '20 Februari 2024',
+                jenisAsnaf: 'Fakir Miskin'
+            }
+        };
+
+        // Function to view data umat
+        function viewDataUmat(id) {
+            const data = dataUmat[id];
+            if (!data) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Data Tidak Ditemukan',
+                    text: 'Data umat dengan ID tersebut tidak ditemukan.',
+                    confirmButtonColor: '#223301'
+                });
+                return;
+            }
+
+            // Build HTML content
+            let html = `
+                <div class="detail-section">
+                    <h3 class="detail-section-title">Informasi Umum</h3>
+                    <div class="detail-row">
+                        <span class="detail-label">Nama</span>
+                        <span class="detail-value">${data.nama}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Status</span>
+                        <span class="detail-value status ${data.status.toLowerCase()}">${data.status}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Alamat</span>
+                        <span class="detail-value">${data.alamat}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">No. Telepon</span>
+                        <span class="detail-value">${data.noTelepon}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Email</span>
+                        <span class="detail-value">${data.email}</span>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <h3 class="detail-section-title">Informasi Lokasi</h3>
+                    <div class="detail-row">
+                        <span class="detail-label">Cluster</span>
+                        <span class="detail-value">${data.cluster}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Blok</span>
+                        <span class="detail-value">${data.blok}</span>
+                    </div>
+                </div>
+            `;
+
+            // Add additional info for Mustahik
+            if (data.status === 'Mustahik' && data.jenisAsnaf) {
+                html += `
+                    <div class="detail-section">
+                        <h3 class="detail-section-title">Informasi Tambahan</h3>
+                        <div class="detail-row">
+                            <span class="detail-label">Jenis Asnaf</span>
+                            <span class="detail-value">${data.jenisAsnaf}</span>
+                        </div>
+                    </div>
+                `;
+            }
+
+            html += `
+                <div class="detail-section">
+                    <h3 class="detail-section-title">Informasi Pendaftaran</h3>
+                    <div class="detail-row">
+                        <span class="detail-label">Tanggal Daftar</span>
+                        <span class="detail-value">${data.tanggalDaftar}</span>
+                    </div>
+                </div>
+            `;
+
+            // Set content and show modal
+            detailContent.innerHTML = html;
+            detailDataUmatModal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close detail modal
+        function closeDetailModal() {
+            if (detailDataUmatModal) {
+                detailDataUmatModal.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+        }
+
+        if (closeDetailModalBtn) {
+            closeDetailModalBtn.addEventListener('click', closeDetailModal);
+        }
+
+        // Close modal when clicking overlay
+        if (detailDataUmatModal) {
+            detailDataUmatModal.addEventListener('click', (e) => {
+                if (e.target === detailDataUmatModal) {
+                    closeDetailModal();
+                }
+            });
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && detailDataUmatModal.classList.contains('show')) {
+                closeDetailModal();
+            }
+        });
+
         // Handle page not ready links - Only for links that don't have other handlers
         // This should not interfere with existing modals and swal dialogs
-        (function() {
+        (function () {
             // Function untuk menampilkan SweetAlert2 info
             function showPageNotReadyInfo(pageName) {
                 if (typeof Swal !== 'undefined') {
@@ -2357,21 +2603,21 @@
                 sidebarLinks.forEach(link => {
                     // Skip if link has onclick (for dropdown toggle)
                     if (link.hasAttribute('onclick')) return;
-                    
+
                     // Skip if link is inside a modal
                     if (link.closest('.modal-overlay') || link.closest('.modal')) return;
-                    
+
                     // Add click handler only if link doesn't already have one
                     if (!link.dataset.pageNotReadyHandler) {
                         link.dataset.pageNotReadyHandler = 'true';
-                        link.addEventListener('click', function(e) {
+                        link.addEventListener('click', function (e) {
                             // Don't interfere if event was already handled
                             if (e.defaultPrevented) return;
-                            
-                            const pageName = this.querySelector('span')?.textContent || 
-                                           this.textContent.trim() || 
-                                           'Halaman';
-                            
+
+                            const pageName = this.querySelector('span')?.textContent ||
+                                this.textContent.trim() ||
+                                'Halaman';
+
                             e.preventDefault();
                             showPageNotReadyInfo(pageName);
                         });
@@ -2383,21 +2629,21 @@
                 profileLinks.forEach(link => {
                     // Skip if link is inside a modal
                     if (link.closest('.modal-overlay') || link.closest('.modal')) return;
-                    
+
                     // Add click handler only if link doesn't already have one
                     if (!link.dataset.pageNotReadyHandler) {
                         link.dataset.pageNotReadyHandler = 'true';
-                        link.addEventListener('click', function(e) {
+                        link.addEventListener('click', function (e) {
                             // Don't interfere if event was already handled
                             if (e.defaultPrevented) return;
-                            
-                            const pageName = this.querySelector('span')?.textContent || 
-                                           this.textContent.trim() || 
-                                           'Halaman';
-                            
+
+                            const pageName = this.querySelector('span')?.textContent ||
+                                this.textContent.trim() ||
+                                'Halaman';
+
                             e.preventDefault();
                             showPageNotReadyInfo(pageName);
-                            
+
                             // Close profile dropdown
                             setTimeout(() => {
                                 const profileDropdown = document.getElementById('profileDropdown');
@@ -2413,7 +2659,7 @@
 
     </script>
 
-    </div >
-</body >
+    </div>
+</body>
 
-</html >
+</html>

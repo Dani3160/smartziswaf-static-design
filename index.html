@@ -4,42 +4,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SMARTZISWAF</title>
+    <title>SMARTZISWAF - Platform Digital Terpercaya untuk Pengelolaan ZISWAF Masjid</title>
+    <meta name="description"
+        content="Platform digital terpercaya untuk pengelolaan Zakat, Infaq, Shodaqah, dan Wakaf (ZISWAF) masjid. Efisien, transparan, dan akuntabel.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/index.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+    </style>
 </head>
 
 <body class="bg-[#F5F6FA] text-gray-800">
 
     <!-- Navbar -->
-    <header class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-11/12 
-md:w-5/6 max-w-7xl bg-white/70 backdrop-blur-lg shadow-lg rounded-full">
-        <nav class="flex justify-between items-center p-4">
+    <header id="navbar"
+        class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-11/12 
+md:w-5/6 max-w-7xl bg-white/80 backdrop-blur-xl shadow-xl border border-white/20 rounded-full transition-all duration-300">
+        <nav class="flex justify-between items-center p-3 md:p-4">
 
             <!-- Logo -->
-            <div class="flex items-center">
-                <img src="images/logo.png" alt="logo" class="h-8">
+            <div class="flex items-center group">
+                <img src="images/logo.png" alt="SMARTZISWAF Logo"
+                    class="h-8 md:h-9 transition-transform duration-300 group-hover:scale-110">
             </div>
 
             <!-- Menu (Desktop) -->
             <ul
-                class="hidden lg:flex gap-8 text-sm font-medium items-center absolute left-1/2 transform -translate-x-1/2">
-                <li><a href="#tentang" class="hover:text-[#E45C10] transition duration-300 whitespace-nowrap">Tentang
+                class="hidden lg:flex gap-1 xl:gap-2 text-sm font-semibold items-center absolute left-1/2 transform -translate-x-1/2">
+                <li><a href="#tentang"
+                        class="nav-link relative px-4 py-2 rounded-full hover:text-[#E45C10] transition-all duration-300 whitespace-nowrap hover:bg-[#E45C10]/10">Tentang
                         Kami</a></li>
-                <li><a href="#fitur" class="hover:text-[#E45C10] transition duration-300 whitespace-nowrap">Fitur
+                <li><a href="#fitur"
+                        class="nav-link relative px-4 py-2 rounded-full hover:text-[#E45C10] transition-all duration-300 whitespace-nowrap hover:bg-[#E45C10]/10">Fitur
                         Aplikasi</a></li>
-                <li><a href="#kontak" class="hover:text-[#E45C10] transition duration-300 whitespace-nowrap">Kontak
+                <li><a href="#kontak"
+                        class="nav-link relative px-4 py-2 rounded-full hover:text-[#E45C10] transition-all duration-300 whitespace-nowrap hover:bg-[#E45C10]/10">Kontak
                         Kami</a></li>
-                <li><a href="#testimoni" class="hover:text-[#E45C10] transition duration-300">Testimoni</a></li>
-                <li><a href="#faq" class="hover:text-[#E45C10] transition duration-300">FAQ</a></li>
+                <li><a href="#testimoni"
+                        class="nav-link relative px-4 py-2 rounded-full hover:text-[#E45C10] transition-all duration-300 hover:bg-[#E45C10]/10">Testimoni</a>
+                </li>
+                <li><a href="#faq"
+                        class="nav-link relative px-4 py-2 rounded-full hover:text-[#E45C10] transition-all duration-300 hover:bg-[#E45C10]/10">FAQ</a>
+                </li>
             </ul>
 
             <!-- Sign In (Desktop) -->
-            <button class="hidden md:block bg-gradient-to-r from-[#4B5D16] to-[#223300] text-white px-5 py-2 rounded-full 
-      font-semibold hover:scale-105 transition-transform">
-                <a href="sign-in.html">Sign In</a>
-            </button>
+            <a href="sign-in.html" class="hidden md:flex items-center bg-gradient-to-r from-[#4B5D16] to-[#223300] text-white px-6 py-2.5 rounded-full 
+      font-bold hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-[#4B5D16]/30 group">
+                <span>Sign In</span>
+                <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none"
+                    stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6">
+                    </path>
+                </svg>
+            </a>
 
             <!-- Hamburger (Mobile) -->
             <div class="md:hidden">
@@ -60,49 +86,104 @@ md:w-5/6 max-w-7xl bg-white/70 backdrop-blur-lg shadow-lg rounded-full">
     </header>
 
     <!-- Mobile Menu -->
-    <div id="mobile-menu" class="fixed top-0 left-0 w-full bg-white shadow-lg 
-z-40 opacity-0 max-h-0 overflow-hidden transition-all duration-300 ease-in-out md:hidden">
-        <div class="flex flex-col space-y-6 p-6 pt-20">
+    <div id="mobile-menu" class="fixed top-0 left-0 w-full bg-white/95 backdrop-blur-xl shadow-2xl 
+z-40 opacity-0 max-h-0 overflow-hidden transition-all duration-300 ease-in-out md:hidden border-b border-gray-100">
+        <div class="flex flex-col space-y-1 p-6 pt-24">
             <!-- Links -->
-            <a href="#tentang" class="text-lg hover:text-[#E45C10] transition">Tentang Kami</a>
-            <a href="#fitur" class="text-lg hover:text-[#E45C10] transition">Fitur Aplikasi</a>
-            <a href="#kontak" class="text-lg hover:text-[#E45C10] transition">Kontak Kami</a>
-            <a href="#testimoni" class="text-lg hover:text-[#E45C10] transition">Testimoni</a>
-            <a href="#faq" class="text-lg hover:text-[#E45C10] transition">FAQ</a>
+            <a href="#tentang"
+                class="px-4 py-3 rounded-xl text-lg font-semibold hover:text-[#E45C10] hover:bg-[#E45C10]/10 transition-all duration-300">Tentang
+                Kami</a>
+            <a href="#fitur"
+                class="px-4 py-3 rounded-xl text-lg font-semibold hover:text-[#E45C10] hover:bg-[#E45C10]/10 transition-all duration-300">Fitur
+                Aplikasi</a>
+            <a href="#kontak"
+                class="px-4 py-3 rounded-xl text-lg font-semibold hover:text-[#E45C10] hover:bg-[#E45C10]/10 transition-all duration-300">Kontak
+                Kami</a>
+            <a href="#testimoni"
+                class="px-4 py-3 rounded-xl text-lg font-semibold hover:text-[#E45C10] hover:bg-[#E45C10]/10 transition-all duration-300">Testimoni</a>
+            <a href="#faq"
+                class="px-4 py-3 rounded-xl text-lg font-semibold hover:text-[#E45C10] hover:bg-[#E45C10]/10 transition-all duration-300">FAQ</a>
 
             <!-- Sign In (Mobile menu) -->
-            <button class="bg-gradient-to-r from-[#4B5D16] to-[#223300] text-white px-5 py-2 rounded-full 
-    font-semibold hover:scale-105 transition-transform">
-                <a href="sign-in.html">Sign In</a>
-            </button>
+            <a href="sign-in.html" class="mt-4 bg-gradient-to-r from-[#4B5D16] to-[#223300] text-white px-6 py-3.5 rounded-xl 
+    font-bold hover:scale-105 transition-all duration-300 shadow-lg text-center">
+                Sign In
+            </a>
         </div>
     </div>
 
     <!-- Hero Section -->
-    <section class="bg-[#4B5D16] text-white relative pb-24" id="tentang">
-        <div class="container mx-auto px-4 md:px-8 lg:max-w-screen-xl pt-16 md:pt-32">
+    <section
+        class="bg-gradient-to-br from-[#4B5D16] via-[#3a4911] to-[#223300] text-white relative pb-24 overflow-hidden"
+        id="tentang">
+        <!-- Decorative background elements -->
+        <div class="absolute inset-0 opacity-10">
+            <div
+                class="absolute top-20 left-10 w-72 h-72 bg-[#29B34B] rounded-full mix-blend-multiply filter blur-xl animate-blob">
+            </div>
+            <div
+                class="absolute top-40 right-10 w-72 h-72 bg-[#F58220] rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-2000">
+            </div>
+            <div
+                class="absolute -bottom-8 left-1/2 w-72 h-72 bg-[#F2B635] rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-4000">
+            </div>
+        </div>
+
+        <div class="container mx-auto px-4 md:px-8 lg:max-w-screen-xl pt-16 md:pt-32 relative z-10">
             <div class="flex flex-col lg:flex-row items-center gap-12">
 
                 <!-- Text -->
-                <div class="lg:w-1/2 text-center lg:text-left lg:pl-16 order-1">
-                    <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mt-16">
+                <div class="lg:w-1/2 text-center lg:text-left lg:pl-16 order-1" data-aos="fade-right">
+                    <!-- Trust Badge -->
+                    <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-2 mb-6"
+                        data-aos="fade-up" data-aos-delay="100">
+                        <svg class="w-5 h-5 text-[#F2B635]" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                        <span class="text-sm font-semibold text-white">Terpercaya oleh 65+ Masjid</span>
+                    </div>
+
+                    <h1
+                        class="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold mt-4 leading-tight tracking-tight">
                         Platform Digital Terpercaya<br class="hidden md:block" /> untuk Pengelolaan
-                        <span class="text-[#29B34B]">ZIS</span><span class="text-[#F58220]">WAF</span> Masjid
+                        <span
+                            class="bg-gradient-to-r from-[#29B34B] via-[#F58220] to-[#F2B635] bg-clip-text text-transparent">ZISWAF</span>
+                        Masjid
                     </h1>
-                    <p class="mt-12 text-base md:text-xl max-w-xl mx-auto lg:mx-0">
+                    <p
+                        class="mt-6 text-lg md:text-xl lg:text-2xl max-w-xl mx-auto lg:mx-0 text-gray-100 leading-relaxed font-medium">
                         Sudah berapa lama Anda mengelola ZISWAF secara manual? Efisiensi dan akuntabilitas menanti Anda
                     </p>
-                    <button class="mt-12 bg-gradient-to-r from-[#F2B635] to-[#E45C10] text-white px-6 py-3 rounded-lg 
-        font-semibold shadow-lg hover:scale-105 transition-transform">
-                        <a href='daftar.html'>Daftar Sekarang →</a>
-                    </button>
+                    <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href='daftar.html'
+                            class="group inline-flex items-center justify-center bg-gradient-to-r from-[#F2B635] to-[#E45C10] text-white px-8 py-4 rounded-xl font-bold text-lg shadow-2xl hover:shadow-[#E45C10]/50 hover:scale-105 transition-all duration-300 transform hover:-translate-y-1 relative overflow-hidden">
+                            <span class="relative z-10">Daftar Sekarang</span>
+                            <svg class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform relative z-10"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                            </svg>
+                            <div
+                                class="absolute inset-0 bg-gradient-to-r from-[#E45C10] to-[#F2B635] opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            </div>
+                        </a>
+                        <a href='#fitur'
+                            class="inline-flex items-center justify-center bg-white/10 backdrop-blur-md border-2 border-white/30 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white/20 hover:border-white/40 transition-all duration-300">
+                            Pelajari Lebih Lanjut
+                        </a>
+                    </div>
                 </div>
 
                 <!-- Mockup -->
-                <div class="lg:w-1/2 order-2">
+                <div class="lg:w-1/2 order-2" data-aos="fade-left" data-aos-duration="1000">
                     <div class="relative">
-                        <img src="images/nyoba.png" alt="Dashboard Preview"
-                            class="w-full h-auto object-cover transform lg:scale-110 lg:translate-x-8">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-r from-[#29B34B]/20 to-[#F58220]/20 rounded-3xl blur-3xl transform lg:scale-110 lg:translate-x-8">
+                        </div>
+                        <img src="images/bingkai-laptop.png" alt="Dashboard Preview"
+                            class="relative w-full h-auto object-cover transform lg:scale-110 lg:translate-x-8 drop-shadow-2xl">
                     </div>
                 </div>
             </div>
@@ -110,43 +191,64 @@ z-40 opacity-0 max-h-0 overflow-hidden transition-all duration-300 ease-in-out m
     </section>
 
     <!-- Statistik Kotak Lengkung -->
-    <div class="relative -mt-12">
-        <div class="mx-auto">
-            <div class="bg-[#F5F6FA] py-8 px-8">
-                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-8 md:gap-12">
-                    <div class="text-center">
-                        <h4 class="text-2xl md:text-3xl lg:text-4xl font-bold text-[#F2B635] mb-2">65+</h4>
-                        <p class="text-gray-600 text-sm font-medium">Jumlah Masjid</p>
+    <div class="relative -mt-16 z-20">
+        <div class="mx-auto max-w-7xl px-4 md:px-8">
+            <div class="bg-white rounded-3xl shadow-2xl py-12 px-6 md:px-12 border border-gray-100">
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-6 md:gap-8">
+                    <div class="text-center group" data-aos="fade-up" data-aos-delay="0">
+                        <h4
+                            class="text-3xl md:text-4xl lg:text-4xl font-extrabold mb-3 group-hover:scale-110 transition-transform duration-300 text-transparent bg-clip-text bg-gradient-to-br from-[#F2B635] to-[#E45C10]">
+                            65+</h4>
+                        <p class="text-gray-700 text-sm md:text-base font-semibold break-words leading-tight">Jumlah
+                            Masjid</p>
                     </div>
 
-                    <div class="text-center">
-                        <h4 class="text-2xl md:text-3xl lg:text-4xl font-bold text-[#F2B635] mb-2">10+</h4>
-                        <p class="text-gray-600 text-sm font-medium">Jumlah Provinsi</p>
+                    <div class="text-center group" data-aos="fade-up" data-aos-delay="100">
+                        <h4
+                            class="text-3xl md:text-4xl lg:text-4xl font-extrabold mb-3 group-hover:scale-110 transition-transform duration-300 text-transparent bg-clip-text bg-gradient-to-br from-[#F2B635] to-[#E45C10]">
+                            10+</h4>
+                        <p class="text-gray-700 text-sm md:text-base font-semibold break-words leading-tight">Jumlah
+                            Provinsi</p>
                     </div>
 
-                    <div class="text-center">
-                        <h4 class="text-2xl md:text-3xl lg:text-4xl font-bold text-[#F2B635] mb-2">40+</h4>
-                        <p class="text-gray-600 text-sm font-medium">Jumlah Kota</p>
+                    <div class="text-center group" data-aos="fade-up" data-aos-delay="200">
+                        <h4
+                            class="text-3xl md:text-4xl lg:text-4xl font-extrabold mb-3 group-hover:scale-110 transition-transform duration-300 text-transparent bg-clip-text bg-gradient-to-br from-[#F2B635] to-[#E45C10]">
+                            40+</h4>
+                        <p class="text-gray-700 text-sm md:text-base font-semibold break-words leading-tight">Jumlah
+                            Kota</p>
                     </div>
 
-                    <div class="text-center">
-                        <h4 class="text-2xl md:text-3xl lg:text-4xl font-bold text-[#F2B635] mb-2">50+</h4>
-                        <p class="text-gray-600 text-sm font-medium">Jumlah Kecamatan</p>
+                    <div class="text-center group" data-aos="fade-up" data-aos-delay="300">
+                        <h4
+                            class="text-3xl md:text-4xl lg:text-4xl font-extrabold mb-3 group-hover:scale-110 transition-transform duration-300 text-transparent bg-clip-text bg-gradient-to-br from-[#F2B635] to-[#E45C10]">
+                            50+</h4>
+                        <p class="text-gray-700 text-sm md:text-base font-semibold break-words leading-tight">Jumlah
+                            Kecamatan</p>
                     </div>
 
-                    <div class="text-center">
-                        <h4 class="text-2xl md:text-3xl lg:text-4xl font-bold text-[#F2B635] mb-2">45+</h4>
-                        <p class="text-gray-600 text-sm font-medium">Jumlah Desa</p>
+                    <div class="text-center group" data-aos="fade-up" data-aos-delay="400">
+                        <h4
+                            class="text-3xl md:text-4xl lg:text-4xl font-extrabold mb-3 group-hover:scale-110 transition-transform duration-300 text-transparent bg-clip-text bg-gradient-to-br from-[#F2B635] to-[#E45C10]">
+                            45+</h4>
+                        <p class="text-gray-700 text-sm md:text-base font-semibold break-words leading-tight">Jumlah
+                            Desa</p>
                     </div>
 
-                    <div class="text-center">
-                        <h4 class="text-2xl md:text-3xl lg:text-4xl font-bold text-[#F2B635] mb-2">5000+</h4>
-                        <p class="text-gray-600 text-sm font-medium">Jumlah Muzakki</p>
+                    <div class="text-center group" data-aos="fade-up" data-aos-delay="500">
+                        <h4
+                            class="text-3xl md:text-4xl lg:text-4xl font-extrabold mb-3 group-hover:scale-110 transition-transform duration-300 text-transparent bg-clip-text bg-gradient-to-br from-[#F2B635] to-[#E45C10]">
+                            5000+</h4>
+                        <p class="text-gray-700 text-sm md:text-base font-semibold break-words leading-tight">Jumlah
+                            Muzakki</p>
                     </div>
 
-                    <div class="text-center">
-                        <h4 class="text-2xl md:text-3xl lg:text-4xl font-bold text-[#F2B635] mb-2">2000+</h4>
-                        <p class="text-gray-600 text-sm font-medium">Jumlah Mustahik</p>
+                    <div class="text-center group" data-aos="fade-up" data-aos-delay="600">
+                        <h4
+                            class="text-3xl md:text-4xl lg:text-4xl font-extrabold mb-3 group-hover:scale-110 transition-transform duration-300 text-transparent bg-clip-text bg-gradient-to-br from-[#F2B635] to-[#E45C10]">
+                            2000+</h4>
+                        <p class="text-gray-700 text-sm md:text-base font-semibold break-words leading-tight">Jumlah
+                            Mustahik</p>
                     </div>
                 </div>
             </div>
@@ -154,131 +256,161 @@ z-40 opacity-0 max-h-0 overflow-hidden transition-all duration-300 ease-in-out m
     </div>
 
     <!-- Feature Section -->
-    <section id="fitur" class="py-12 container mx-auto px-4">
-        <h4 class="text-4xl md:text-4xl font-bold text-[#4B5D16] text-center mb-6" data-aos="fade-up">
-            Fitur Aplikasi SMARTZISWAF
-        </h4>
-        <div class="border-b border-lime-900 w-64 mx-auto mt-10 mb-10" data-aos="fade-up"></div>
-        <h5 class="text-lg md:text-lg text-center mb-10" data-aos="fade-up">
-            Aplikasi ini bentuk wakaf untuk seluruh masjid di Indonesia
-        </h5>
+    <section id="fitur" class="py-20 container mx-auto px-4 bg-gradient-to-b from-[#F5F6FA] to-white">
+        <div class="max-w-4xl mx-auto text-center mb-16">
+            <h4 class="text-4xl md:text-5xl font-extrabold text-[#4B5D16] mb-4" data-aos="fade-up">
+                Fitur Aplikasi SMARTZISWAF
+            </h4>
+            <div class="w-24 h-1 bg-gradient-to-r from-[#29B34B] to-[#F58220] mx-auto mb-6 rounded-full"
+                data-aos="fade-up"></div>
+            <h5 class="text-lg md:text-xl text-gray-600" data-aos="fade-up">
+                Aplikasi ini bentuk wakaf untuk seluruh masjid di Indonesia
+            </h5>
+        </div>
 
         <div class="w-11/12 md:w-5/6 max-w-7xl mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
                 <!-- Fitur 1 -->
-                <div class="group bg-white shadow-lg rounded-2xl p-6 text-center transition-all duration-300 hover:bg-[#4B5D16] hover:shadow-xl hover:scale-105"
+                <div class="group bg-white rounded-2xl p-8 text-center transition-all duration-300 hover:bg-gradient-to-br hover:from-[#4B5D16] hover:to-[#223300] hover:shadow-2xl hover:scale-105 border border-gray-100 hover:border-transparent"
                     data-aos="fade-up">
-                    <div class="flex items-center justify-center size-16 mx-auto mb-4">
+                    <div
+                        class="flex items-center justify-center size-16 mx-auto mb-6 bg-gradient-to-br from-[#F2B635]/10 to-[#E45C10]/10 rounded-2xl group-hover:from-white/20 group-hover:to-white/10 transition-all duration-300">
                         <img src="images/people (1).svg" alt="fitur"
-                            class="size-8 object-contain transition-all duration-300 group-hover:invert group-hover:brightness-0 group-hover:filter">
+                            class="size-10 object-contain transition-all duration-300 group-hover:brightness-0 group-hover:invert">
                     </div>
-                    <h4 class="font-bold mb-2 text-lg transition-colors duration-300 group-hover:text-white">Pengelolaan
+                    <h4 class="font-bold mb-3 text-xl transition-colors duration-300 group-hover:text-white">Pengelolaan
                         Data Muzakki</h4>
-                    <p class="text-gray-600 text-sm transition-colors duration-300 group-hover:text-white">Mencatat data
+                    <p
+                        class="text-gray-600 text-sm leading-relaxed transition-colors duration-300 group-hover:text-gray-100">
+                        Mencatat data
                         para muzakki (wajib zakat) dan juga donatur infaq, shadaqah maupun wakaf.</p>
                 </div>
 
                 <!-- Fitur 2 -->
-                <div class="group bg-white shadow-lg rounded-2xl p-6 text-center transition-all duration-300 hover:bg-[#4B5D16] hover:shadow-xl hover:scale-105"
-                    data-aos="fade-up">
-                    <div class="flex items-center justify-center size-16 mx-auto mb-4">
+                <div class="group bg-white rounded-2xl p-8 text-center transition-all duration-300 hover:bg-gradient-to-br hover:from-[#4B5D16] hover:to-[#223300] hover:shadow-2xl hover:scale-105 border border-gray-100 hover:border-transparent"
+                    data-aos="fade-up" data-aos-delay="100">
+                    <div
+                        class="flex items-center justify-center size-16 mx-auto mb-6 bg-gradient-to-br from-[#F2B635]/10 to-[#E45C10]/10 rounded-2xl group-hover:from-white/20 group-hover:to-white/10 transition-all duration-300">
                         <img src="images/user-love-01.svg" alt="fitur"
-                            class="size-8 object-contain transition-all duration-300 group-hover:invert group-hover:brightness-0 group-hover:filter">
+                            class="size-10 object-contain transition-all duration-300 group-hover:brightness-0 group-hover:invert">
                     </div>
-                    <h4 class="font-bold mb-2 text-lg transition-colors duration-300 group-hover:text-white">Pengelolaan
+                    <h4 class="font-bold mb-3 text-xl transition-colors duration-300 group-hover:text-white">Pengelolaan
                         Data Mustahik</h4>
-                    <p class="text-gray-600 text-sm transition-colors duration-300 group-hover:text-white">Mencatat data
+                    <p
+                        class="text-gray-600 text-sm leading-relaxed transition-colors duration-300 group-hover:text-gray-100">
+                        Mencatat data
                         para mustahiq (penerima zakat) dengan pengelompokan berdasarkan asnaf zakat.</p>
                 </div>
 
                 <!-- Fitur 3 -->
-                <div class="group bg-white shadow-lg rounded-2xl p-6 text-center transition-all duration-300 hover:bg-[#4B5D16] hover:shadow-xl hover:scale-105"
-                    data-aos="fade-up">
-                    <div class="flex items-center justify-center size-16 mx-auto mb-4">
+                <div class="group bg-white rounded-2xl p-8 text-center transition-all duration-300 hover:bg-gradient-to-br hover:from-[#4B5D16] hover:to-[#223300] hover:shadow-2xl hover:scale-105 border border-gray-100 hover:border-transparent"
+                    data-aos="fade-up" data-aos-delay="200">
+                    <div
+                        class="flex items-center justify-center size-16 mx-auto mb-6 bg-gradient-to-br from-[#F2B635]/10 to-[#E45C10]/10 rounded-2xl group-hover:from-white/20 group-hover:to-white/10 transition-all duration-300">
                         <img src="images/person-add.svg" alt="fitur"
-                            class="size-8 object-contain transition-all duration-300 group-hover:invert group-hover:brightness-0 group-hover:filter">
+                            class="size-10 object-contain transition-all duration-300 group-hover:brightness-0 group-hover:invert">
                     </div>
-                    <h4 class="font-bold mb-2 text-lg transition-colors duration-300 group-hover:text-white">Pengelolaan
+                    <h4 class="font-bold mb-3 text-xl transition-colors duration-300 group-hover:text-white">Pengelolaan
                         Data Umat</h4>
-                    <p class="text-gray-600 text-sm transition-colors duration-300 group-hover:text-white">Gabungan dari
+                    <p
+                        class="text-gray-600 text-sm leading-relaxed transition-colors duration-300 group-hover:text-gray-100">
+                        Gabungan dari
                         data muzakki dan data mustahiq dan juga data jama'ah lainnya.</p>
                 </div>
 
                 <!-- Fitur 4 -->
-                <div class="group bg-white shadow-lg rounded-2xl p-6 text-center transition-all duration-300 hover:bg-[#4B5D16] hover:shadow-xl hover:scale-105"
-                    data-aos="fade-up">
-                    <div class="flex items-center justify-center size-16 mx-auto mb-4">
+                <div class="group bg-white rounded-2xl p-8 text-center transition-all duration-300 hover:bg-gradient-to-br hover:from-[#4B5D16] hover:to-[#223300] hover:shadow-2xl hover:scale-105 border border-gray-100 hover:border-transparent"
+                    data-aos="fade-up" data-aos-delay="300">
+                    <div
+                        class="flex items-center justify-center size-16 mx-auto mb-6 bg-gradient-to-br from-[#F2B635]/10 to-[#E45C10]/10 rounded-2xl group-hover:from-white/20 group-hover:to-white/10 transition-all duration-300">
                         <img src="images/money.svg" alt="fitur"
-                            class="size-8 object-contain transition-all duration-300 group-hover:invert group-hover:brightness-0 group-hover:filter">
+                            class="size-10 object-contain transition-all duration-300 group-hover:brightness-0 group-hover:invert">
                     </div>
-                    <h4 class="font-bold mb-2 text-lg transition-colors duration-300 group-hover:text-white">
+                    <h4 class="font-bold mb-3 text-xl transition-colors duration-300 group-hover:text-white">
                         Pendistribusian ZISWAF</h4>
-                    <p class="text-gray-600 text-sm transition-colors duration-300 group-hover:text-white">Mempercepat
+                    <p
+                        class="text-gray-600 text-sm leading-relaxed transition-colors duration-300 group-hover:text-gray-100">
+                        Mempercepat
                         proses perhitungan pendistribusian zakat.</p>
                 </div>
 
                 <!-- Fitur 5 -->
-                <div class="group bg-white shadow-lg rounded-2xl p-6 text-center transition-all duration-300 hover:bg-[#4B5D16] hover:shadow-xl hover:scale-105"
-                    data-aos="fade-up">
-                    <div class="flex items-center justify-center size-16 mx-auto mb-4">
+                <div class="group bg-white rounded-2xl p-8 text-center transition-all duration-300 hover:bg-gradient-to-br hover:from-[#4B5D16] hover:to-[#223300] hover:shadow-2xl hover:scale-105 border border-gray-100 hover:border-transparent"
+                    data-aos="fade-up" data-aos-delay="400">
+                    <div
+                        class="flex items-center justify-center size-16 mx-auto mb-6 bg-gradient-to-br from-[#F2B635]/10 to-[#E45C10]/10 rounded-2xl group-hover:from-white/20 group-hover:to-white/10 transition-all duration-300">
                         <img src="images/note-edit-outline.svg" alt="fitur"
-                            class="size-8 object-contain transition-all duration-300 group-hover:invert group-hover:brightness-0 group-hover:filter">
+                            class="size-10 object-contain transition-all duration-300 group-hover:brightness-0 group-hover:invert">
                     </div>
-                    <h4 class="font-bold mb-2 text-lg transition-colors duration-300 group-hover:text-white">Laporan
+                    <h4 class="font-bold mb-3 text-xl transition-colors duration-300 group-hover:text-white">Laporan
                     </h4>
-                    <p class="text-gray-600 text-sm transition-colors duration-300 group-hover:text-white">Rekap hasil
+                    <p
+                        class="text-gray-600 text-sm leading-relaxed transition-colors duration-300 group-hover:text-gray-100">
+                        Rekap hasil
                         laporan data Muzakki, Zakat non Fitrah, data Asnaf, data Cluster dan data Pembayaran Zakat.</p>
                 </div>
 
                 <!-- Fitur 6 -->
-                <div class="group bg-white shadow-lg rounded-2xl p-6 text-center transition-all duration-300 hover:bg-[#4B5D16] hover:shadow-xl hover:scale-105"
-                    data-aos="fade-up">
-                    <div class="flex items-center justify-center size-16 mx-auto mb-4">
+                <div class="group bg-white rounded-2xl p-8 text-center transition-all duration-300 hover:bg-gradient-to-br hover:from-[#4B5D16] hover:to-[#223300] hover:shadow-2xl hover:scale-105 border border-gray-100 hover:border-transparent"
+                    data-aos="fade-up" data-aos-delay="500">
+                    <div
+                        class="flex items-center justify-center size-16 mx-auto mb-6 bg-gradient-to-br from-[#F2B635]/10 to-[#E45C10]/10 rounded-2xl group-hover:from-white/20 group-hover:to-white/10 transition-all duration-300">
                         <img src="images/download-2-outline.svg" alt="fitur"
-                            class="size-8 object-contain transition-all duration-300 group-hover:invert group-hover:brightness-0 group-hover:filter">
+                            class="size-10 object-contain transition-all duration-300 group-hover:brightness-0 group-hover:invert">
                     </div>
-                    <h4 class="font-bold mb-2 text-lg transition-colors duration-300 group-hover:text-white">Download
+                    <h4 class="font-bold mb-3 text-xl transition-colors duration-300 group-hover:text-white">Download
                         Data</h4>
-                    <p class="text-gray-600 text-sm transition-colors duration-300 group-hover:text-white">Mempermudah
+                    <p
+                        class="text-gray-600 text-sm leading-relaxed transition-colors duration-300 group-hover:text-gray-100">
+                        Mempermudah
                         pengurus melakukan rekap data dan juga penyajian informasi berbasis cetak.</p>
                 </div>
 
                 <!-- Fitur 7 -->
-                <div class="group bg-white shadow-lg rounded-2xl p-6 text-center transition-all duration-300 hover:bg-[#4B5D16] hover:shadow-xl hover:scale-105"
-                    data-aos="fade-up">
-                    <div class="flex items-center justify-center size-16 mx-auto mb-4">
+                <div class="group bg-white rounded-2xl p-8 text-center transition-all duration-300 hover:bg-gradient-to-br hover:from-[#4B5D16] hover:to-[#223300] hover:shadow-2xl hover:scale-105 border border-gray-100 hover:border-transparent"
+                    data-aos="fade-up" data-aos-delay="600">
+                    <div
+                        class="flex items-center justify-center size-16 mx-auto mb-6 bg-gradient-to-br from-[#F2B635]/10 to-[#E45C10]/10 rounded-2xl group-hover:from-white/20 group-hover:to-white/10 transition-all duration-300">
                         <img src="images/person.svg" alt="fitur"
-                            class="size-8 object-contain transition-all duration-300 group-hover:invert group-hover:brightness-0 group-hover:filter">
+                            class="size-10 object-contain transition-all duration-300 group-hover:brightness-0 group-hover:invert">
                     </div>
-                    <h4 class="font-bold mb-2 text-lg transition-colors duration-300 group-hover:text-white">Pengelolaan
+                    <h4 class="font-bold mb-3 text-xl transition-colors duration-300 group-hover:text-white">Pengelolaan
                         Pengguna</h4>
-                    <p class="text-gray-600 text-sm transition-colors duration-300 group-hover:text-white">Dapat diakses
+                    <p
+                        class="text-gray-600 text-sm leading-relaxed transition-colors duration-300 group-hover:text-gray-100">
+                        Dapat diakses
                         oleh beberapa orang sekaligus.</p>
                 </div>
 
                 <!-- Fitur 8 -->
-                <div class="group bg-white shadow-lg rounded-2xl p-6 text-center transition-all duration-300 hover:bg-[#4B5D16] hover:shadow-xl hover:scale-105"
-                    data-aos="fade-up">
-                    <div class="flex items-center justify-center size-16 mx-auto mb-4">
+                <div class="group bg-white rounded-2xl p-8 text-center transition-all duration-300 hover:bg-gradient-to-br hover:from-[#4B5D16] hover:to-[#223300] hover:shadow-2xl hover:scale-105 border border-gray-100 hover:border-transparent"
+                    data-aos="fade-up" data-aos-delay="700">
+                    <div
+                        class="flex items-center justify-center size-16 mx-auto mb-6 bg-gradient-to-br from-[#F2B635]/10 to-[#E45C10]/10 rounded-2xl group-hover:from-white/20 group-hover:to-white/10 transition-all duration-300">
                         <img src="images/note.svg" alt="fitur"
-                            class="size-8 object-contain transition-all duration-300 group-hover:invert group-hover:brightness-0 group-hover:filter">
+                            class="size-10 object-contain transition-all duration-300 group-hover:brightness-0 group-hover:invert">
                     </div>
-                    <h4 class="font-bold mb-2 text-lg transition-colors duration-300 group-hover:text-white">Print Struk
+                    <h4 class="font-bold mb-3 text-xl transition-colors duration-300 group-hover:text-white">Print Struk
                     </h4>
-                    <p class="text-gray-600 text-sm transition-colors duration-300 group-hover:text-white">Memberikan
+                    <p
+                        class="text-gray-600 text-sm leading-relaxed transition-colors duration-300 group-hover:text-gray-100">
+                        Memberikan
                         bukti tanda terima ziswaf dengan melakukan print.</p>
                 </div>
 
                 <!-- Fitur 9 -->
-                <div class="group bg-white shadow-lg rounded-2xl p-6 text-center transition-all duration-300 hover:bg-[#4B5D16] hover:shadow-xl hover:scale-105"
-                    data-aos="fade-up">
-                    <div class="flex items-center justify-center size-16 mx-auto mb-4">
+                <div class="group bg-white rounded-2xl p-8 text-center transition-all duration-300 hover:bg-gradient-to-br hover:from-[#4B5D16] hover:to-[#223300] hover:shadow-2xl hover:scale-105 border border-gray-100 hover:border-transparent"
+                    data-aos="fade-up" data-aos-delay="800">
+                    <div
+                        class="flex items-center justify-center size-16 mx-auto mb-6 bg-gradient-to-br from-[#F2B635]/10 to-[#E45C10]/10 rounded-2xl group-hover:from-white/20 group-hover:to-white/10 transition-all duration-300">
                         <img src="images/monitor.svg" alt="fitur"
-                            class="size-8 object-contain transition-all duration-300 group-hover:invert group-hover:brightness-0 group-hover:filter">
+                            class="size-10 object-contain transition-all duration-300 group-hover:brightness-0 group-hover:invert">
                     </div>
-                    <h4 class="font-bold mb-2 text-lg transition-colors duration-300 group-hover:text-white">Monitoring
+                    <h4 class="font-bold mb-3 text-xl transition-colors duration-300 group-hover:text-white">Monitoring
                         Pengelolaan</h4>
-                    <p class="text-gray-600 text-sm transition-colors duration-300 group-hover:text-white">Memberikan
+                    <p
+                        class="text-gray-600 text-sm leading-relaxed transition-colors duration-300 group-hover:text-gray-100">
+                        Memberikan
                         kemudahan kepada para pengurus dan stakeholders masjid untuk mengelola secara online.</p>
                 </div>
             </div>
@@ -287,21 +419,24 @@ z-40 opacity-0 max-h-0 overflow-hidden transition-all duration-300 ease-in-out m
 
     <!-- Kontak -->
     <section id="kontak" class="relative">
-        <img src="images/Desktop - 6.png" alt="background" class="absolute w-full h-[500px] object-cover">
-        <div class="flex flex-col md:flex-row justify-items-center items-center gap-12 py-12 md:pl-16">
+        <div class="absolute inset-0">
+            <img src="images/Desktop - 6.png" alt="background" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-r from-[#4B5D16]/90 to-[#223300]/80"></div>
+        </div>
+        <div class="relative z-10 flex flex-col md:flex-row justify-items-center items-center gap-12 py-16 md:pl-16">
             <div class="flex flex-col-reverse md:flex-row items-center gap-12">
                 <!-- Mock up -->
                 <div class="md:w-1/2 flex justify-center" data-aos="fade-right">
-                    <img src="images/hape.png" alt="phone" class="max-h-[451px] w-auto object-contain">
+                    <img src="images/bingkai-hp.png" alt="phone" class="max-h-[451px] w-auto object-contain">
                 </div>
                 <!-- Kanan -->
                 <div class="w-full md:w-1/2 space-y-6 text-white text-center md:text-left 
       mx-auto pl-16 md:pl-6 pr-12" data-aos="fade-left">
-                    <h2 class="md:text-4xl text-2xl font-bold">
+                    <h2 class="md:text-5xl text-3xl font-extrabold leading-tight">
                         Saatnya Masjid Anda
                         Go Digital!
                     </h2>
-                    <p class="md:text-lg text-lg mx-auto md:mx-0">
+                    <p class="md:text-xl text-lg mx-auto md:mx-0 text-gray-100 leading-relaxed">
                         "Bergabunglah dengan 67+ masjid yang sudah
                         merasakan kemudahan mengelola ZISWAF
                         secara digital. Transparan, akuntabel, dan
@@ -330,11 +465,18 @@ z-40 opacity-0 max-h-0 overflow-hidden transition-all duration-300 ease-in-out m
                             <span>Sistem keamanan data terjamin</span>
                         </li>
                         <li class="flex justify-center md:justify-start">
-                            <button class="bg-white text-black mt-4 px-6 py-4 
-            rounded-lg font-semibold shadow-xl hover:bg-gray-600 
-            hover:text-white transition-colors flex items-center gap-2" data-aos="fade-left">
-                                <img src="images/wa.png" alt="whatsapp" class="h-6">
-                                Konsultasi Gratis →
+                            <button
+                                class="group bg-white text-black mt-4 px-8 py-4 
+            rounded-xl font-bold shadow-2xl hover:bg-[#25D366] 
+            hover:text-white transition-all duration-300 flex items-center gap-3 hover:scale-105 transform hover:-translate-y-1"
+                                data-aos="fade-left">
+                                <img src="images/wa.png" alt="whatsapp" class="h-6 transition-all">
+                                Konsultasi Gratis
+                                <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                                </svg>
                             </button>
                         </li>
                     </ul>
@@ -344,115 +486,136 @@ z-40 opacity-0 max-h-0 overflow-hidden transition-all duration-300 ease-in-out m
     </section>
 
     <!-- Semua platform -->
-    <section class="bg-[#F5F6FA]">
-        <div class="mt-24">
-            <h3 class="md:text-4xl text-2xl font-bold text-[#4B5D16] text-center mb-10 -mt-20 relative z-10"
-                data-aos="fade-up">Tersedia pada Semua Platform</h3>
-            <div class="border-b border-lime-900 w-64 mx-auto mt-10 mb-10" data-aos="fade-up"></div>
-            <h5 class="md:text-md text-lg text-center" data-aos="fade-up">Menambah pengalaman untuk melakukan wakaf pada
-                berbagai media</h5>
-            <div class="flex justify-center gap-6 mt-10">
-                <img src="images/hai.png" alt="Android" class="h-70" data-aos="fade-right">
+    <section class="bg-gradient-to-b from-[#F5F6FA] to-white py-20">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center">
+                <h3 class="md:text-5xl text-3xl font-extrabold text-[#4B5D16] mb-4" data-aos="fade-up">
+                    Tersedia pada Semua Platform
+                </h3>
+                <div class="w-24 h-1 bg-gradient-to-r from-[#29B34B] to-[#F58220] mx-auto mb-6 rounded-full"
+                    data-aos="fade-up"></div>
+                <h5 class="md:text-xl text-lg text-gray-600 mb-12" data-aos="fade-up">Menambah pengalaman untuk
+                    melakukan wakaf pada
+                    berbagai media</h5>
+                <div class="flex justify-center gap-6 mt-10" data-aos="fade-up" data-aos-delay="100">
+                    <img src="images/bingkai.png" alt="Android"
+                        class="h-70 hover:scale-105 transition-transform duration-300">
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Testimoni -->
-    <section class="bg-[#F5F6FA]" id="testimoni">
-        <div class="py-16">
-            <h3 class="md:text-4xl text-2xl font-bold text-[#4B5D16] text-center mb-6">
-                Apa Kata Mereka?
-            </h3>
-            <div class="border-b border-lime-900 w-64 mx-auto mt-10 mb-10" data-aos="fade-up"></div>
-            <p class="text-center text-gray-500 mb-12">Testimonial</p>
+    <section class="bg-gradient-to-b from-white to-[#F5F6FA]" id="testimoni">
+        <div class="py-20">
+            <div class="max-w-4xl mx-auto text-center mb-16">
+                <h3 class="md:text-5xl text-3xl font-extrabold text-[#4B5D16] mb-4" data-aos="fade-up">
+                    Apa Kata Mereka?
+                </h3>
+                <div class="w-24 h-1 bg-gradient-to-r from-[#29B34B] to-[#F58220] mx-auto mb-6 rounded-full"
+                    data-aos="fade-up"></div>
+                <p class="text-center text-gray-600 text-lg" data-aos="fade-up">Testimonial dari pengguna</p>
+            </div>
 
             <div class="overflow-hidden w-full">
                 <div class="scrolling flex space-x-8">
 
                     <!-- Card 1 -->
-                    <div class="testimonial-card max-w-sm bg-white rounded-xl shadow p-8">
-                        <div class="text-4xl text-gray-300 mb-4">“</div>
-                        <p class="text-gray-700 mb-6 leading-relaxed">
+                    <div
+                        class="testimonial-card max-w-sm bg-white rounded-2xl shadow-xl p-8 border border-gray-100 hover:shadow-2xl transition-shadow duration-300">
+                        <div class="text-5xl text-[#F2B635] mb-4 font-serif">"</div>
+                        <p class="text-gray-700 mb-6 leading-relaxed text-base">
                             Platform ini sangat membantu pengelolaan ZISWAF di masjid kami, jadi lebih efisien dan
                             transparan.
                         </p>
-                        <div class="flex items-center space-x-3">
-                            <img src="images/man.png" class="w-10 h-10 rounded-full" alt="avatar">
+                        <div class="flex items-center space-x-4">
+                            <img src="images/man.png" class="w-12 h-12 rounded-full border-2 border-[#F2B635]"
+                                alt="avatar">
                             <div>
-                                <h4 class="font-semibold text-gray-900">Ahmad Fauzi</h4>
-                                <p class="text-sm text-gray-500">Ketua DKM Masjid Al-Ikhlas</p>
+                                <h4 class="font-bold text-gray-900">Ahmad Fauzi</h4>
+                                <p class="text-sm text-gray-600">Ketua DKM Masjid Al-Ikhlas</p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Card 2 -->
-                    <div class="testimonial-card max-w-sm bg-white rounded-xl shadow p-8">
-                        <div class="text-4xl text-gray-300 mb-4">“</div>
-                        <p class="text-gray-700 mb-6 leading-relaxed">
+                    <div
+                        class="testimonial-card max-w-sm bg-white rounded-2xl shadow-xl p-8 border border-gray-100 hover:shadow-2xl transition-shadow duration-300">
+                        <div class="text-5xl text-[#F2B635] mb-4 font-serif">"</div>
+                        <p class="text-gray-700 mb-6 leading-relaxed text-base">
                             Laporan keuangan jadi lebih mudah diakses jamaah, kepercayaan masyarakat semakin meningkat.
                         </p>
-                        <div class="flex items-center space-x-3">
-                            <img src="images/muslimah.png" class="w-10 h-10 rounded-full" alt="avatar">
+                        <div class="flex items-center space-x-4">
+                            <img src="images/muslimah.png" class="w-12 h-12 rounded-full border-2 border-[#F2B635]"
+                                alt="avatar">
                             <div>
-                                <h4 class="font-semibold text-gray-900">Siti Rahmawati</h4>
-                                <p class="text-sm text-gray-500">Bendahara Masjid Al-Huda</p>
+                                <h4 class="font-bold text-gray-900">Siti Rahmawati</h4>
+                                <p class="text-sm text-gray-600">Bendahara Masjid Al-Huda</p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Card 3 -->
-                    <div class="testimonial-card max-w-sm bg-white rounded-xl shadow p-8">
-                        <div class="text-4xl text-gray-300 mb-4">“</div>
-                        <p class="text-gray-700 mb-6 leading-relaxed">
+                    <div
+                        class="testimonial-card max-w-sm bg-white rounded-2xl shadow-xl p-8 border border-gray-100 hover:shadow-2xl transition-shadow duration-300">
+                        <div class="text-5xl text-[#F2B635] mb-4 font-serif">"</div>
+                        <p class="text-gray-700 mb-6 leading-relaxed text-base">
                             Dengan adanya platform ini, penyaluran zakat bisa lebih cepat dan tepat sasaran.
                         </p>
-                        <div class="flex items-center space-x-3">
-                            <img src="images/ustad.png" class="w-10 h-10 rounded-full" alt="avatar">
+                        <div class="flex items-center space-x-4">
+                            <img src="images/ustad.png" class="w-12 h-12 rounded-full border-2 border-[#F2B635]"
+                                alt="avatar">
                             <div>
-                                <h4 class="font-semibold text-gray-900">Ustadz Hendra</h4>
-                                <p class="text-sm text-gray-500">Imam Masjid Agung</p>
+                                <h4 class="font-bold text-gray-900">Ustadz Hendra</h4>
+                                <p class="text-sm text-gray-600">Imam Masjid Agung</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="testimonial-card max-w-sm bg-white rounded-xl shadow p-8">
-                        <div class="text-4xl text-gray-300 mb-4">“</div>
-                        <p class="text-gray-700 mb-6 leading-relaxed">
+                    <div
+                        class="testimonial-card max-w-sm bg-white rounded-2xl shadow-xl p-8 border border-gray-100 hover:shadow-2xl transition-shadow duration-300">
+                        <div class="text-5xl text-[#F2B635] mb-4 font-serif">"</div>
+                        <p class="text-gray-700 mb-6 leading-relaxed text-base">
                             Platform ini memudahkan dalam kegiatan ziswaf.
                         </p>
-                        <div class="flex items-center space-x-3">
-                            <img src="images/man.png" class="w-10 h-10 rounded-full" alt="avatar">
+                        <div class="flex items-center space-x-4">
+                            <img src="images/man.png" class="w-12 h-12 rounded-full border-2 border-[#F2B635]"
+                                alt="avatar">
                             <div>
-                                <h4 class="font-semibold text-gray-900">Ikhsan</h4>
-                                <p class="text-sm text-gray-500">Ketua DKM Masjid Al-Jabar</p>
+                                <h4 class="font-bold text-gray-900">Ikhsan</h4>
+                                <p class="text-sm text-gray-600">Ketua DKM Masjid Al-Jabar</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="testimonial-card max-w-sm bg-white rounded-xl shadow p-8">
-                        <div class="text-4xl text-gray-300 mb-4">“</div>
-                        <p class="text-gray-700 mb-6 leading-relaxed">
+                    <div
+                        class="testimonial-card max-w-sm bg-white rounded-2xl shadow-xl p-8 border border-gray-100 hover:shadow-2xl transition-shadow duration-300">
+                        <div class="text-5xl text-[#F2B635] mb-4 font-serif">"</div>
+                        <p class="text-gray-700 mb-6 leading-relaxed text-base">
                             Laporan keuangan jadi lebih mudah diakses jamaah, kepercayaan masyarakat semakin meningkat.
                         </p>
-                        <div class="flex items-center space-x-3">
-                            <img src="images/muslimah.png" class="w-10 h-10 rounded-full" alt="avatar">
+                        <div class="flex items-center space-x-4">
+                            <img src="images/muslimah.png" class="w-12 h-12 rounded-full border-2 border-[#F2B635]"
+                                alt="avatar">
                             <div>
-                                <h4 class="font-semibold text-gray-900">Siti Rahmawati</h4>
-                                <p class="text-sm text-gray-500">Bendahara Masjid Al-Huda</p>
+                                <h4 class="font-bold text-gray-900">Siti Rahmawati</h4>
+                                <p class="text-sm text-gray-600">Bendahara Masjid Al-Huda</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="testimonial-card max-w-sm bg-white rounded-xl shadow p-8">
-                        <div class="text-4xl text-gray-300 mb-4">“</div>
-                        <p class="text-gray-700 mb-6 leading-relaxed">
+                    <div
+                        class="testimonial-card max-w-sm bg-white rounded-2xl shadow-xl p-8 border border-gray-100 hover:shadow-2xl transition-shadow duration-300">
+                        <div class="text-5xl text-[#F2B635] mb-4 font-serif">"</div>
+                        <p class="text-gray-700 mb-6 leading-relaxed text-base">
                             Dengan adanya platform ini, penyaluran zakat bisa lebih cepat dan tepat sasaran.
                         </p>
-                        <div class="flex items-center space-x-3">
-                            <img src="images/ustad.png" class="w-10 h-10 rounded-full" alt="avatar">
+                        <div class="flex items-center space-x-4">
+                            <img src="images/ustad.png" class="w-12 h-12 rounded-full border-2 border-[#F2B635]"
+                                alt="avatar">
                             <div>
-                                <h4 class="font-semibold text-gray-900">Ustadz Hendra</h4>
-                                <p class="text-sm text-gray-500">Imam Masjid Agung</p>
+                                <h4 class="font-bold text-gray-900">Ustadz Hendra</h4>
+                                <p class="text-sm text-gray-600">Imam Masjid Agung</p>
                             </div>
                         </div>
                     </div>
@@ -462,103 +625,131 @@ z-40 opacity-0 max-h-0 overflow-hidden transition-all duration-300 ease-in-out m
     </section>
 
     <!-- Compare -->
-    <section>
+    <section class="py-20 bg-gradient-to-b from-white to-[#F5F6FA]">
         <div class="container mx-auto px-4 py-6">
-            <h3 class="md:text-4xl text-4xl font-bold text-[#4B5D16] text-center mb-6" data-aos="fade-up">
-                Kenapa Memilih Smartziswaf?
-            </h3>
-            <div class="border-b border-lime-900 w-64 mx-auto mt-10 mb-10" data-aos="fade-up"></div>
-            <div class="w-16 mx-auto mt-10 mb-10" data-aos="fade-up"></div>
-            <table class="table-auto w-3/4 mx-auto border-collapse">
-                <thead>
-                    <tr>
-                        <th class="px-4 py-2">Fitur</th>
-                        <th class="px-4 py-2">Manual</th>
-                        <th class="px-4 py-2">Smartziswaf</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="bg-[#E2E2E2]">
-                        <td class="px-4 py-2">Pencatatan Donasi</td>
-                        <td class="px-4 py-2"><img src="images/salah.png" class="w-6 h-6 mx-auto" /></td>
-                        <td class="px-4 py-2"><img src="images/benar.png" class="w-6 h-6 mx-auto" /></td>
-                    </tr>
-                    <tr>
-                        <td class="px-4 py-2">Transparansi Laporan</td>
-                        <td class="px-4 py-2 text-center"><img src="images/salah.png" class="w-6 h-6 mx-auto" /></td>
-                        <td class="px-4 py-2 text-center"><img src="images/benar.png" class="w-6 h-6 mx-auto" /></td>
-                    </tr>
-                    <tr class="bg-[#E2E2E2]">
-                        <td class="px-4 py-2">Proses Validasi Muzakki dan Mustahik</td>
-                        <td class="px-4 py-2 text-center"><img src="images/salah.png" class="w-6 h-6 mx-auto" /></td>
-                        <td class="px-4 py-2 text-center"><img src="images/benar.png" class="w-6 h-6 mx-auto" /></td>
-                    </tr>
-                    <tr>
-                        <td class="px-4 py-2">Keamanan Data</td>
-                        <td class="px-4 py-2 text-center"><img src="images/salah.png" class="w-6 h-6 mx-auto" /></td>
-                        <td class="px-4 py-2 text-center"><img src="images/benar.png" class="w-6 h-6 mx-auto" /></td>
-                    </tr>
-                    <tr class="bg-[#E2E2E2]">
-                        <td class="px-4 py-2">Efisiensi Operasional</td>
-                        <td class="px-4 py-2 text-center"><img src="images/salah.png" class="w-6 h-6 mx-auto" /></td>
-                        <td class="px-4 py-2 text-center"><img src="images/benar.png" class="w-6 h-6 mx-auto" /></td>
-                    </tr>
-                    <tr>
-                        <td class="px-4 py-2">Aksesibilitas</td>
-                        <td class="px-4 py-2 text-center"><img src="images/salah.png" class="w-6 h-6 mx-auto" /></td>
-                        <td class="px-4 py-2 text-center"><img src="images/benar.png" class="w-6 h-6 mx-auto" /></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="max-w-4xl mx-auto text-center mb-12">
+                <h3 class="md:text-4xl text-4xl font-extrabold text-[#4B5D16] mb-4" data-aos="fade-up">
+                    Kenapa Memilih Smartziswaf?
+                </h3>
+                <div class="w-24 h-1 bg-gradient-to-r from-[#29B34B] to-[#F58220] mx-auto mb-6 rounded-full"
+                    data-aos="fade-up"></div>
+            </div>
+            <div class="max-w-5xl mx-auto" data-aos="fade-up">
+                <div class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100">
+                    <table class="w-full border-collapse">
+                        <thead>
+                            <tr class="bg-gradient-to-r from-[#4B5D16] to-[#223300] text-white">
+                                <th class="px-6 py-4 text-left font-bold text-lg">Fitur</th>
+                                <th class="px-6 py-4 text-center font-bold text-lg">Manual</th>
+                                <th class="px-6 py-4 text-center font-bold text-lg">Smartziswaf</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-gray-50 hover:bg-gray-100 transition-colors">
+                                <td class="px-6 py-4 font-semibold text-gray-800">Pencatatan Donasi</td>
+                                <td class="px-6 py-4 text-center"><img src="images/salah.png"
+                                        class="w-7 h-7 mx-auto opacity-70" /></td>
+                                <td class="px-6 py-4 text-center"><img src="images/benar.png" class="w-7 h-7 mx-auto" />
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-4 font-semibold text-gray-800">Transparansi Laporan</td>
+                                <td class="px-6 py-4 text-center"><img src="images/salah.png"
+                                        class="w-7 h-7 mx-auto opacity-70" /></td>
+                                <td class="px-6 py-4 text-center"><img src="images/benar.png" class="w-7 h-7 mx-auto" />
+                                </td>
+                            </tr>
+                            <tr class="bg-gray-50 hover:bg-gray-100 transition-colors">
+                                <td class="px-6 py-4 font-semibold text-gray-800">Proses Validasi Muzakki dan Mustahik
+                                </td>
+                                <td class="px-6 py-4 text-center"><img src="images/salah.png"
+                                        class="w-7 h-7 mx-auto opacity-70" /></td>
+                                <td class="px-6 py-4 text-center"><img src="images/benar.png" class="w-7 h-7 mx-auto" />
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-4 font-semibold text-gray-800">Keamanan Data</td>
+                                <td class="px-6 py-4 text-center"><img src="images/salah.png"
+                                        class="w-7 h-7 mx-auto opacity-70" /></td>
+                                <td class="px-6 py-4 text-center"><img src="images/benar.png" class="w-7 h-7 mx-auto" />
+                                </td>
+                            </tr>
+                            <tr class="bg-gray-50 hover:bg-gray-100 transition-colors">
+                                <td class="px-6 py-4 font-semibold text-gray-800">Efisiensi Operasional</td>
+                                <td class="px-6 py-4 text-center"><img src="images/salah.png"
+                                        class="w-7 h-7 mx-auto opacity-70" /></td>
+                                <td class="px-6 py-4 text-center"><img src="images/benar.png" class="w-7 h-7 mx-auto" />
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-4 font-semibold text-gray-800">Aksesibilitas</td>
+                                <td class="px-6 py-4 text-center"><img src="images/salah.png"
+                                        class="w-7 h-7 mx-auto opacity-70" /></td>
+                                <td class="px-6 py-4 text-center"><img src="images/benar.png" class="w-7 h-7 mx-auto" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
     </section>
 
     <!-- FAQ -->
-    <section id="faq" class="py-10 container mx-auto px-10">
-        <div class="bg-gradient-to-b from-[#4B5D16] to-[#223300] rounded-xl p-8 max-w-5xl mx-auto">
+    <section id="faq" class="py-20 container mx-auto px-4">
+        <div
+            class="bg-gradient-to-br from-[#4B5D16] to-[#223300] rounded-3xl p-10 md:p-12 max-w-5xl mx-auto shadow-2xl">
             <!-- Heading -->
-            <h4 class="text-2xl font-bold text-white text-center mb-8">
-                FAQ
-            </h4>
-            <div class="border-b border-white w-64 mx-auto mb-8"></div>
+            <div class="text-center mb-12">
+                <h4 class="text-4xl md:text-5xl font-extrabold text-white mb-4" data-aos="fade-up">
+                    FAQ
+                </h4>
+                <div class="w-24 h-1 bg-white mx-auto mb-8 rounded-full" data-aos="fade-up"></div>
+            </div>
             <div class="space-y-4" x-data="{ open: null }">
 
                 <!-- Item 1 -->
-                <div class="bg-white rounded-md shadow">
-                    <button class="w-full flex justify-between items-center p-6 text-left font-medium text-gray-700"
+                <div class="bg-white rounded-xl shadow-lg mb-4 overflow-hidden border border-gray-100">
+                    <button
+                        class="w-full flex justify-between items-center p-6 text-left font-bold text-gray-800 hover:bg-gray-50 transition-colors"
                         @click="open === 1 ? open = null : open = 1">
-                        <span>Apa itu Smartziswaf?</span>
+                        <span class="text-lg">Apa itu Smartziswaf?</span>
                         <span :class="open === 1 ? 'rotate-45' : ''"
-                            class="transition-transform text-xl font-bold">+</span>
+                            class="flex-shrink-0 w-8 h-8 rounded-full bg-[#F2B635]/10 flex items-center justify-center text-[#4B5D16] text-2xl font-bold transition-all duration-300">+</span>
                     </button>
-                    <div x-show="open === 1" x-transition.duration.300ms class="px-4 pb-3 text-gray-600 text-xl">
+                    <div x-show="open === 1" x-transition.duration.300ms
+                        class="px-6 pb-6 text-gray-600 text-base leading-relaxed mt-3">
                         Smartziswaf adalah platform pengelolaan zakat, infaq, dan wakaf yang memudahkan pengguna untuk
                         berdonasi secara transparan dan aman.
                     </div>
                 </div>
 
                 <!-- Item 2 -->
-                <div class="bg-white rounded-md shadow">
-                    <button class="w-full flex justify-between items-center p-6 text-left font-medium text-gray-700"
+                <div class="bg-white rounded-xl shadow-lg mb-4 overflow-hidden border border-gray-100">
+                    <button
+                        class="w-full flex justify-between items-center p-6 text-left font-bold text-gray-800 hover:bg-gray-50 transition-colors"
                         @click="open === 2 ? open = null : open = 2">
-                        <span>Apa keuntungan menggunakan SmartZiswaf dibanding pencatatan manual?</span>
+                        <span class="text-lg">Apa keuntungan menggunakan SmartZiswaf dibanding pencatatan manual?</span>
                         <span :class="open === 2 ? 'rotate-45' : ''"
-                            class="transition-transform text-xl font-bold">+</span>
+                            class="flex-shrink-0 w-8 h-8 rounded-full bg-[#F2B635]/10 flex items-center justify-center text-[#4B5D16] text-2xl font-bold transition-all duration-300">+</span>
                     </button>
-                    <div x-show="open === 2" x-transition.duration.300ms class="px-4 pb-3 text-gray-600 text-xl">
+                    <div x-show="open === 2" x-transition.duration.300ms
+                        class="px-6 pb-6 text-gray-600 text-base leading-relaxed mt-3">
                         Pencatatan otomatis & rapi, Laporan instan & real-time, Transparansi bagi donatur, Efisiensi
                         biaya & waktu serta Keamanan data lebih terjamin
                     </div>
                 </div>
 
                 <!-- Item 3 -->
-                <div class="bg-white rounded-md shadow">
-                    <button class="w-full flex justify-between items-center p-6 text-left font-medium text-gray-700"
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
+                    <button
+                        class="w-full flex justify-between items-center p-6 text-left font-bold text-gray-800 hover:bg-gray-50 transition-colors"
                         @click="open === 3 ? open = null : open = 3">
-                        <span>Bagaimana cara menggunakan Smartziswaf?</span>
+                        <span class="text-lg">Bagaimana cara menggunakan Smartziswaf?</span>
                         <span :class="open === 3 ? 'rotate-45' : ''"
-                            class="transition-transform text-xl font-bold">+</span>
+                            class="flex-shrink-0 w-8 h-8 rounded-full bg-[#F2B635]/10 flex items-center justify-center text-[#4B5D16] text-2xl font-bold transition-all duration-300">+</span>
                     </button>
-                    <div x-show="open === 3" x-transition.duration.300ms class="px-4 pb-3 text-gray-600 text-xl">
+                    <div x-show="open === 3" x-transition.duration.300ms
+                        class="px-6 pb-6 text-gray-600 text-base leading-relaxed mt-3">
                         Anda dapat menggunakan Smartziswaf dengan mendaftar, lalu memilih program zakat, infaq, atau
                         wakaf yang tersedia, dan berdonasi secara online.
                     </div>
@@ -568,66 +759,136 @@ z-40 opacity-0 max-h-0 overflow-hidden transition-all duration-300 ease-in-out m
     </section>
 
     <!-- CTA -->
-    <section class="text-[#223300] text-center py-12 sm:pd-4 rounded-b-3xl" id="kontak">
-        <h3 class="md:text-[40px] text-[20px] font-bold" data-aos="fade-up">Siap Transformasi Digital Masjid Anda?</h3>
-        <p class="md:text-[35px] text-[20px]" data-aos="fade-up">Segera isi form pendaftaran. <strong>GRATIS!</strong>
-        </p>
-        <button
-            class="bg-gradient-to-r from-[#F2B635] to-[#E45C10] mt-6 hover:scale-105 text-white px-6 py-4 rounded-lg font-semibold shadow-xl">
-            <a href="daftar.html">Daftar Sekarang →</a>
-        </button>
+    <section
+        class="relative bg-gradient-to-br from-[#4B5D16] via-[#3a4911] to-[#223300] text-white text-center py-20 overflow-hidden"
+        id="kontak">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-0 left-0 w-96 h-96 bg-[#29B34B] rounded-full mix-blend-multiply filter blur-3xl">
+            </div>
+            <div
+                class="absolute bottom-0 right-0 w-96 h-96 bg-[#F58220] rounded-full mix-blend-multiply filter blur-3xl">
+            </div>
+        </div>
+        <div class="container mx-auto px-4 relative z-10">
+            <h3 class="md:text-5xl text-3xl font-extrabold mb-4" data-aos="fade-up">Siap Transformasi Digital Masjid
+                Anda?</h3>
+            <p class="md:text-2xl text-xl mb-10 text-gray-100" data-aos="fade-up" data-aos-delay="100">
+                Segera isi form pendaftaran. <span class="font-bold text-[#F2B635]">GRATIS!</span>
+            </p>
+            <a href="daftar.html"
+                class="inline-flex items-center justify-center bg-gradient-to-r from-[#F2B635] to-[#E45C10] hover:from-[#F2B635]/90 hover:to-[#E45C10]/90 text-white px-10 py-5 rounded-xl font-bold text-lg shadow-2xl hover:shadow-[#E45C10]/50 hover:scale-105 transition-all duration-300 transform hover:-translate-y-1"
+                data-aos="fade-up" data-aos-delay="200">
+                Daftar Sekarang
+                <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6">
+                    </path>
+                </svg>
+            </a>
+        </div>
     </section>
 
     <!-- Button kembali ke atas -->
     <a href="#tentang" id="back-to-top"
-        class="fixed bottom-3 right-3 sm:bottom-6 sm:right-6 bg-[#E45C10] text-white p-2 sm:p-3 rounded-full shadow-lg hover:bg-[#F2B635] transition-colors hidden z-40"
+        class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 bg-gradient-to-r from-[#E45C10] to-[#F2B635] text-white p-3 sm:p-4 rounded-full shadow-2xl hover:shadow-[#E45C10]/50 hover:scale-110 transition-all duration-300 hidden z-40 group"
         title="Kembali ke Atas">
-        <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>
+        <svg class="w-5 h-5 sm:w-6 sm:h-6 group-hover:-translate-y-1 transition-transform" fill="none"
+            stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 15l7-7 7 7"></path>
         </svg>
     </a>
 
     <!-- Footer -->
-    <footer class="relative overflow-hidden text-white">
+    <footer class="relative overflow-hidden bg-gradient-to-br from-[#4B5D16] via-[#3a4911] to-[#223300] text-white">
         <!-- Background Masjid -->
-        <div class="absolute inset-x-0 bottom-0 -z-10">
+        <div class="absolute inset-x-0 bottom-0 -z-10 opacity-20">
             <img src="images/bg2.png" alt="background" class="w-full object-cover">
         </div>
 
-        <div class="container mx-auto px-6 py-12">
+        <!-- Decorative gradient overlay -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent -z-10"></div>
+
+        <div class="container mx-auto px-6 py-16 relative z-10">
             <!-- Top Section -->
-            <div class="flex flex-col md:flex-row justify-between items-center md:items-start">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mb-12">
                 <!-- Logo & Deskripsi -->
-                <div class="text-center md:text-left mb-6 md:mb-0">
-                    <img src="images/logo.png" alt="SMARTZISWAF Logo" class="h-12 mb-2 mx-auto md:mx-0">
-                    <p class="text-sm text-[#4B5D16]">Platform Digital Terpercaya untuk</p>
-                    <p class="text-sm text-[#4B5D16]">Pengelolaan ZISWAF Masjid.</p>
+                <div class="text-center md:text-left">
+                    <img src="images/logo.png" alt="SMARTZISWAF Logo"
+                        class="h-14 mb-4 mx-auto md:mx-0 filter brightness-0 invert">
+                    <p class="text-base text-gray-200 leading-relaxed mb-2">Platform Digital Terpercaya untuk</p>
+                    <p class="text-base text-gray-200 leading-relaxed">Pengelolaan ZISWAF Masjid.</p>
+                    <div class="flex justify-center md:justify-start gap-3 mt-6">
+                        <a href="#"
+                            class="w-10 h-10 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                            </svg>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
+                            </svg>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z" />
+                            </svg>
+                        </a>
+                    </div>
                 </div>
 
-                <!-- Menu -->
-                <nav class="text-sm font-medium">
-                    <ul class="flex flex-col md:flex-row gap-4 md:gap-8 text-center md:text-left">
-                        <li><a href="#tentang" class="text-[#4B5D16] hover:text-[#E45C10] transition-colors">Tentang
-                                Kami</a></li>
-                        <li><a href="#fitur" class="text-[#4B5D16] hover:text-[#E45C10] transition-colors">Fitur
-                                Aplikasi</a></li>
-                        <li><a href="#kontak" class="text-[#4B5D16] hover:text-[#E45C10] transition-colors">Kontak
-                                Kami</a></li>
-                        <li><a href="#testimoni"
-                                class="text-[#4B5D16] hover:text-[#E45C10] transition-colors">Testimoni</a></li>
-                        <li><a href="#faq" class="text-[#4B5D16] hover:text-[#E45C10] transition-colors">FAQ</a></li>
+                <!-- Quick Links -->
+                <div class="text-center md:text-left">
+                    <h3 class="text-xl font-bold mb-6 text-[#F2B635]">Tautan Cepat</h3>
+                    <nav>
+                        <ul class="space-y-3">
+                            <li><a href="#tentang"
+                                    class="text-gray-200 hover:text-[#F2B635] transition-colors duration-300 inline-block hover:translate-x-1 transform">Tentang
+                                    Kami</a></li>
+                            <li><a href="#fitur"
+                                    class="text-gray-200 hover:text-[#F2B635] transition-colors duration-300 inline-block hover:translate-x-1 transform">Fitur
+                                    Aplikasi</a></li>
+                            <li><a href="#kontak"
+                                    class="text-gray-200 hover:text-[#F2B635] transition-colors duration-300 inline-block hover:translate-x-1 transform">Kontak
+                                    Kami</a></li>
+                            <li><a href="#testimoni"
+                                    class="text-gray-200 hover:text-[#F2B635] transition-colors duration-300 inline-block hover:translate-x-1 transform">Testimoni</a>
+                            </li>
+                            <li><a href="#faq"
+                                    class="text-gray-200 hover:text-[#F2B635] transition-colors duration-300 inline-block hover:translate-x-1 transform">FAQ</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="text-center md:text-left">
+                    <h3 class="text-xl font-bold mb-6 text-[#F2B635]">Hubungi Kami</h3>
+                    <ul class="space-y-3 text-gray-200">
+                        <li class="flex items-center justify-center md:justify-start gap-3">
+                            <svg class="w-5 h-5 text-[#F2B635]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                                </path>
+                            </svg>
+                            <span>info@smartziswaf.com</span>
+                        </li>
                     </ul>
-                </nav>
+                </div>
             </div>
 
             <!-- Bottom Section -->
-            <div
-                class="flex flex-col md:flex-row justify-between items-center mt-8 text-sm border-t border-white/30 pt-6 text-[#4B5D16] md:text-white">
-                <p>© 2025 <span class="font-bold text-[#4B5D16] md:text-white">SMARTZISWAF</span> All Rights Reserved.
-                </p>
-                <p class="mt-4 md:mt-0 flex items-center">
+            <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/20 text-sm">
+                <p class="text-gray-200 mb-4 md:mb-0">© 2025 <span class="font-bold text-[#F2B635]">SMARTZISWAF</span>
+                    All Rights Reserved.</p>
+                <p class="flex items-center text-gray-200">
                     Powered by
-                    <img src="images/logo-4vm.svg" alt="4VM" class="inline-block h-6 ml-2">
+                    <img src="images/logo-4vm.svg" alt="4VM"
+                        class="inline-block h-6 ml-2 filter brightness-0 invert opacity-80 hover:opacity-100 transition-opacity">
                 </p>
             </div>
         </div>

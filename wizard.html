@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wizard - SMART ZISWAF</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f7fa;
+        }
+
+        /* Modern Sidebar */
+        .sidebar-modern {
+            background: #ffffff;
+            box-shadow: 4px 0 30px rgba(0, 0, 0, 0.08);
+            border-right: 1px solid rgba(226, 232, 240, 0.8);
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .sidebar-modern.collapsed {
+            width: 80px;
+        }
+
+        .sidebar-modern.collapsed .menu-text,
+        .sidebar-modern.collapsed .logo-text {
+            opacity: 0;
+            width: 0;
+            overflow: hidden;
+            margin: 0;
+        }
+
+        .sidebar-modern.collapsed .dropdown-icon-modern {
+            display: none;
+        }
+
+        .sidebar-modern.collapsed .menu-item-modern {
+            justify-content: center !important;
+            padding: 0 !important;
+            margin: 4px auto !important;
+            width: 48px !important;
+            height: 48px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            min-width: 48px !important;
+            position: relative;
+        }
+
+        .sidebar-modern.collapsed .menu-item-modern.active {
+            border-left: none;
+        }
+
+        .sidebar-modern.collapsed .menu-item-modern.active::before {
+            display: none;
+        }
+
+        .sidebar-modern.collapsed .menu-item-modern svg {
+            margin: 0 auto !important;
+            flex-shrink: 0;
+            display: block !important;
+        }
+
+        .sidebar-modern.collapsed .menu-item-modern .menu-text {
+            display: none !important;
+        }
+
+        .sidebar-modern.collapsed .menu-item-modern .flex {
+            justify-content: center !important;
+            width: 100%;
+            display: flex !important;
+            align-items: center !important;
+        }
+
+        .sidebar-modern.collapsed .menu-item-modern.space-x-4>*+* {
+            margin-left: 0 !important;
+        }
+
+        .sidebar-modern.collapsed .menu-item-modern>*:not(svg):not(.flex) {
+            display: none !important;
+        }
+
+        .sidebar-modern.collapsed .menu-item-modern>svg {
+            margin: 0 auto !important;
+            display: block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+
+        .sidebar-modern.collapsed .menu-item-modern .flex>*:not(svg:first-child):not(.menu-text) {
+            display: none !important;
+        }
+
+        .sidebar-modern.collapsed .menu-item-modern .flex>svg:first-child {
+            margin: 0 auto !important;
+            display: block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            width: 20px !important;
+            height: 20px !important;
+        }
+
+        .sidebar-modern.collapsed .menu-item-modern.active .flex svg,
+        .sidebar-modern.collapsed .menu-item-modern.active>svg {
+            color: #223301 !important;
+            stroke: #223301 !important;
+        }
+
+        .sidebar-modern.collapsed .logo-section .flex {
+            justify-content: center;
+            width: 100%;
+        }
+
+        .sidebar-modern.collapsed .logo-section img {
+            margin: 0 auto;
+        }
+
+        .sidebar-modern.collapsed .menu-group>a {
+            justify-content: center !important;
+            padding: 0 !important;
+            width: 48px !important;
+            height: 48px !important;
+            margin: 4px auto !important;
+            min-width: 48px !important;
+            position: relative;
+            display: flex !important;
+            align-items: center !important;
+        }
+
+        .sidebar-modern.collapsed .menu-group>a svg {
+            margin: 0 auto !important;
+            flex-shrink: 0;
+            display: block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+
+        .sidebar-modern.collapsed .menu-group>a .menu-text {
+            display: none !important;
+        }
+
+        .sidebar-modern.collapsed .menu-group>a .flex {
+            justify-content: center !important;
+            width: 100%;
+            display: flex !important;
+            align-items: center !important;
+        }
+
+        .sidebar-modern.collapsed .menu-group>a .dropdown-icon-modern {
+            display: none !important;
+        }
+
+        .sidebar-modern.collapsed .menu-group>a .flex>*:not(svg:first-child) {
+            display: none !important;
+        }
+
+        .sidebar-modern.collapsed .menu-group>a .flex svg:first-child {
+            margin: 0 auto !important;
+            display: block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            color: #6b7280 !important;
+            width: 20px !important;
+            height: 20px !important;
+        }
+
+        /* Ensure all icons are visible when collapsed */
+        .sidebar-modern.collapsed nav svg {
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+
+        .sidebar-modern.collapsed .menu-item-modern>svg {
+            width: 20px !important;
+            height: 20px !important;
+        }
+
+        .sidebar-modern.collapsed .menu-item-modern:not(.active) svg,
+        .sidebar-modern.collapsed .menu-group>a:not(.active) svg,
+        .sidebar-modern.collapsed .menu-item-modern:not(.active) .flex svg,
+        .sidebar-modern.collapsed .menu-group>a:not(.active) .flex svg {
+            color: #6b7280 !important;
+            stroke: #6b7280 !important;
+            fill: none !important;
+        }
+
+        .sidebar-modern:not(.collapsed) .dropdown-menu-modern {
+            position: static !important;
+            top: auto !important;
+        }
+
+        .sidebar-modern:not(.collapsed) .dropdown-menu-modern.open {
+            position: static !important;
+            top: auto !important;
+        }
+
+        .sidebar-modern.collapsed .dropdown-menu-modern.open {
+            display: block !important;
+            position: fixed;
+            left: calc(80px + 12px);
+            top: auto;
+            min-width: 220px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15), 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            z-index: 1000;
+            margin-left: 0;
+            padding: 8px 0;
+            border-left: none;
+            opacity: 1 !important;
+            max-height: 500px !important;
+            overflow-y: auto;
+        }
+
+        .sidebar-modern.collapsed .dropdown-menu-modern:not(.open) {
+            display: none !important;
+        }
+
+        .sidebar-modern.collapsed .dropdown-menu-modern.open::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 20px;
+            width: 0;
+            height: 0;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            border-right: 8px solid white;
+            filter: drop-shadow(-2px 0 2px rgba(0, 0, 0, 0.1));
+            z-index: 1;
+        }
+
+        .sidebar-modern.collapsed .sidebar-nav {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            padding: 16px 8px;
+        }
+
+        .sidebar-modern.collapsed .menu-group {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .sidebar-logo {
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-modern.collapsed .sidebar-logo {
+            width: 48px;
+            height: 48px;
+        }
+
+        .menu-item-modern {
+            position: relative;
+            border-radius: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            color: #6b7280;
+            text-decoration: none;
+        }
+
+        .menu-item-modern:hover {
+            background: rgba(34, 51, 1, 0.05);
+            transform: translateX(4px);
+        }
+
+        .menu-item-modern.active {
+            background: linear-gradient(135deg, rgba(34, 51, 1, 0.12) 0%, rgba(45, 74, 10, 0.08) 100%);
+            border-left: 4px solid #223301;
+            box-shadow: 0 2px 8px rgba(34, 51, 1, 0.15);
+        }
+
+        .menu-item-modern.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 60%;
+            background: #223301;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .toggle-btn-header {
+            position: absolute;
+            right: -14px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #223301;
+            border: 2px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .toggle-btn-header:hover {
+            background: #2d4a0a;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .toggle-btn-header svg {
+            width: 16px;
+            height: 16px;
+            color: white;
+        }
+
+        .sidebar-modern .logo-section {
+            background: #ffffff;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 80px;
+        }
+
+        .sidebar-modern:not(.collapsed) .logo-section {
+            justify-content: flex-start;
+        }
+
+        .logo-section::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 40px;
+            background: #fff;
+            z-index: 0;
+        }
+
+        /* Wizard Styles */
+        .wizard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .wizard-progress {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 3rem;
+            position: relative;
+            padding: 0 1rem 2rem;
+            background: white;
+            border-radius: 20px;
+            padding: 2rem 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .wizard-progress::before {
+            content: '';
+            position: absolute;
+            top: calc(24px + 1rem);
+            left: calc(24px + 1.5rem);
+            right: calc(24px + 1.5rem);
+            height: 3px;
+            background: #e2e8f0;
+            z-index: 0;
+            border-top: 3px dashed #cbd5e1;
+            border-radius: 2px;
+        }
+
+        .wizard-progress-line {
+            position: absolute;
+            top: calc(24px + 1rem);
+            left: calc(24px + 1.5rem);
+            height: 3px;
+            background: linear-gradient(90deg, #223301 0%, #2d4a0a 100%);
+            z-index: 1;
+            border-top: 3px solid #223301;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 2px;
+        }
+
+        .wizard-step {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .wizard-step {
+            align-items: center;
+        }
+
+        .wizard-step-label,
+        .wizard-step-title {
+            width: 100%;
+        }
+
+        .wizard-step-circle {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.125rem;
+            color: #94a3b8;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 3;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .wizard-step.completed .wizard-step-circle {
+            background: linear-gradient(135deg, #223301 0%, #2d4a0a 100%);
+            border-color: #223301;
+            color: white;
+            box-shadow: 0 4px 12px rgba(34, 51, 1, 0.2);
+        }
+
+        .wizard-step.completed .wizard-step-circle::after {
+            content: '✓';
+            position: absolute;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .wizard-step.completed .wizard-step-circle {
+            font-size: 0;
+        }
+
+        .wizard-step.active .wizard-step-circle {
+            background: linear-gradient(135deg, #223301 0%, #2d4a0a 100%);
+            border-color: #223301;
+            color: white;
+            box-shadow: 0 6px 20px rgba(34, 51, 1, 0.4), 0 0 0 8px rgba(34, 51, 1, 0.1);
+            transform: scale(1.1);
+            animation: pulse-active 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-active {
+
+            0%,
+            100% {
+                box-shadow: 0 6px 20px rgba(34, 51, 1, 0.4), 0 0 0 8px rgba(34, 51, 1, 0.1);
+            }
+
+            50% {
+                box-shadow: 0 6px 20px rgba(34, 51, 1, 0.5), 0 0 0 12px rgba(34, 51, 1, 0.15);
+            }
+        }
+
+        .wizard-step-label {
+            margin-top: 1rem;
+            text-align: center;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: #64748b;
+            line-height: 1.4;
+            max-width: 120px;
+        }
+
+        .wizard-step.completed .wizard-step-label,
+        .wizard-step.active .wizard-step-label {
+            color: #223301;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .wizard-step-title {
+            font-size: 0.8125rem;
+            color: #94a3b8;
+            margin-top: 0.375rem;
+            text-align: center;
+            line-height: 1.4;
+            max-width: 120px;
+            font-weight: 400;
+        }
+
+        .wizard-step.completed .wizard-step-title,
+        .wizard-step.active .wizard-step-title {
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .wizard-content {
+            background: white;
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            min-height: 500px;
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .wizard-step-content {
+            display: none;
+        }
+
+        .wizard-step-content.active {
+            display: block;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .wizard-illustration {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .wizard-form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .wizard-form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #1e293b;
+        }
+
+        .wizard-form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .wizard-form-input:focus {
+            outline: none;
+            border-color: #223301;
+            box-shadow: 0 0 0 3px rgba(34, 51, 1, 0.1);
+        }
+
+        .wizard-upload-area {
+            border: 2px dashed #cbd5e1;
+            border-radius: 16px;
+            padding: 3rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8fafc;
+        }
+
+        .wizard-upload-area:hover {
+            border-color: #223301;
+            background: #f1f5f9;
+        }
+
+        .wizard-upload-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 1rem;
+            color: #94a3b8;
+        }
+
+        .wizard-terms-box {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 1.5rem;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 1.5rem;
+            border: 1px solid #e2e8f0;
+        }
+
+        .wizard-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+        }
+
+        .wizard-checkbox input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #223301;
+        }
+
+        .wizard-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .wizard-btn {
+            padding: 0.75rem 2rem;
+            border-radius: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .wizard-btn-secondary {
+            background: white;
+            color: #223301;
+            border: 2px solid #223301;
+        }
+
+        .wizard-btn-secondary:hover {
+            background: #f8fafc;
+        }
+
+        .wizard-btn-primary {
+            background: linear-gradient(135deg, #223301 0%, #2d4a0a 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(34, 51, 1, 0.3);
+        }
+
+        .wizard-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(34, 51, 1, 0.4);
+        }
+
+        .wizard-btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .wizard-completion-illustration {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .wizard-completion-title {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #223301 0%, #2d4a0a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .wizard-completion-text {
+            font-size: 1.25rem;
+            color: #64748b;
+            text-align: center;
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+        }
+
+        .wizard-btn-start {
+            background: linear-gradient(135deg, #223301 0%, #2d4a0a 100%);
+            color: white;
+            padding: 1rem 3rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.125rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 12px rgba(34, 51, 1, 0.3);
+            display: block;
+            margin: 0 auto;
+        }
+
+        .wizard-btn-start:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(34, 51, 1, 0.4);
+        }
+
+        /* Animations */
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes float-delayed {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        @keyframes slide-in {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(400px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .animate-float-delayed {
+            animation: float-delayed 3s ease-in-out infinite;
+            animation-delay: 0.5s;
+        }
+
+        .animate-slide-in {
+            animation: slide-in 0.6s ease-out;
+        }
+
+        .animate-bounce-slow {
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        .animate-rotate-slow {
+            animation: rotate 20s linear infinite;
+        }
+
+        .animate-pulse-slow {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .wizard-illustration img {
+            transition: transform 0.3s ease;
+        }
+
+        .wizard-illustration:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Dropdown Styles */
+        .dropdown-menu-modern {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+            opacity: 0;
+            margin-left: 16px;
+            padding-left: 16px;
+            border-left: 2px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .dropdown-menu-modern.open {
+            max-height: 500px;
+            opacity: 1;
+        }
+
+        .menu-group {
+            position: relative;
+        }
+
+        .dropdown-icon-modern {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dropdown-icon-modern.rotated {
+            transform: rotate(180deg);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1024px) {
+            .wizard-container {
+                padding: 1.5rem;
+            }
+
+            .wizard-content {
+                padding: 2rem;
+            }
+
+            .wizard-illustration {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .wizard-progress {
+                padding: 1.5rem 1rem;
+            }
+
+            .wizard-step-circle {
+                width: 48px;
+                height: 48px;
+                font-size: 1rem;
+            }
+
+            .wizard-step-label {
+                font-size: 0.875rem;
+                max-width: 100px;
+            }
+
+            .wizard-step-title {
+                font-size: 0.75rem;
+                max-width: 100px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .wizard-progress {
+                padding: 1.5rem 0.5rem;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .wizard-progress::before {
+                display: none;
+            }
+
+            .wizard-progress-line {
+                display: none;
+            }
+
+            .wizard-step {
+                flex: 0 0 calc(50% - 0.5rem);
+                margin-bottom: 1rem;
+            }
+
+            .wizard-step:nth-child(odd) {
+                align-items: flex-start;
+            }
+
+            .wizard-step:nth-child(even) {
+                align-items: flex-end;
+            }
+
+            .wizard-step-circle {
+                width: 44px;
+                height: 44px;
+                font-size: 0.9375rem;
+            }
+
+            .wizard-step-label {
+                font-size: 0.8125rem;
+                margin-top: 0.75rem;
+                max-width: 90px;
+            }
+
+            .wizard-step-title {
+                font-size: 0.6875rem;
+                margin-top: 0.25rem;
+                max-width: 90px;
+            }
+
+            .wizard-completion-title {
+                font-size: 2rem;
+            }
+
+            .wizard-completion-text {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .wizard-step {
+                flex: 0 0 100%;
+                align-items: center !important;
+            }
+
+            .wizard-step-label {
+                max-width: 150px;
+            }
+
+            .wizard-step-title {
+                max-width: 150px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar-modern w-72 flex flex-col relative z-50">
+            <!-- Logo Section -->
+            <div class="logo-section px-6 py-6">
+                <div class="flex items-center space-x-3 relative z-10 w-full">
+                    <img src="images/logo-sidebar.png" alt="SMART ZISWAF"
+                        class="w-12 h-12 object-contain flex-shrink-0 sidebar-logo">
+                    <div class="logo-text text-gray-900 transition-all duration-300">
+                        <div class="text-lg font-bold leading-tight">SMART</div>
+                        <div class="text-lg font-bold leading-tight" style="color: #223301;">ZISWAF</div>
+                    </div>
+                </div>
+                <button id="toggleSidebar" class="toggle-btn-header">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="flex flex-col flex-1 px-2 py-6 space-y-2 overflow-y-auto sidebar-nav">
+                <a href="dashboard.html" class="menu-item-modern flex items-center space-x-4 px-4 py-3.5">
+                    <svg class="w-5 h-5 flex-shrink-0" style="color: #6b7280;" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                    </svg>
+                    <span class="menu-text text-sm text-gray-700 font-medium">Beranda</span>
+                </a>
+
+                <!-- Data Master -->
+                <div class="menu-group">
+                    <a href="#" class="menu-item-modern flex items-center justify-between px-4 py-3.5"
+                        onclick="toggleDropdown(event, 'dataMaster')">
+                        <div class="flex items-center space-x-4">
+                            <svg class="w-5 h-5 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
+                            </svg>
+                            <span class="menu-text text-sm text-gray-700 font-medium">Data Master</span>
+                        </div>
+                        <svg class="dropdown-icon-modern w-4 h-4 text-gray-500" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </a>
+                    <div id="dataMaster" class="dropdown-menu-modern">
+                        <a href="data-mesjid.html"
+                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                            </svg>
+                            <span>Data Mesjid</span>
+                        </a>
+                        <a href="data-umat.html"
+                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg>
+                            <span>Data Umat</span>
+                        </a>
+                        <a href="jenis-kurban.html"
+                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span>Jenis Kurban</span>
+                        </a>
+                        <a href="cluster.html"
+                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            <span>Cluster / Wilayah</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Manajemen Zakat -->
+                <div class="menu-group">
+                    <a href="#" class="menu-item-modern flex items-center justify-between px-4 py-3.5"
+                        onclick="toggleDropdown(event, 'manajemenZakat')">
+                        <div class="flex items-center space-x-4">
+                            <svg class="w-5 h-5 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                            </svg>
+                            <span class="menu-text text-sm text-gray-700 font-medium">Manajemen Zakat</span>
+                        </div>
+                        <svg class="dropdown-icon-modern w-4 h-4 text-gray-500" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </a>
+                    <div id="manajemenZakat" class="dropdown-menu-modern">
+                        <a href="kelola-zakat-fitrah.html"
+                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span>Kelola Zakat Fitrah</span>
+                        </a>
+                        <a href="data-mustahik.html"
+                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg>
+                            <span>Data Mustahik</span>
+                        </a>
+                        <a href="perhitungan-kalkulasi.html"
+                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                            </svg>
+                            <span>Perhitungan Kalkulasi</span>
+                        </a>
+                        <a href="kalkulasi-pembagian.html"
+                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                            </svg>
+                            <span>Kalkulasi Pembagian</span>
+                        </a>
+                        <a href="distribusi-zakat.html"
+                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                            </svg>
+                            <span>Distribusi Zakat</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Manajemen Kurban -->
+                <div class="menu-group">
+                    <a href="#" class="menu-item-modern flex items-center justify-between px-4 py-3.5"
+                        onclick="toggleDropdown(event, 'manajemenKurban')">
+                        <div class="flex items-center space-x-4">
+                            <svg class="w-5 h-5 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            <span class="menu-text text-sm text-gray-700 font-medium">Manajemen Kurban</span>
+                        </div>
+                        <svg class="dropdown-icon-modern w-4 h-4 text-gray-500" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </a>
+                    <div id="manajemenKurban" class="dropdown-menu-modern">
+                        <a href="daftar-kurban.html"
+                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            <span>Daftar Kurban</span>
+                        </a>
+                        <a href="#"
+                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                            </svg>
+                            <span>Distribusi Kurban</span>
+                        </a>
+                        <a href="#"
+                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                            </svg>
+                            <span>Laporan Kegiatan</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Catatan -->
+                <div class="menu-group">
+                    <a href="#" class="menu-item-modern flex items-center justify-between px-4 py-3.5"
+                        onclick="toggleDropdown(event, 'catatan')">
+                        <div class="flex items-center space-x-4">
+                            <svg class="w-5 h-5 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            <span class="menu-text text-sm text-gray-700 font-medium">Catatan</span>
+                        </div>
+                        <svg class="dropdown-icon-modern w-4 h-4 text-gray-500" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </a>
+                    <div id="catatan" class="dropdown-menu-modern">
+                        <a href="#"
+                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            <span>Catatan Pengeluaran</span>
+                        </a>
+                        <a href="#"
+                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                            </svg>
+                            <span>Kategori Pengeluaran</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Pengaturan -->
+                <div class="menu-group">
+                    <a href="#" class="menu-item-modern flex items-center justify-between px-4 py-3.5"
+                        onclick="toggleDropdown(event, 'pengaturan')">
+                        <div class="flex items-center space-x-4">
+                            <svg class="w-5 h-5 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            <span class="menu-text text-sm text-gray-700 font-medium">Pengaturan</span>
+                        </div>
+                        <svg class="dropdown-icon-modern w-4 h-4 text-gray-500" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </a>
+                    <div id="pengaturan" class="dropdown-menu-modern">
+                        <a href="bahasa-aplikasi.html"
+                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+                            </svg>
+                            <span>Bahasa Aplikasi</span>
+                        </a>
+                        <a href="pencatatan.html"
+                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            <span>Pencatatan</span>
+                        </a>
+                    </div>
+                </div>
+
+                <a href="#" class="menu-item-modern flex items-center space-x-4 px-4 py-3.5">
+                    <svg class="w-5 h-5 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    <span class="menu-text text-sm text-gray-700 font-medium">Laporan</span>
+                </a>
+
+                <!-- Wizard -->
+                <div class="mt-auto pt-4 border-t border-gray-200">
+                    <a href="wizard.html" class="menu-item-modern active flex items-center space-x-4 px-4 py-3.5">
+                        <svg class="w-5 h-5 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <span class="menu-text text-sm font-medium" style="color: #223301;">Wizard</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto main-content-bg">
+            <div class="wizard-container">
+                <!-- Wizard Progress -->
+                <div class="wizard-progress">
+                    <div class="wizard-progress-line" id="progress-line"></div>
+                    <div class="wizard-step active" data-step="1">
+                        <div class="wizard-step-circle">1</div>
+                        <div class="wizard-step-label">Selamat Datang!</div>
+                        <div class="wizard-step-title">Persiapan Awal</div>
+                    </div>
+                    <div class="wizard-step" data-step="2">
+                        <div class="wizard-step-circle">2</div>
+                        <div class="wizard-step-label">Ganti Kata Sandi</div>
+                        <div class="wizard-step-title">Keamanan Akun</div>
+                    </div>
+                    <div class="wizard-step" data-step="3">
+                        <div class="wizard-step-circle">3</div>
+                        <div class="wizard-step-label">Isi Biodata</div>
+                        <div class="wizard-step-title">Lengkapi Profil Anda</div>
+                    </div>
+                    <div class="wizard-step" data-step="4">
+                        <div class="wizard-step-circle">4</div>
+                        <div class="wizard-step-label">Syarat & Ketentuan</div>
+                        <div class="wizard-step-title">Kebijakan Platform</div>
+                    </div>
+                    <div class="wizard-step" data-step="5">
+                        <div class="wizard-step-circle">5</div>
+                        <div class="wizard-step-label">Selesai</div>
+                        <div class="wizard-step-title" style="opacity: 0; height: 0; margin: 0;">&nbsp;</div>
+                    </div>
+                </div>
+
+                <!-- Wizard Content -->
+                <div class="wizard-content">
+                    <!-- Step 1: Welcome -->
+                    <div class="wizard-step-content active" id="step-1">
+                        <div class="flex flex-col lg:flex-row items-center justify-between mb-8 gap-8">
+                            <div class="wizard-illustration flex-shrink-0 animate-float"
+                                style="max-width: 500px; width: 100%;">
+                                <img src="images/welcome.svg" alt="Welcome" class="w-full h-auto"
+                                    style="filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));">
+                            </div>
+                            <div class="flex-1 lg:ml-12 animate-slide-in text-center lg:text-left">
+                                <h2 class="text-4xl font-bold text-gray-900 mb-4">Selamat Datang!</h2>
+                                <p class="text-xl text-gray-600 leading-relaxed">
+                                    Mari kita siapkan akun Anda untuk pengalaman terbaik menggunakan SmartZiswaf. Ikuti
+                                    langkah-langkah sederhana di bawah ini untuk memulai.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="wizard-buttons">
+                            <button class="wizard-btn wizard-btn-primary" onclick="nextStep()">Selanjutnya</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Change Password -->
+                    <div class="wizard-step-content" id="step-2">
+                        <div class="flex items-center justify-between mb-8">
+                            <div class="flex-1 animate-slide-in">
+                                <h2 class="text-3xl font-bold text-gray-900 mb-4">Ganti Kata Sandi</h2>
+                                <p class="text-lg text-gray-600 mb-6">
+                                    Pastikan kata sandi Anda kuat dan aman untuk melindungi akun Anda
+                                </p>
+                                <div class="wizard-form-group">
+                                    <label class="wizard-form-label">Kata Sandi</label>
+                                    <input type="password" class="wizard-form-input" placeholder="Masukkan Kata Sandi">
+                                </div>
+                                <div class="wizard-form-group">
+                                    <label class="wizard-form-label">Konfirmasi Kata Sandi</label>
+                                    <input type="password" class="wizard-form-input"
+                                        placeholder="Konfirmasi Kata Sandi">
+                                </div>
+                            </div>
+                            <div class="wizard-illustration ml-8">
+                                <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg"
+                                    class="animate-float">
+                                    <!-- Background -->
+                                    <rect width="400" height="400" fill="#f0fdf4" />
+
+                                    <!-- Person (Isometric style) -->
+                                    <g class="animate-float-delayed">
+                                        <!-- Head -->
+                                        <circle cx="150" cy="180" r="20" fill="#fbbf24" />
+                                        <!-- Body -->
+                                        <rect x="130" y="200" width="40" height="60" rx="20" fill="#22c55e" />
+                                        <!-- Legs -->
+                                        <rect x="135" y="260" width="12" height="40" rx="6" fill="#1e293b" />
+                                        <rect x="153" y="260" width="12" height="40" rx="6" fill="#1e293b" />
+                                    </g>
+
+                                    <!-- Smartphone -->
+                                    <g class="animate-float">
+                                        <rect x="220" y="100" width="80" height="160" rx="12" fill="#1e293b"
+                                            stroke="#0f172a" stroke-width="3" />
+                                        <rect x="230" y="110" width="60" height="100" rx="4" fill="#0f172a" />
+
+                                        <!-- Lock Icon on Screen -->
+                                        <g transform="translate(250, 150)">
+                                            <circle cx="0" cy="0" r="15" fill="none" stroke="#22c55e"
+                                                stroke-width="3" />
+                                            <rect x="-8" y="5" width="16" height="12" rx="2" fill="#22c55e" />
+                                        </g>
+
+                                        <!-- Password dots -->
+                                        <circle cx="250" cy="230" r="4" fill="#22c55e" class="animate-pulse-slow" />
+                                        <circle cx="260" cy="230" r="4" fill="#22c55e" class="animate-pulse-slow"
+                                            style="animation-delay: 0.2s" />
+                                        <circle cx="270" cy="230" r="4" fill="#22c55e" class="animate-pulse-slow"
+                                            style="animation-delay: 0.4s" />
+
+                                        <!-- Enter Button -->
+                                        <rect x="235" y="250" width="50" height="20" rx="4" fill="#22c55e" />
+                                        <text x="260" y="263" text-anchor="middle" fill="white" font-size="10"
+                                            font-weight="bold">ENTER</text>
+
+                                        <!-- Home button -->
+                                        <circle cx="260" cy="280" r="8" fill="#475569" />
+                                    </g>
+
+                                    <!-- Security Icons Floating -->
+                                    <g class="animate-float-delayed">
+                                        <!-- Fingerprint -->
+                                        <g transform="translate(300, 200)">
+                                            <ellipse cx="0" cy="0" rx="12" ry="18" fill="none" stroke="#22c55e"
+                                                stroke-width="2" />
+                                            <path d="M-8 -5 Q0 -8 8 -5" stroke="#22c55e" stroke-width="1.5"
+                                                fill="none" />
+                                            <path d="M-6 0 Q0 2 6 0" stroke="#22c55e" stroke-width="1.5" fill="none" />
+                                            <path d="M-8 5 Q0 8 8 5" stroke="#22c55e" stroke-width="1.5" fill="none" />
+                                        </g>
+
+                                        <!-- Face Recognition -->
+                                        <g transform="translate(320, 150)" class="animate-bounce-slow">
+                                            <circle cx="0" cy="0" r="15" fill="none" stroke="#22c55e"
+                                                stroke-width="2" />
+                                            <circle cx="-5" cy="-3" r="2" fill="#22c55e" />
+                                            <circle cx="5" cy="-3" r="2" fill="#22c55e" />
+                                            <path d="M-5 5 Q0 8 5 5" stroke="#22c55e" stroke-width="1.5" fill="none" />
+                                        </g>
+
+                                        <!-- Key -->
+                                        <g transform="translate(280, 280)" class="animate-rotate-slow">
+                                            <rect x="-8" y="-3" width="16" height="6" rx="3" fill="#fbbf24" />
+                                            <circle cx="0" cy="0" r="4" fill="none" stroke="#fbbf24" stroke-width="2" />
+                                            <rect x="8" y="-2" width="8" height="4" rx="1" fill="#fbbf24" />
+                                        </g>
+                                    </g>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="wizard-buttons">
+                            <button class="wizard-btn wizard-btn-secondary" onclick="prevStep()">Kembali</button>
+                            <button class="wizard-btn wizard-btn-primary" onclick="nextStep()">Selanjutnya</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Fill Biodata -->
+                    <div class="wizard-step-content" id="step-3">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6 animate-slide-in">Isi Biodata</h2>
+                        <div class="grid grid-cols-2 gap-8">
+                            <div>
+                                <div class="wizard-upload-area animate-slide-in"
+                                    onclick="document.getElementById('avatar-upload').click()">
+                                    <div class="wizard-upload-icon animate-float">
+                                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <!-- Cloud Upload Icon -->
+                                            <path
+                                                d="M30 40 C20 40, 20 50, 30 50 L35 50 C35 55, 40 60, 45 60 C50 60, 55 55, 55 50 L60 50 C70 50, 70 40, 60 40 C60 30, 50 25, 45 30 C40 20, 30 25, 30 35 Z"
+                                                fill="#22c55e" opacity="0.2" class="animate-pulse-slow" />
+                                            <path
+                                                d="M30 40 C20 40, 20 50, 30 50 L35 50 C35 55, 40 60, 45 60 C50 60, 55 55, 55 50 L60 50 C70 50, 70 40, 60 40 C60 30, 50 25, 45 30 C40 20, 30 25, 30 35 Z"
+                                                stroke="#22c55e" stroke-width="3" fill="none" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                            <!-- Arrow Up -->
+                                            <path d="M45 35 L45 55 M45 35 L38 42 M45 35 L52 42" stroke="#22c55e"
+                                                stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+                                                class="animate-bounce-slow" />
+                                        </svg>
+                                    </div>
+                                    <p class="text-gray-600 font-medium mb-2">Drag & Drop avatar Anda di sini</p>
+                                    <p class="text-gray-500 text-sm">atau</p>
+                                    <p
+                                        class="text-gray-600 font-medium mt-2 cursor-pointer hover:text-223301 transition-colors">
+                                        File Browser</p>
+                                    <input type="file" id="avatar-upload" class="hidden" accept="image/*">
+                                </div>
+                            </div>
+                            <div>
+                                <div class="wizard-form-group">
+                                    <label class="wizard-form-label">User Name</label>
+                                    <input type="text" class="wizard-form-input" placeholder="User Name">
+                                </div>
+                                <div class="wizard-form-group">
+                                    <label class="wizard-form-label">Nama</label>
+                                    <input type="text" class="wizard-form-input" placeholder="Nama">
+                                </div>
+                                <div class="wizard-form-group">
+                                    <label class="wizard-form-label">Email</label>
+                                    <input type="email" class="wizard-form-input" placeholder="Email">
+                                </div>
+                                <div class="wizard-form-group">
+                                    <label class="wizard-form-label">Phone</label>
+                                    <input type="tel" class="wizard-form-input" placeholder="Phone">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="wizard-buttons">
+                            <button class="wizard-btn wizard-btn-secondary" onclick="prevStep()">Kembali</button>
+                            <button class="wizard-btn wizard-btn-primary" onclick="nextStep()">Selanjutnya</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Terms & Conditions -->
+                    <div class="wizard-step-content" id="step-4">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Syarat dan Ketentuan</h2>
+                        <div class="wizard-terms-box">
+                            <p class="text-gray-700 leading-relaxed">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+                                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                mollit anim id est laborum.
+                            </p>
+                            <p class="text-gray-700 leading-relaxed mt-4">
+                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+                                laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+                                architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas
+                                sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+                                voluptatem sequi nesciunt.
+                            </p>
+                            <p class="text-gray-700 leading-relaxed mt-4">
+                                Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci
+                                velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam
+                                aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam
+                                corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?
+                            </p>
+                        </div>
+                        <div class="wizard-checkbox mb-6">
+                            <input type="checkbox" id="terms-checkbox">
+                            <label for="terms-checkbox" class="text-gray-700">Saya Setuju dengan Term &
+                                Condition</label>
+                        </div>
+                        <div class="wizard-buttons">
+                            <button class="wizard-btn wizard-btn-secondary" onclick="prevStep()">Kembali</button>
+                            <button class="wizard-btn wizard-btn-primary" id="next-btn-step4" onclick="nextStep()"
+                                disabled>Selanjutnya</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 5: Done -->
+                    <div class="wizard-step-content" id="step-5">
+                        <div class="text-center">
+                            <div class="wizard-completion-illustration mb-8 animate-float">
+                                <img src="images/selesai.svg" alt="Selesai" class="w-full h-auto max-w-2xl mx-auto"
+                                    style="filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));">
+                            </div>
+                            <h2 class="wizard-completion-title animate-slide-in">Selesai!</h2>
+                            <p class="wizard-completion-text animate-slide-in" style="animation-delay: 0.2s">
+                                Akun Anda sudah siap digunakan. Klik tombol "Mulai" di bawah untuk memakai SmartZiswaf.
+                            </p>
+                            <button class="wizard-btn-start animate-slide-in" style="animation-delay: 0.4s"
+                                onclick="window.location.href='dashboard.html'">Mulai</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 5;
+
+        function updateProgress() {
+            // Update progress circles
+            document.querySelectorAll('.wizard-step').forEach((step, index) => {
+                const stepNum = index + 1;
+                step.classList.remove('active', 'completed');
+
+                if (stepNum < currentStep) {
+                    step.classList.add('completed');
+                } else if (stepNum === currentStep) {
+                    step.classList.add('active');
+                }
+            });
+
+            // Update progress line
+            const progressLine = document.getElementById('progress-line');
+            if (progressLine) {
+                const totalWidth = 80; // 80% of container (10% margin on each side)
+                const progressPercent = ((currentStep - 1) / (totalSteps - 1)) * totalWidth;
+                progressLine.style.width = progressPercent + '%';
+            }
+
+            // Update content visibility
+            document.querySelectorAll('.wizard-step-content').forEach((content, index) => {
+                content.classList.remove('active');
+                if (index + 1 === currentStep) {
+                    content.classList.add('active');
+                }
+            });
+        }
+
+        function nextStep() {
+            if (currentStep < totalSteps) {
+                currentStep++;
+                updateProgress();
+
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                updateProgress();
+
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // Terms checkbox handler
+        document.getElementById('terms-checkbox')?.addEventListener('change', function () {
+            const nextBtn = document.getElementById('next-btn-step4');
+            if (nextBtn) {
+                nextBtn.disabled = !this.checked;
+            }
+        });
+
+        // Toggle Sidebar
+        const sidebar = document.getElementById('sidebar');
+        const toggleSidebar = document.getElementById('toggleSidebar');
+
+        toggleSidebar?.addEventListener('click', () => {
+            sidebar.classList.toggle('collapsed');
+        });
+
+        // Dropdown toggle
+        function toggleDropdown(event, id) {
+            event.preventDefault();
+            const dropdown = document.getElementById(id);
+            const icon = event.currentTarget.querySelector('.dropdown-icon-modern');
+
+            if (dropdown) {
+                const isOpen = dropdown.classList.contains('open');
+
+                // Close all dropdowns
+                document.querySelectorAll('.dropdown-menu-modern').forEach(menu => {
+                    menu.classList.remove('open');
+                });
+                document.querySelectorAll('.dropdown-icon-modern').forEach(icon => {
+                    icon.classList.remove('rotated');
+                });
+
+                // Toggle current dropdown
+                if (!isOpen) {
+                    dropdown.classList.add('open');
+                    if (icon) {
+                        icon.classList.add('rotated');
+                    }
+                }
+            }
+        }
+
+        // Initialize
+        updateProgress();
+    </script>
+</body>
+
+</html>

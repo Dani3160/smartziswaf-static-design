@@ -4,13 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tambah Data Muzakki - SMART ZISWAF</title>
+    <title>Tambah Data Kurban - SMART ZISWAF</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <!-- SweetAlert2 CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css"
+        rel="stylesheet" />
     <style>
         * {
             margin: 0;
@@ -23,7 +27,7 @@
             background: #f5f7fa;
         }
 
-        /* Modern Sidebar - Copy from dashboard.html */
+        /* Modern Sidebar */
         .sidebar-modern {
             background: #ffffff;
             box-shadow: 4px 0 30px rgba(0, 0, 0, 0.08);
@@ -177,17 +181,6 @@
             height: 20px !important;
         }
 
-        /* Ensure all icons are visible when collapsed */
-        .sidebar-modern.collapsed nav svg {
-            opacity: 1 !important;
-            visibility: visible !important;
-        }
-
-        .sidebar-modern.collapsed .menu-item-modern>svg {
-            width: 20px !important;
-            height: 20px !important;
-        }
-
         .sidebar-modern.collapsed .menu-item-modern:not(.active) svg,
         .sidebar-modern.collapsed .menu-group>a:not(.active) svg,
         .sidebar-modern.collapsed .menu-item-modern:not(.active) .flex svg,
@@ -215,9 +208,10 @@
         }
 
         .menu-item-modern.active {
-            background: linear-gradient(135deg, rgba(34, 51, 1, 0.12) 0%, rgba(45, 74, 10, 0.08) 100%);
+            background: linear-gradient(135deg, rgba(34, 51, 1, 0.18) 0%, rgba(45, 74, 10, 0.15) 100%);
             border-left: 4px solid #223301;
-            box-shadow: 0 2px 8px rgba(34, 51, 1, 0.15);
+            box-shadow: 0 2px 12px rgba(34, 51, 1, 0.2);
+            border-radius: 12px;
         }
 
         .menu-item-modern.active::before {
@@ -260,7 +254,6 @@
 
         .main-content-bg {
             background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-            min-height: 100vh;
             padding-bottom: 2rem;
         }
 
@@ -353,20 +346,6 @@
             cursor: pointer;
         }
 
-        .section-title {
-            font-size: 18px;
-            font-weight: 700;
-            color: #1e293b;
-            margin-bottom: 24px;
-            margin-top: 32px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid #f1f5f9;
-        }
-
-        .section-title:first-child {
-            margin-top: 0;
-        }
-
         .btn-modern {
             padding: 12px 24px;
             border-radius: 12px;
@@ -425,31 +404,6 @@
             transform: translateY(0) scale(1);
         }
 
-        .dropdown-item {
-            padding: 12px 16px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border-bottom: 1px solid #f1f5f9;
-        }
-
-        .dropdown-item:hover {
-            background: #f8fafc;
-        }
-
-        .dropdown-item:last-child {
-            border-bottom: none;
-        }
-
-        .participant-input-group {
-            display: flex;
-            gap: 12px;
-            align-items: flex-end;
-        }
-
-        .participant-input-group .form-input {
-            flex: 1;
-        }
-
         .badge-notification {
             position: absolute;
             top: -4px;
@@ -483,6 +437,83 @@
         .dropdown-icon-modern.rotated {
             transform: rotate(180deg);
         }
+
+        .toggle-btn-header {
+            position: absolute;
+            right: -14px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #223301;
+            border: 2px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .toggle-btn-header:hover {
+            background: #2d4a0a;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .toggle-btn-header svg {
+            width: 16px;
+            height: 16px;
+            color: white;
+        }
+
+        .logo-section {
+            background: #ffffff;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 80px;
+        }
+
+        .sidebar-modern:not(.collapsed) .logo-section {
+            justify-content: flex-start;
+        }
+
+        /* Select2 Custom Styles */
+        .select2-container {
+            width: 100% !important;
+        }
+
+        .select2-container--default .select2-selection--single {
+            border: 2px solid #e5e7eb !important;
+            border-radius: 12px !important;
+            background: white !important;
+            height: 48px !important;
+            padding: 0 !important;
+        }
+
+        .select2-container--default.select2-container--focus .select2-selection--single,
+        .select2-container--default.select2-container--open .select2-selection--single {
+            border-color: #223301 !important;
+            box-shadow: 0 0 0 3px rgba(34, 51, 1, 0.1) !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            padding: 12px 40px 12px 16px !important;
+            color: #1e293b !important;
+            font-size: 14px !important;
+            line-height: 24px !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 100% !important;
+            right: 12px !important;
+            top: 0 !important;
+            width: 20px !important;
+        }
     </style>
 </head>
 
@@ -491,27 +522,25 @@
         <!-- Sidebar -->
         <aside id="sidebar" class="sidebar-modern w-72 flex flex-col relative z-50">
             <!-- Logo Section -->
-            <div class="logo-section px-6 py-6"
-                style="background: #ffffff; border-bottom: 1px solid rgba(226, 232, 240, 0.8); position: relative;">
+            <div class="logo-section px-6 py-6">
                 <div class="flex items-center space-x-3 relative z-10 w-full">
                     <img src="images/logo-sidebar.png" alt="SMART ZISWAF"
-                        class="w-12 h-12 object-contain flex-shrink-0">
+                        class="w-12 h-12 object-contain flex-shrink-0 sidebar-logo">
                     <div class="logo-text text-gray-900 transition-all duration-300">
                         <div class="text-lg font-bold leading-tight">SMART</div>
                         <div class="text-lg font-bold leading-tight" style="color: #223301;">ZISWAF</div>
                     </div>
                 </div>
-                <button id="toggleSidebar" class="toggle-btn-header"
-                    style="position: absolute; right: -14px; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; border-radius: 50%; background: #223301; border: 2px solid white; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10;">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        style="width: 16px; height: 16px; color: white;">
+                <button id="toggleSidebar" class="toggle-btn-header">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                     </svg>
                 </button>
             </div>
 
             <!-- Navigation -->
-            <nav class="flex flex-col flex-1 px-2 py-6 space-y-2 overflow-y-auto" style="padding: 16px 8px;">
+            <nav class="flex flex-col flex-1 px-2 py-6 space-y-2 overflow-y-auto sidebar-nav">
+                <!-- Beranda -->
                 <a href="dashboard.html" class="menu-item-modern flex items-center space-x-4 px-4 py-3.5">
                     <svg class="w-5 h-5 flex-shrink-0 text-gray-600" fill="none" stroke="currentColor"
                         viewBox="0 0 24 24">
@@ -522,16 +551,16 @@
                 </a>
 
                 <!-- Data Master -->
-                <div class="menu-group" style="position: relative;">
+                <div class="menu-group">
                     <a href="#" class="menu-item-modern flex items-center justify-between px-4 py-3.5"
                         onclick="toggleDropdown(event, 'dataMaster')">
                         <div class="flex items-center space-x-4">
-                            <svg class="w-5 h-5 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor"
+                            <svg class="w-5 h-5 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
                             </svg>
-                            <span class="menu-text text-sm text-gray-700 font-medium">Data Master</span>
+                            <span class="menu-text text-sm font-medium" style="color: #223301;">Data Master</span>
                         </div>
                         <svg class="dropdown-icon-modern w-4 h-4 text-gray-500" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
@@ -549,7 +578,7 @@
                             <span>Data Mesjid</span>
                         </a>
                         <a href="data-umat.html"
-                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm">
                             <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -582,30 +611,30 @@
 
                 <!-- Manajemen Zakat -->
                 <div class="menu-group">
-                    <a href="#" class="menu-item-modern active flex items-center justify-between px-4 py-3.5"
+                    <a href="#" class="menu-item-modern flex items-center justify-between px-4 py-3.5"
                         onclick="toggleDropdown(event, 'manajemenZakat')">
                         <div class="flex items-center space-x-4">
-                            <svg class="w-5 h-5 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor"
+                            <svg class="w-5 h-5 flex-shrink-0 text-gray-600" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                             </svg>
-                            <span class="menu-text text-sm text-gray-700 font-medium">Manajemen Zakat</span>
+                            <span class="menu-text text-sm font-medium text-gray-700">Manajemen Zakat</span>
                         </div>
                         <svg class="dropdown-icon-modern w-4 h-4 text-gray-500" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </a>
-                    <div id="manajemenZakat" class="dropdown-menu-modern open">
+                    <div id="manajemenZakat" class="dropdown-menu-modern">
                         <a href="kelola-zakat-fitrah.html"
-                            class="menu-item-modern active flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
                             <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
-                            <span style="color: #223301; font-weight: 600;">Kelola Zakat Fitrah</span>
+                            <span>Kelola Zakat Fitrah</span>
                         </a>
                         <a href="data-mustahik.html"
                             class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
@@ -634,7 +663,7 @@
                             </svg>
                             <span>Kalkulasi Pembagian</span>
                         </a>
-                        <a href="#"
+                        <a href="distribusi-zakat.html"
                             class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
                             <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
@@ -648,24 +677,24 @@
 
                 <!-- Manajemen Kurban -->
                 <div class="menu-group">
-                    <a href="#" class="menu-item-modern flex items-center justify-between px-4 py-3.5"
+                    <a href="#" class="menu-item-modern active flex items-center justify-between px-4 py-3.5"
                         onclick="toggleDropdown(event, 'manajemenKurban')">
                         <div class="flex items-center space-x-4">
-                            <svg class="w-5 h-5 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor"
+                            <svg class="w-5 h-5 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                             </svg>
-                            <span class="menu-text text-sm text-gray-700 font-medium">Manajemen Kurban</span>
+                            <span class="menu-text text-sm font-medium" style="color: #223301;">Manajemen Kurban</span>
                         </div>
-                        <svg class="dropdown-icon-modern w-4 h-4 text-gray-500" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24">
+                        <svg class="dropdown-icon-modern w-4 h-4 text-gray-500 rotated" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </a>
-                    <div id="manajemenKurban" class="dropdown-menu-modern">
+                    <div id="manajemenKurban" class="dropdown-menu-modern open">
                         <a href="daftar-kurban.html"
-                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            class="menu-item-modern active flex items-center space-x-3 px-4 py-2.5 text-sm">
                             <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -804,9 +833,10 @@
                 <div class="header-hero-content px-8 py-6">
                     <div class="flex justify-between items-center">
                         <div>
-                            <p class="text-white/80 text-sm mb-1">Manajemen Zakat / Kelola Zakat Fitrah / Tambah Data
-                                Muzakki Zakat Fitrah</p>
-                            <h1 class="text-3xl font-bold text-white">Tambah Data Muzakki</h1>
+                            <p class="text-white/80 text-sm mb-1" id="breadcrumb">Manajemen Kurban / Daftar Kurban /
+                                Tambah Data Kurban
+                            </p>
+                            <h1 class="text-3xl font-bold text-white" id="pageTitle">Tambah Data Kurban</h1>
                         </div>
                         <div class="flex items-center space-x-4">
                             <!-- Notification Button -->
@@ -826,8 +856,7 @@
                                         <div class="flex items-center justify-between">
                                             <h3 class="text-lg font-bold text-gray-900">Notifikasi</h3>
                                             <button class="text-sm font-medium hover:opacity-80"
-                                                style="color: #223301;">Tandai
-                                                semua</button>
+                                                style="color: #223301;">Tandai semua</button>
                                         </div>
                                     </div>
                                     <div class="max-h-96 overflow-y-auto">
@@ -852,51 +881,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div
-                                            class="p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer transition bg-blue-50">
-                                            <div class="flex items-start space-x-3">
-                                                <div
-                                                    class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                                                    <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor"
-                                                        viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2"
-                                                            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                                    </svg>
-                                                </div>
-                                                <div class="flex-1">
-                                                    <p class="text-sm font-semibold text-gray-900">Distribusi Selesai
-                                                    </p>
-                                                    <p class="text-xs text-gray-600 mt-1">Distribusi zakat ke 50
-                                                        mustahik</p>
-                                                    <p class="text-xs text-gray-400 mt-1">1 jam yang lalu</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div
-                                            class="p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer transition">
-                                            <div class="flex items-start space-x-3">
-                                                <div
-                                                    class="w-10 h-10 bg-orange-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                                                    <svg class="w-5 h-5 text-orange-600" fill="none"
-                                                        stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2"
-                                                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                                                    </svg>
-                                                </div>
-                                                <div class="flex-1">
-                                                    <p class="text-sm font-semibold text-gray-900">Peringatan Stok</p>
-                                                    <p class="text-xs text-gray-600 mt-1">Stok beras hampir habis</p>
-                                                    <p class="text-xs text-gray-400 mt-1">3 jam yang lalu</p>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                     <div class="p-4 border-t border-gray-200 text-center">
                                         <a href="#" class="text-sm font-medium hover:opacity-80"
-                                            style="color: #223301;">Lihat semua
-                                            notifikasi</a>
+                                            style="color: #223301;">Lihat semua notifikasi</a>
                                     </div>
                                 </div>
                             </div>
@@ -956,15 +944,6 @@
                                             </svg>
                                             <span>Pengaturan</span>
                                         </a>
-                                        <a href="#"
-                                            class="flex items-center space-x-3 px-5 py-3 text-sm text-gray-700 hover:bg-gray-50 transition">
-                                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor"
-                                                viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                            </svg>
-                                            <span>Bantuan</span>
-                                        </a>
                                         <div class="border-t border-gray-200 my-2"></div>
                                         <a href="#"
                                             class="flex items-center space-x-3 px-5 py-3 text-sm text-red-600 hover:bg-red-50 transition">
@@ -989,16 +968,15 @@
                         <!-- Checkbox untuk ambil data sebelumnya -->
                         <div class="checkbox-wrapper">
                             <input type="checkbox" id="ambilDataSebelumnya" class="checkbox-input">
-                            <label for="ambilDataSebelumnya" class="checkbox-label">Ambil data muzakki
-                                sebelumnya</label>
+                            <label for="ambilDataSebelumnya" class="checkbox-label">Ambil data kurban sebelumnya</label>
                         </div>
 
-                        <!-- Dropdown Muzakki (muncul jika checkbox dicentang) -->
-                        <div id="muzakkiDropdownWrapper" class="mb-6" style="display: none;">
-                            <label class="form-label">Pilih Muzakki</label>
+                        <!-- Dropdown Kurban (muncul jika checkbox dicentang) -->
+                        <div id="kurbanDropdownWrapper" class="mb-6" style="display: none;">
+                            <label class="form-label">Pilih Data Kurban Sebelumnya</label>
                             <div class="select-wrapper relative">
-                                <select id="muzakkiSelect" class="form-select">
-                                    <option value="">-- Pilih Muzakki --</option>
+                                <select id="kurbanSelect" class="form-select">
+                                    <option value="">-- Pilih Data Kurban --</option>
                                     <option value="ahmad-sulaiman">Ahmad Sulaiman</option>
                                     <option value="budi-santoso">Budi Santoso</option>
                                     <option value="siti-nurhaliza">Siti Nurhaliza</option>
@@ -1015,37 +993,20 @@
                             <!-- Left Column -->
                             <div class="space-y-6">
                                 <div>
-                                    <label class="form-label">Nama Kepala Keluarga</label>
-                                    <input type="text" id="namaKepalaKeluarga" class="form-input"
-                                        placeholder="Enter your user name">
+                                    <label class="form-label">Nama</label>
+                                    <input type="text" id="nama" class="form-input" placeholder="Enter your user name">
                                 </div>
                                 <div>
-                                    <label class="form-label">Jumlah Jiwa</label>
-                                    <input type="number" id="jumlahJiwa" class="form-input"
-                                        placeholder="Enter your user name">
-                                </div>
-                                <div>
-                                    <label class="form-label">Total Zakat Fitrah</label>
-                                    <input type="text" id="totalZakatFitrah" class="form-input"
-                                        placeholder="Enter your user name">
-                                </div>
-                                <div>
-                                    <label class="form-label">Uang Infaq</label>
-                                    <input type="text" id="uangInfaq" class="form-input"
-                                        placeholder="Enter your user name">
-                                </div>
-                                <div>
-                                    <label class="form-label">Jumlah Ziswaf Uang</label>
-                                    <input type="text" id="jumlahZiswafUang" class="form-input"
-                                        placeholder="Enter your user name">
-                                </div>
-                                <div>
-                                    <label class="form-label">Jenis Pembayaran</label>
+                                    <label class="form-label">Cluster</label>
                                     <div class="select-wrapper relative">
-                                        <select id="jenisPembayaran" class="form-select">
-                                            <option value="">-- Pilih Jenis Pembayaran --</option>
-                                            <option value="tunai">Tunai</option>
-                                            <option value="transfer">Transfer</option>
+                                        <select id="cluster" class="form-select">
+                                            <option value="">-- Pilih Cluster --</option>
+                                            <option value="Cluster A">Cluster A</option>
+                                            <option value="Cluster B">Cluster B</option>
+                                            <option value="BANDUNG">BANDUNG</option>
+                                            <option value="BATAM">BATAM</option>
+                                            <option value="JAKARTA">JAKARTA</option>
+                                            <option value="SURABAYA">SURABAYA</option>
                                         </select>
                                         <svg class="select-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -1053,65 +1014,28 @@
                                         </svg>
                                     </div>
                                 </div>
-
-                                <!-- Data Tambahan Section -->
                                 <div>
-                                    <h3 class="section-title">Data Tambahan</h3>
-                                    <div class="space-y-6">
-                                        <div>
-                                            <label class="form-label">Cluster</label>
-                                            <div class="select-wrapper relative">
-                                                <select id="cluster" class="form-select">
-                                                    <option value="">-- Pilih Cluster --</option>
-                                                    <option value="bandung">Bandung</option>
-                                                    <option value="batam">Batam</option>
-                                                    <option value="jakarta">Jakarta</option>
-                                                    <option value="surabaya">Surabaya</option>
-                                                </select>
-                                                <svg class="select-icon" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2" d="M19 9l-7 7-7-7" />
-                                                </svg>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <label class="form-label">Blok</label>
-                                            <input type="text" id="blok" class="form-input"
-                                                placeholder="Enter your user name">
-                                        </div>
-                                    </div>
+                                    <label class="form-label">Jumlah</label>
+                                    <input type="number" id="jumlah" class="form-input"
+                                        placeholder="Enter your user name">
                                 </div>
-
-                                <!-- Nama Peserta Zakat Section -->
                                 <div>
-                                    <h3 class="section-title">Nama Peserta Zakat:</h3>
-                                    <div id="pesertaZakatContainer">
-                                        <div class="participant-input-group mb-4">
-                                            <input type="text" class="form-input" placeholder="Nama Peserta Ke-1"
-                                                name="peserta[]">
-                                        </div>
-                                    </div>
-                                    <button type="button" id="tambahPesertaBtn"
-                                        class="btn-modern secondary text-sm mt-2">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M12 4v16m8-8H4" />
-                                        </svg>
-                                        Tambah Peserta
-                                    </button>
+                                    <label class="form-label">Total Harga</label>
+                                    <input type="text" id="totalHarga" class="form-input"
+                                        placeholder="Enter your user name" readonly>
                                 </div>
                             </div>
 
                             <!-- Right Column -->
                             <div class="space-y-6">
                                 <div>
-                                    <label class="form-label">Jenis Zakat Fitrah</label>
+                                    <label class="form-label">Jenis Kurban</label>
                                     <div class="select-wrapper relative">
-                                        <select id="jenisZakatFitrah" class="form-select">
-                                            <option value="">-- Pilih Jenis Zakat Fitrah --</option>
-                                            <option value="beras">Beras</option>
-                                            <option value="uang">Uang</option>
+                                        <select id="jenisKurban" class="form-select">
+                                            <option value="">-- Pilih Jenis Kurban --</option>
+                                            <option value="Kambing">Kambing</option>
+                                            <option value="Sapi">Sapi</option>
+                                            <option value="Domba">Domba</option>
                                         </select>
                                         <svg class="select-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -1120,28 +1044,16 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="form-label">Zakat Fitrah</label>
-                                    <input type="text" id="zakatFitrah" class="form-input"
-                                        placeholder="Enter your user name">
+                                    <label class="form-label">Blok</label>
+                                    <input type="text" id="blok" class="form-input" placeholder="Enter your user name">
                                 </div>
                                 <div>
-                                    <label class="form-label">Fidyah</label>
-                                    <input type="text" id="fidyah" class="form-input"
-                                        placeholder="Enter your user name">
+                                    <label class="form-label">Harga</label>
+                                    <input type="text" id="harga" class="form-input" placeholder="Enter your user name">
                                 </div>
                                 <div>
-                                    <label class="form-label">Beras Infaq</label>
-                                    <input type="text" id="berasInfaq" class="form-input"
-                                        placeholder="Enter your user name">
-                                </div>
-                                <div>
-                                    <label class="form-label">Jumlah Ziswaf Beras</label>
-                                    <input type="text" id="jumlahZiswafBeras" class="form-input"
-                                        placeholder="Enter your user name">
-                                </div>
-                                <div>
-                                    <label class="form-label">Nomor Telepon</label>
-                                    <input type="text" id="nomorTelepon" class="form-input"
+                                    <label class="form-label">Deskripsi</label>
+                                    <input type="text" id="deskripsi" class="form-input"
                                         placeholder="Enter your user name">
                                 </div>
                             </div>
@@ -1158,12 +1070,16 @@
                         </div>
                     </div>
                 </div>
-                <br><br><br><br><br><br><br><br>
+
             </main>
         </div>
     </div>
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- jQuery (required for Select2) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         // Function to close all dropdowns
         function closeAllDropdowns() {
@@ -1212,83 +1128,147 @@
             if (icon) icon.classList.toggle('rotated');
         }
 
+        // Initialize Select2
+        $(document).ready(function () {
+            // Initialize Select2 for visible selects
+            $('#cluster, #jenisKurban').select2({
+                theme: 'bootstrap-5',
+                width: '100%',
+                language: {
+                    noResults: function () {
+                        return "Tidak ada hasil ditemukan";
+                    },
+                    searching: function () {
+                        return "Mencari...";
+                    }
+                }
+            });
+        });
+
         // Checkbox untuk ambil data sebelumnya
         const ambilDataSebelumnya = document.getElementById('ambilDataSebelumnya');
-        const muzakkiDropdownWrapper = document.getElementById('muzakkiDropdownWrapper');
-        const muzakkiSelect = document.getElementById('muzakkiSelect');
+        const kurbanDropdownWrapper = document.getElementById('kurbanDropdownWrapper');
+        const kurbanSelect = document.getElementById('kurbanSelect');
 
         ambilDataSebelumnya?.addEventListener('change', (e) => {
             if (e.target.checked) {
-                muzakkiDropdownWrapper.style.display = 'block';
+                kurbanDropdownWrapper.style.display = 'block';
+                // Initialize Select2 for kurbanSelect when it becomes visible
+                setTimeout(() => {
+                    if (!$('#kurbanSelect').hasClass('select2-hidden-accessible')) {
+                        $('#kurbanSelect').select2({
+                            theme: 'bootstrap-5',
+                            width: '100%',
+                            language: {
+                                noResults: function () {
+                                    return "Tidak ada hasil ditemukan";
+                                },
+                                searching: function () {
+                                    return "Mencari...";
+                                }
+                            }
+                        });
+                    }
+                }, 100);
             } else {
-                muzakkiDropdownWrapper.style.display = 'none';
-                muzakkiSelect.value = '';
+                kurbanDropdownWrapper.style.display = 'none';
+                if ($('#kurbanSelect').hasClass('select2-hidden-accessible')) {
+                    $('#kurbanSelect').val(null).trigger('change');
+                } else {
+                    kurbanSelect.value = '';
+                }
             }
         });
 
-        // Load data when muzakki is selected
-        muzakkiSelect?.addEventListener('change', (e) => {
-            const selectedValue = e.target.value;
+        // Load data when kurban is selected
+        $(document).on('change', '#kurbanSelect', function () {
+            const selectedValue = $(this).val();
             if (selectedValue) {
                 // Simulate loading data
-                // In real app, you would fetch data from API
                 const sampleData = {
                     'ahmad-sulaiman': {
                         nama: 'Ahmad Sulaiman',
-                        jiwa: '5',
-                        totalZakatFitrah: '75000',
-                        uangInfaq: '50000',
-                        jumlahZiswafUang: '125000',
-                        jenisPembayaran: 'tunai',
-                        jenisZakatFitrah: 'beras',
-                        zakatFitrah: '15000',
-                        fidyah: '0',
-                        berasInfaq: '2',
-                        jumlahZiswafBeras: '2',
-                        nomorTelepon: '081234567890',
-                        cluster: 'bandung',
-                        blok: 'M10'
+                        jenisKurban: 'Kambing',
+                        cluster: 'Cluster A',
+                        blok: 'B12',
+                        jumlah: '1',
+                        harga: '3000000',
+                        totalHarga: '3000000',
+                        deskripsi: 'Kambing jantan umur 2 tahun'
+                    },
+                    'budi-santoso': {
+                        nama: 'Budi Santoso',
+                        jenisKurban: 'Sapi',
+                        cluster: 'Cluster B',
+                        blok: 'C5',
+                        jumlah: '1',
+                        harga: '15000000',
+                        totalHarga: '15000000',
+                        deskripsi: 'Sapi betina umur 3 tahun'
+                    },
+                    'siti-nurhaliza': {
+                        nama: 'Siti Nurhaliza',
+                        jenisKurban: 'Kambing',
+                        cluster: 'BANDUNG',
+                        blok: 'M10',
+                        jumlah: '2',
+                        harga: '3000000',
+                        totalHarga: '6000000',
+                        deskripsi: 'Kambing jantan dan betina'
                     }
                 };
 
                 const data = sampleData[selectedValue];
                 if (data) {
-                    document.getElementById('namaKepalaKeluarga').value = data.nama;
-                    document.getElementById('jumlahJiwa').value = data.jiwa;
-                    document.getElementById('totalZakatFitrah').value = data.totalZakatFitrah;
-                    document.getElementById('uangInfaq').value = data.uangInfaq;
-                    document.getElementById('jumlahZiswafUang').value = data.jumlahZiswafUang;
-                    document.getElementById('jenisPembayaran').value = data.jenisPembayaran;
-                    document.getElementById('jenisZakatFitrah').value = data.jenisZakatFitrah;
-                    document.getElementById('zakatFitrah').value = data.zakatFitrah;
-                    document.getElementById('fidyah').value = data.fidyah;
-                    document.getElementById('berasInfaq').value = data.berasInfaq;
-                    document.getElementById('jumlahZiswafBeras').value = data.jumlahZiswafBeras;
-                    document.getElementById('nomorTelepon').value = data.nomorTelepon;
-                    document.getElementById('cluster').value = data.cluster;
+                    document.getElementById('nama').value = data.nama;
+                    $('#jenisKurban').val(data.jenisKurban).trigger('change');
+                    $('#cluster').val(data.cluster).trigger('change');
                     document.getElementById('blok').value = data.blok;
+                    document.getElementById('jumlah').value = data.jumlah;
+                    document.getElementById('harga').value = formatRupiah(data.harga);
+                    document.getElementById('totalHarga').value = formatRupiah(data.totalHarga);
+                    document.getElementById('deskripsi').value = data.deskripsi;
                 }
             }
         });
 
-        // Tambah Peserta Zakat
-        let pesertaCount = 1;
-        const tambahPesertaBtn = document.getElementById('tambahPesertaBtn');
-        const pesertaZakatContainer = document.getElementById('pesertaZakatContainer');
+        // Format Rupiah
+        function formatRupiah(angka) {
+            if (!angka) return '';
+            const number_string = angka.toString().replace(/[^,\d]/g, '');
+            const split = number_string.split(',');
+            const sisa = split[0].length % 3;
+            let rupiah = split[0].substr(0, sisa);
+            const ribuan = split[0].substr(sisa).match(/\d{3}/gi);
 
-        tambahPesertaBtn?.addEventListener('click', () => {
-            pesertaCount++;
-            const newInput = document.createElement('div');
-            newInput.className = 'participant-input-group mb-4';
-            newInput.innerHTML = `
-                <input type="text" class="form-input" placeholder="Nama Peserta Ke-${pesertaCount}" name="peserta[]">
-                <button type="button" class="btn-modern secondary text-sm" onclick="this.parentElement.remove()">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            `;
-            pesertaZakatContainer.appendChild(newInput);
+            if (ribuan) {
+                const separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+
+            rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+            return 'Rp' + rupiah;
+        }
+
+        // Calculate Total Harga
+        const jumlahInput = document.getElementById('jumlah');
+        const hargaInput = document.getElementById('harga');
+        const totalHargaInput = document.getElementById('totalHarga');
+
+        function calculateTotalHarga() {
+            const jumlah = parseInt(jumlahInput.value) || 0;
+            const hargaStr = hargaInput.value.replace(/[^0-9]/g, '');
+            const harga = parseInt(hargaStr) || 0;
+            const total = jumlah * harga;
+            totalHargaInput.value = formatRupiah(total.toString());
+        }
+
+        jumlahInput?.addEventListener('input', calculateTotalHarga);
+        hargaInput?.addEventListener('input', (e) => {
+            // Format harga as user types
+            const value = e.target.value.replace(/[^0-9]/g, '');
+            e.target.value = formatRupiah(value);
+            calculateTotalHarga();
         });
 
         // Load data from URL parameters (for edit mode)
@@ -1299,21 +1279,22 @@
         if (editMode === 'true' && editData) {
             try {
                 const data = JSON.parse(decodeURIComponent(editData));
+
+                // Update page title and breadcrumb
+                const pageTitle = document.getElementById('pageTitle');
+                const breadcrumb = document.getElementById('breadcrumb');
+                if (pageTitle) pageTitle.textContent = 'Edit Data Kurban';
+                if (breadcrumb) breadcrumb.textContent = 'Manajemen Kurban / Daftar Kurban / Edit Data Kurban';
+
                 // Populate form with data
-                if (data.nama) document.getElementById('namaKepalaKeluarga').value = data.nama;
-                if (data.jiwa) document.getElementById('jumlahJiwa').value = data.jiwa;
-                if (data.totalZakatFitrah) document.getElementById('totalZakatFitrah').value = data.totalZakatFitrah;
-                if (data.uangInfaq) document.getElementById('uangInfaq').value = data.uangInfaq;
-                if (data.jumlahZiswafUang) document.getElementById('jumlahZiswafUang').value = data.jumlahZiswafUang;
-                if (data.jenisPembayaran) document.getElementById('jenisPembayaran').value = data.jenisPembayaran;
-                if (data.jenisZakatFitrah) document.getElementById('jenisZakatFitrah').value = data.jenisZakatFitrah;
-                if (data.zakatFitrah) document.getElementById('zakatFitrah').value = data.zakatFitrah;
-                if (data.fidyah) document.getElementById('fidyah').value = data.fidyah;
-                if (data.berasInfaq) document.getElementById('berasInfaq').value = data.berasInfaq;
-                if (data.jumlahZiswafBeras) document.getElementById('jumlahZiswafBeras').value = data.jumlahZiswafBeras;
-                if (data.nomorTelepon) document.getElementById('nomorTelepon').value = data.nomorTelepon;
-                if (data.cluster) document.getElementById('cluster').value = data.cluster;
+                if (data.nama) document.getElementById('nama').value = data.nama;
+                if (data.jenisKurban) $('#jenisKurban').val(data.jenisKurban).trigger('change');
+                if (data.cluster) $('#cluster').val(data.cluster).trigger('change');
                 if (data.blok) document.getElementById('blok').value = data.blok;
+                if (data.jumlah) document.getElementById('jumlah').value = data.jumlah;
+                if (data.harga) document.getElementById('harga').value = formatRupiah(data.harga.toString());
+                if (data.totalHarga) document.getElementById('totalHarga').value = formatRupiah(data.totalHarga.toString());
+                if (data.deskripsi) document.getElementById('deskripsi').value = data.deskripsi;
             } catch (e) {
                 console.error('Error parsing edit data:', e);
             }
@@ -1331,7 +1312,6 @@
             profileDropdown.classList.remove('show');
         });
 
-        // Profile Dropdown
         profileBtn?.addEventListener('click', (e) => {
             e.stopPropagation();
             profileDropdown.classList.toggle('show');
@@ -1351,30 +1331,60 @@
         // Batal Button
         const batalBtn = document.getElementById('batalBtn');
         batalBtn?.addEventListener('click', () => {
-            window.location.href = 'kelola-zakat-fitrah.html';
+            window.location.href = 'daftar-kurban.html';
         });
 
         // Simpan Button
         const simpanBtn = document.getElementById('simpanBtn');
         simpanBtn?.addEventListener('click', () => {
             // Validate form
-            const namaKepalaKeluarga = document.getElementById('namaKepalaKeluarga').value;
-            const jumlahZiswafBeras = document.getElementById('jumlahZiswafBeras').value;
+            const nama = document.getElementById('nama').value;
+            const jenisKurban = $('#jenisKurban').val();
+            const cluster = $('#cluster').val();
+            const jumlah = document.getElementById('jumlah').value;
+            const harga = document.getElementById('harga').value;
 
-            if (!namaKepalaKeluarga) {
+            if (!nama) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
-                    text: 'Nama Kepala Keluarga harus diisi!'
+                    text: 'Nama harus diisi!'
                 });
                 return;
             }
 
-            if (!jumlahZiswafBeras) {
+            if (!jenisKurban) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
-                    text: 'Jumlah Ziswaf Beras harus diisi!'
+                    text: 'Jenis Kurban harus dipilih!'
+                });
+                return;
+            }
+
+            if (!cluster) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Cluster harus dipilih!'
+                });
+                return;
+            }
+
+            if (!jumlah || parseInt(jumlah) <= 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Jumlah harus diisi dan lebih dari 0!'
+                });
+                return;
+            }
+
+            if (!harga) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Harga harus diisi!'
                 });
                 return;
             }
@@ -1383,16 +1393,35 @@
             Swal.fire({
                 icon: 'success',
                 title: 'Berhasil',
-                text: 'Data berhasil disimpan!',
+                text: 'Data kurban berhasil disimpan!',
                 timer: 2000,
                 showConfirmButton: false
             }).then(() => {
-                window.location.href = 'kelola-zakat-fitrah.html';
+                window.location.href = 'daftar-kurban.html';
             });
         });
-    </script>
 
-    </div>
+        // Open Manajemen Kurban dropdown on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            // Close all dropdowns first
+            document.querySelectorAll('.dropdown-menu-modern').forEach(menu => {
+                menu.classList.remove('open');
+            });
+            document.querySelectorAll('.dropdown-icon-modern').forEach(icon => {
+                icon.classList.remove('rotated');
+            });
+
+            // Open only Manajemen Kurban dropdown
+            const manajemenKurbanDropdown = document.getElementById('manajemenKurban');
+            const manajemenKurbanIcon = document.querySelector('[onclick*="manajemenKurban"] .dropdown-icon-modern');
+            if (manajemenKurbanDropdown) {
+                manajemenKurbanDropdown.classList.add('open');
+                if (manajemenKurbanIcon) {
+                    manajemenKurbanIcon.classList.add('rotated');
+                }
+            }
+        });
+    </script>
 </body>
 
 </html>

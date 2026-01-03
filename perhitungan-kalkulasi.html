@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kelola Zakat Fitrah - SMART ZISWAF</title>
+    <title>Perhitungan Kalkulasi - SMART ZISWAF</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
@@ -13,6 +13,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <!-- SweetAlert2 CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css"
+        rel="stylesheet" />
     <style>
         * {
             margin: 0;
@@ -25,7 +29,7 @@
             background: #f5f7fa;
         }
 
-        /* Modern Sidebar - Copy from dashboard.html */
+        /* Modern Sidebar */
         .sidebar-modern {
             background: #ffffff;
             box-shadow: 4px 0 30px rgba(0, 0, 0, 0.08);
@@ -204,6 +208,103 @@
             top: auto !important;
         }
 
+        .sidebar-modern:not(.collapsed) .dropdown-menu-modern.open {
+            position: static !important;
+            top: auto !important;
+        }
+
+        .sidebar-modern.collapsed .dropdown-menu-modern.open {
+            display: block !important;
+            position: fixed;
+            left: calc(80px + 12px);
+            top: auto;
+            min-width: 220px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15), 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            z-index: 1000;
+            margin-left: 0;
+            padding: 8px 0;
+            border-left: none;
+            opacity: 1 !important;
+            max-height: 500px !important;
+            overflow-y: auto;
+        }
+
+        .sidebar-modern.collapsed .dropdown-menu-modern:not(.open) {
+            display: none !important;
+        }
+
+        .sidebar-modern.collapsed .dropdown-menu-modern.open::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 20px;
+            width: 0;
+            height: 0;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            border-right: 8px solid white;
+            filter: drop-shadow(-2px 0 2px rgba(0, 0, 0, 0.1));
+            z-index: 1;
+        }
+
+        .sidebar-modern .logo-section {
+            background: #ffffff;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 80px;
+        }
+
+        .sidebar-modern:not(.collapsed) .logo-section {
+            justify-content: flex-start;
+        }
+
+        .logo-section::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 40px;
+            background: #fff;
+            z-index: 0;
+        }
+
+        .toggle-btn-header {
+            position: absolute;
+            right: -14px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #223301;
+            border: 2px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .toggle-btn-header:hover {
+            background: #2d4a0a;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .toggle-btn-header svg {
+            width: 16px;
+            height: 16px;
+            color: white;
+        }
+
         .menu-item-modern {
             position: relative;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -217,9 +318,10 @@
         }
 
         .menu-item-modern.active {
-            background: linear-gradient(135deg, rgba(34, 51, 1, 0.12) 0%, rgba(45, 74, 10, 0.08) 100%);
+            background: linear-gradient(135deg, rgba(34, 51, 1, 0.18) 0%, rgba(45, 74, 10, 0.15) 100%);
             border-left: 4px solid #223301;
-            box-shadow: 0 2px 8px rgba(34, 51, 1, 0.15);
+            box-shadow: 0 2px 12px rgba(34, 51, 1, 0.2);
+            border-radius: 12px;
         }
 
         .menu-item-modern.active::before {
@@ -234,7 +336,7 @@
             border-radius: 0 4px 4px 0;
         }
 
-        /* Header */
+        /* Header dengan bg6.png */
         .header-hero {
             background-image: url('images/bg6.png');
             background-size: cover;
@@ -260,238 +362,181 @@
             z-index: 1;
         }
 
-        /* Table Modern */
-        .table-modern {
+        /* Modern Cards */
+        .card-modern {
             background: white;
             border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            position: relative;
             overflow: hidden;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         }
 
-        .table-modern table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-        }
-
-        .table-modern thead {
-            background: linear-gradient(135deg, #223301 0%, #1a2800 100%);
-        }
-
-        .table-modern tbody tr {
-            transition: all 0.2s ease;
-            background: white;
-        }
-
-        .table-modern tbody tr:hover {
-            background: #f8fafc;
-        }
-
-        /* Modal Styles */
-        .modal-overlay {
-            position: fixed;
+        .card-modern::before {
+            content: '';
+            position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(8px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 4px;
+            background: linear-gradient(90deg, #223301 0%, #2d4a0a 50%, #3d5f1a 100%);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
         }
 
-        .modal-overlay.show {
-            opacity: 1;
-            visibility: visible;
+        .card-modern:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-color: rgba(34, 51, 1, 0.3);
         }
 
-        .modal-container {
-            background: white;
-            border-radius: 24px;
-            padding: 32px;
-            max-width: 900px;
-            width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            transform: scale(0.9) translateY(20px);
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
+        .card-modern:hover::before {
+            transform: scaleX(1);
         }
 
-        .modal-overlay.show .modal-container {
-            transform: scale(1) translateY(0);
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #f1f5f9;
-        }
-
-        .modal-title {
-            font-size: 28px;
-            font-weight: 700;
-            color: #1e293b;
-            margin: 0;
-        }
-
-        .modal-close-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
-            background: #f1f5f9;
-            border: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .modal-close-btn:hover {
-            background: #e2e8f0;
-            transform: rotate(90deg);
-        }
-
-        /* Import Modal Styles */
-        .import-modal-container {
-            background: white;
-            border-radius: 24px;
-            padding: 32px;
-            max-width: 800px;
-            width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            transform: scale(0.9) translateY(20px);
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-        }
-
-        .modal-overlay.show .import-modal-container {
-            transform: scale(1) translateY(0);
-        }
-
-        .download-format-btn {
-            padding: 12px 24px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 14px;
-            border: none;
-            background: linear-gradient(135deg, #223301 0%, #2d4a0a 100%);
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(34, 51, 1, 0.3);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 24px;
-        }
-
-        .download-format-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(34, 51, 1, 0.4);
-        }
-
-        .upload-area {
-            border: 2px dashed #cbd5e1;
+        .stat-card-modern {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
             border-radius: 16px;
-            padding: 60px 40px;
-            text-align: center;
-            background: #f8fafc;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-bottom: 24px;
-        }
-
-        .upload-area:hover,
-        .upload-area.dragover {
-            border-color: #223301;
-            background: rgba(34, 51, 1, 0.02);
-        }
-
-        .upload-icon {
-            width: 64px;
-            height: 64px;
-            margin: 0 auto 16px;
-            color: #94a3b8;
-        }
-
-        .file-browser-link {
-            color: #223301;
-            text-decoration: underline;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .file-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px;
-            background: #f8fafc;
-            border-radius: 12px;
-            margin-bottom: 12px;
-        }
-
-        .file-item.progress {
-            border-left: 4px solid #3b82f6;
-        }
-
-        .file-item.failed {
-            border-left: 4px solid #ef4444;
-        }
-
-        .file-item.completed {
-            border-left: 4px solid #10b981;
-        }
-
-        .progress-bar {
-            flex: 1;
-            height: 8px;
-            background: #e5e7eb;
-            border-radius: 4px;
+            padding: 20px;
+            position: relative;
             overflow: hidden;
-            margin: 8px 0;
         }
 
-        .progress-bar-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #223301 0%, #2d4a0a 100%);
-            transition: width 0.3s ease;
+        .stat-card-modern::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(34, 51, 1, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
         }
 
-        .progress-bar-fill.failed {
-            background: #ef4444;
+        .stat-card-modern:hover::after {
+            opacity: 1;
         }
 
-        .progress-bar-fill.completed {
-            background: #10b981;
-        }
-
-        .file-actions {
+        .icon-wrapper {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
-            gap: 8px;
-        }
-
-        .file-status-icon {
-            width: 20px;
-            height: 20px;
+            justify-content: center;
+            background: linear-gradient(135deg, #d4e4c5 0%, #b8d4a0 100%);
+            box-shadow: 0 4px 12px rgba(34, 51, 1, 0.25);
+            transition: all 0.3s ease;
             flex-shrink: 0;
         }
 
-        /* Button Styles */
+        .icon-wrapper:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 8px 20px rgba(34, 51, 1, 0.35);
+        }
+
+        .icon-wrapper.orange {
+            background: linear-gradient(135deg, #fed7aa 0%, #fdba74 100%);
+            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.2);
+        }
+
+        .icon-wrapper.blue {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+        }
+
+        .icon-wrapper.purple {
+            background: linear-gradient(135deg, #e9d5ff 0%, #d8b4fe 100%);
+            box-shadow: 0 4px 12px rgba(168, 85, 247, 0.2);
+        }
+
+        .icon-wrapper.red {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+        }
+
+        /* Dropdown Styles */
+        .dropdown-menu-modern {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+            opacity: 0;
+            margin-left: 16px;
+            padding-left: 16px;
+            border-left: 2px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .dropdown-menu-modern.open {
+            max-height: 500px;
+            opacity: 1;
+        }
+
+        /* Active sub-menu item styling */
+        .dropdown-menu-modern .menu-item-modern.active {
+            background: linear-gradient(135deg, rgba(34, 51, 1, 0.15) 0%, rgba(45, 74, 10, 0.12) 100%);
+            border-left: 3px solid #223301;
+            border-radius: 8px;
+            margin-left: 8px;
+            margin-right: 8px;
+            font-weight: 600;
+        }
+
+        .dropdown-menu-modern .menu-item-modern.active:hover {
+            background: linear-gradient(135deg, rgba(34, 51, 1, 0.2) 0%, rgba(45, 74, 10, 0.15) 100%);
+        }
+
+        .menu-group {
+            position: relative;
+        }
+
+        .dropdown-icon-modern {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dropdown-icon-modern.rotated {
+            transform: rotate(180deg);
+        }
+
+        /* Notification & Profile Dropdown */
+        .dropdown-panel {
+            position: absolute;
+            top: calc(100% + 12px);
+            right: 0;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px) scale(0.95);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .dropdown-panel.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        .dropdown-panel::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            right: 20px;
+            width: 16px;
+            height: 16px;
+            background: white;
+            transform: rotate(45deg);
+            border-left: 1px solid rgba(226, 232, 240, 0.8);
+            border-top: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        /* Button Modern */
         .btn-modern {
             padding: 12px 24px;
             border-radius: 12px;
@@ -537,87 +582,334 @@
             box-shadow: 0 8px 20px rgba(249, 115, 22, 0.4);
         }
 
-        .btn-modern.danger {
-            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-            color: white;
-            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
-        }
-
-        .btn-modern.danger:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(239, 68, 68, 0.4);
-        }
-
-        /* Dropdown Styles */
-        .dropdown-menu-modern {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
-            opacity: 0;
-            margin-left: 16px;
-            padding-left: 16px;
-            border-left: 2px solid rgba(226, 232, 240, 0.8);
-        }
-
-        .dropdown-menu-modern.open {
-            max-height: 500px;
-            opacity: 1;
-        }
-
-        .dropdown-icon-modern {
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .dropdown-icon-modern.rotated {
-            transform: rotate(180deg);
-        }
-
-        .dropdown-panel {
-            position: absolute;
-            top: calc(100% + 12px);
-            right: 0;
+        /* Table Modern */
+        .table-modern {
             background: white;
             border-radius: 16px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px) scale(0.95);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 1000;
-            border: 1px solid rgba(226, 232, 240, 0.8);
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         }
 
-        .dropdown-panel.show {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0) scale(1);
+        .table-modern table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
         }
 
+        .table-modern thead {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        }
+
+        .table-modern tbody {
+            background: white;
+        }
+
+        .table-modern tbody tr {
+            transition: all 0.2s ease;
+            background: white;
+        }
+
+        .table-modern tbody tr:hover {
+            background: #f8fafc;
+            transform: scale(1.01);
+        }
+
+        .table-modern tbody td {
+            background: transparent;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .fade-in-up-delay-1 {
+            animation: fadeInUp 0.6s ease-out 0.1s both;
+        }
+
+        .fade-in-up-delay-2 {
+            animation: fadeInUp 0.6s ease-out 0.2s both;
+        }
+
+        .fade-in-up-delay-3 {
+            animation: fadeInUp 0.6s ease-out 0.3s both;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Badge */
+        .badge-notification {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            width: 12px;
+            height: 12px;
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Sidebar Logo adjustments */
+        .sidebar-logo {
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-modern.collapsed .sidebar-logo {
+            width: 48px;
+            height: 48px;
+        }
+
+        /* Menu item center alignment when collapsed */
+        .sidebar-modern.collapsed .sidebar-nav {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            padding: 16px 8px;
+        }
+
+        .sidebar-modern.collapsed .menu-group {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Main Content Background */
         .main-content-bg {
             background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
             min-height: 100vh;
             padding-bottom: 2rem;
         }
 
-        /* Additional styles for complex table structure */
-        .table-modern thead th {
-            padding: 12px;
-            text-align: left;
-            font-size: 12px;
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-container {
+            background: white;
+            border-radius: 24px;
+            padding: 32px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transform: scale(0.9) translateY(20px);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .modal-overlay.show .modal-container {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .modal-title {
+            font-size: 28px;
             font-weight: 700;
-            color: white;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .table-modern tbody td {
-            padding: 12px;
-            font-size: 14px;
             color: #1e293b;
+            margin: 0;
         }
 
-        .table-modern thead th[colspan] {
+        .modal-close-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: #f1f5f9;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close-btn:hover {
+            background: #e2e8f0;
+            transform: rotate(90deg);
+        }
+
+        .modal-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .modal-option-card {
+            border: 2px dashed #cbd5e1;
+            border-radius: 20px;
+            padding: 40px 32px;
             text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-option-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(34, 51, 1, 0.05) 0%, rgba(45, 74, 10, 0.03) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .modal-option-card:hover {
+            border-color: #223301;
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(34, 51, 1, 0.15), 0 10px 10px -5px rgba(34, 51, 1, 0.1);
+        }
+
+        .modal-option-card:hover::before {
+            opacity: 1;
+        }
+
+        .modal-option-card.active {
+            border-color: #223301;
+            border-style: solid;
+            background: linear-gradient(135deg, rgba(34, 51, 1, 0.05) 0%, rgba(45, 74, 10, 0.08) 100%);
+            box-shadow: 0 20px 25px -5px rgba(34, 51, 1, 0.15), 0 10px 10px -5px rgba(34, 51, 1, 0.1);
+        }
+
+        .modal-option-illustration {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 24px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-option-card:first-child .modal-option-illustration {
+            background: linear-gradient(135deg, #d4e4c5 0%, #b8d4a0 100%);
+        }
+
+        .modal-option-card:last-child .modal-option-illustration {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+        }
+
+        .modal-option-illustration svg {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .modal-option-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1e293b;
+            margin: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .modal-option-description {
+            font-size: 14px;
+            color: #64748b;
+            margin-top: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .modal-option-icon {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: rgba(34, 51, 1, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-option-card:hover .modal-option-icon,
+        .modal-option-card.active .modal-option-icon {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .modal-container {
+                padding: 24px;
+                width: 95%;
+            }
+
+            .modal-options {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-option-illustration {
+                width: 150px;
+                height: 150px;
+            }
         }
 
         /* Filter Modal Styles */
@@ -788,118 +1080,6 @@
             box-shadow: 0 8px 20px rgba(34, 51, 1, 0.4);
         }
 
-        /* Modal Option Cards for Zakat Type Selection */
-        .modal-options {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
-            margin-top: 24px;
-        }
-
-        .modal-option-card {
-            border: 2px dashed #cbd5e1;
-            border-radius: 20px;
-            padding: 40px 32px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .modal-option-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(34, 51, 1, 0.05) 0%, rgba(45, 74, 10, 0.03) 100%);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        .modal-option-card:hover {
-            border-color: #223301;
-            transform: translateY(-8px);
-            box-shadow: 0 20px 25px -5px rgba(34, 51, 1, 0.15), 0 10px 10px -5px rgba(34, 51, 1, 0.1);
-        }
-
-        .modal-option-card:hover::before {
-            opacity: 1;
-        }
-
-        .modal-option-card.active {
-            border-color: #223301;
-            border-style: solid;
-            background: linear-gradient(135deg, rgba(34, 51, 1, 0.05) 0%, rgba(45, 74, 10, 0.08) 100%);
-            box-shadow: 0 20px 25px -5px rgba(34, 51, 1, 0.15), 0 10px 10px -5px rgba(34, 51, 1, 0.1);
-        }
-
-        .modal-option-illustration {
-            width: 180px;
-            height: 180px;
-            margin: 0 auto 24px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .modal-option-card:first-child .modal-option-illustration {
-            background: linear-gradient(135deg, #d4e4c5 0%, #b8d4a0 100%);
-        }
-
-        .modal-option-card:last-child .modal-option-illustration {
-            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-        }
-
-        .modal-option-illustration svg {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
-        .modal-option-title {
-            font-size: 24px;
-            font-weight: 700;
-            color: #1e293b;
-            margin: 0;
-            position: relative;
-            z-index: 1;
-        }
-
-        .modal-option-description {
-            font-size: 14px;
-            color: #64748b;
-            margin-top: 8px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .modal-option-icon {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            background: rgba(34, 51, 1, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal-option-card:hover .modal-option-icon,
-        .modal-option-card.active .modal-option-icon {
-            opacity: 1;
-        }
-
         /* Flatpickr Custom Styles */
         .flatpickr-calendar {
             border-radius: 12px;
@@ -925,23 +1105,230 @@
             background: rgba(34, 51, 1, 0.1);
         }
 
-        .badge-notification {
-            position: absolute;
-            top: -4px;
-            right: -4px;
-            width: 12px;
-            height: 12px;
-            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
-            border-radius: 50%;
-            border: 2px solid white;
+        /* Form Modal Styles */
+        .form-group {
+            margin-bottom: 24px;
         }
 
-        /* Detail Modal Styles */
-        .detail-modal-container {
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        .form-input,
+        .form-select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 14px;
+            color: #1e293b;
+            transition: all 0.3s ease;
             background: white;
-            border-radius: 20px;
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: #223301;
+            box-shadow: 0 0 0 3px rgba(34, 51, 1, 0.1);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .form-grid.full {
+            grid-template-columns: 1fr;
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 2px solid #f1f5f9;
+        }
+
+        .btn-cancel {
+            flex: 1;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            border: 2px solid #e5e7eb;
+            background: white;
+            color: #6b7280;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-cancel:hover {
+            background: #f9fafb;
+            border-color: #d1d5db;
+            color: #374151;
+        }
+
+        .btn-submit {
+            flex: 1;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            border: none;
+            background: linear-gradient(135deg, #223301 0%, #2d4a0a 100%);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(34, 51, 1, 0.3);
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(34, 51, 1, 0.4);
+        }
+
+        /* Select2 Custom Styles - Match form-input styling exactly */
+        .select2-container {
+            width: 100% !important;
+            margin: 0 !important;
+        }
+
+        .select2-container--default .select2-selection--single {
+            border: 2px solid #e5e7eb !important;
+            border-radius: 12px !important;
+            background: white !important;
+            transition: all 0.3s ease;
+            height: 48px !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            box-sizing: border-box !important;
+        }
+
+        .select2-container--default.select2-container--focus .select2-selection--single,
+        .select2-container--default.select2-container--open .select2-selection--single {
+            outline: none !important;
+            border-color: #223301 !important;
+            box-shadow: 0 0 0 3px rgba(34, 51, 1, 0.1) !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            padding: 12px 40px 12px 16px !important;
+            color: #1e293b !important;
+            font-size: 14px !important;
+            line-height: 24px !important;
+            display: flex !important;
+            align-items: center !important;
+            height: 100% !important;
+            box-sizing: border-box !important;
+            margin: 0 !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__placeholder {
+            color: #9ca3af !important;
+            font-size: 14px !important;
+            line-height: 24px !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 100% !important;
+            right: 12px !important;
+            top: 0 !important;
+            width: 20px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow b {
+            border-color: #6b7280 transparent transparent transparent !important;
+            border-width: 5px 4px 0 4px !important;
+            margin-left: 0 !important;
+            margin-top: 0 !important;
+        }
+
+        .select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
+            border-color: transparent transparent #6b7280 transparent !important;
+            border-width: 0 4px 5px 4px !important;
+            margin-top: 0 !important;
+        }
+
+        .select2-dropdown {
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            margin-top: 4px;
+            overflow: hidden;
+        }
+
+        .select2-container--default .select2-results__option {
+            padding: 12px 16px;
+            font-size: 14px;
+            color: #1e293b;
+            transition: all 0.2s ease;
+        }
+
+        .select2-container--default .select2-results__option--highlighted[aria-selected] {
+            background-color: rgba(34, 51, 1, 0.1);
+            color: #223301;
+            font-weight: 500;
+        }
+
+        .select2-container--default .select2-results__option[aria-selected=true] {
+            background-color: rgba(34, 51, 1, 0.15);
+            color: #223301;
+            font-weight: 600;
+        }
+
+        .select2-container--default .select2-results__option--highlighted[aria-selected]:hover {
+            background-color: rgba(34, 51, 1, 0.15);
+        }
+
+        .select2-results__option {
+            padding-left: 16px !important;
+        }
+
+        .select2-search--dropdown .select2-search__field {
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 14px;
+            margin: 8px;
+            width: calc(100% - 16px);
+        }
+
+        .select2-search--dropdown .select2-search__field:focus {
+            outline: none;
+            border-color: #223301;
+            box-shadow: 0 0 0 3px rgba(34, 51, 1, 0.1);
+        }
+
+        /* Fix Select2 z-index */
+        .select2-container {
+            z-index: 9999;
+        }
+
+        .select2-dropdown {
+            z-index: 9999;
+        }
+
+        /* Import Modal Styles */
+        .import-modal-container {
+            background: white;
+            border-radius: 24px;
             padding: 32px;
-            max-width: 700px;
+            max-width: 800px;
             width: 90%;
             max-height: 90vh;
             overflow-y: auto;
@@ -951,95 +1338,146 @@
             position: relative;
         }
 
-        .modal-overlay.show .detail-modal-container {
+        .modal-overlay.show .import-modal-container {
             transform: scale(1) translateY(0);
         }
 
-        .detail-modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #f1f5f9;
-        }
-
-        .detail-modal-title {
-            font-size: 24px;
-            font-weight: 700;
-            color: #1e293b;
-            margin: 0;
-        }
-
-        .detail-section {
-            margin-bottom: 24px;
-        }
-
-        .detail-section-title {
-            font-size: 16px;
-            font-weight: 700;
-            color: #1e293b;
-            margin-bottom: 16px;
-            text-transform: uppercase;
-        }
-
-        .detail-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid #f1f5f9;
-        }
-
-        .detail-row:last-child {
-            border-bottom: none;
-        }
-
-        .detail-label {
-            font-size: 14px;
-            font-weight: 500;
-            color: #64748b;
-        }
-
-        .detail-value {
-            font-size: 14px;
+        .download-format-btn {
+            padding: 12px 24px;
+            border-radius: 12px;
             font-weight: 600;
-            color: #1e293b;
-            text-align: right;
+            font-size: 14px;
+            border: none;
+            background: linear-gradient(135deg, #223301 0%, #2d4a0a 100%);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(34, 51, 1, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 24px;
         }
 
-        .detail-value.amount {
+        .download-format-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(34, 51, 1, 0.4);
+        }
+
+        .upload-area {
+            border: 2px dashed #cbd5e1;
+            border-radius: 16px;
+            padding: 60px 40px;
+            text-align: center;
+            background: #f8fafc;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 24px;
+        }
+
+        .upload-area:hover,
+        .upload-area.dragover {
+            border-color: #223301;
+            background: rgba(34, 51, 1, 0.02);
+        }
+
+        .upload-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 16px;
+            color: #94a3b8;
+        }
+
+        .file-browser-link {
             color: #223301;
+            text-decoration: underline;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: #f8fafc;
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+
+        .file-item.progress {
+            border-left: 4px solid #3b82f6;
+        }
+
+        .file-item.failed {
+            border-left: 4px solid #ef4444;
+        }
+
+        .file-item.completed {
+            border-left: 4px solid #10b981;
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 8px 0;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #223301 0%, #2d4a0a 100%);
+            transition: width 0.3s ease;
+        }
+
+        .progress-bar-fill.failed {
+            background: #ef4444;
+        }
+
+        .progress-bar-fill.completed {
+            background: #10b981;
+        }
+
+        .file-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .file-status-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
         }
     </style>
 </head>
 
 <body>
     <div class="flex h-screen overflow-hidden">
-        <!-- Sidebar - Similar to dashboard.html -->
+        <!-- Modern Sidebar -->
         <aside id="sidebar" class="sidebar-modern w-72 flex flex-col relative z-50">
             <!-- Logo Section -->
-            <div class="logo-section px-6 py-6"
-                style="background: #ffffff; border-bottom: 1px solid rgba(226, 232, 240, 0.8); position: relative;">
+            <div class="logo-section px-6 py-6">
                 <div class="flex items-center space-x-3 relative z-10 w-full">
                     <img src="images/logo-sidebar.png" alt="SMART ZISWAF"
-                        class="w-12 h-12 object-contain flex-shrink-0">
+                        class="w-12 h-12 object-contain flex-shrink-0 sidebar-logo">
                     <div class="logo-text text-gray-900 transition-all duration-300">
                         <div class="text-lg font-bold leading-tight">SMART</div>
                         <div class="text-lg font-bold leading-tight" style="color: #223301;">ZISWAF</div>
                     </div>
                 </div>
-                <button id="toggleSidebar" class="toggle-btn-header"
-                    style="position: absolute; right: -14px; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; border-radius: 50%; background: #223301; border: 2px solid white; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10;">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        style="width: 16px; height: 16px; color: white;">
+                <button id="toggleSidebar" class="toggle-btn-header">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                     </svg>
                 </button>
             </div>
 
             <!-- Navigation -->
-            <nav class="flex flex-col flex-1 px-2 py-6 space-y-2 overflow-y-auto" style="padding: 16px 8px;">
+            <nav class="flex flex-col flex-1 px-2 py-6 space-y-2 overflow-y-auto sidebar-nav">
+                <!-- Beranda -->
                 <a href="dashboard.html" class="menu-item-modern flex items-center space-x-4 px-4 py-3.5">
                     <svg class="w-5 h-5 flex-shrink-0 text-gray-600" fill="none" stroke="currentColor"
                         viewBox="0 0 24 24">
@@ -1050,16 +1488,16 @@
                 </a>
 
                 <!-- Data Master -->
-                <div class="menu-group" style="position: relative;">
+                <div class="menu-group">
                     <a href="#" class="menu-item-modern flex items-center justify-between px-4 py-3.5"
                         onclick="toggleDropdown(event, 'dataMaster')">
                         <div class="flex items-center space-x-4">
-                            <svg class="w-5 h-5 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor"
+                            <svg class="w-5 h-5 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
                             </svg>
-                            <span class="menu-text text-sm text-gray-700 font-medium">Data Master</span>
+                            <span class="menu-text text-sm font-medium" style="color: #223301;">Data Master</span>
                         </div>
                         <svg class="dropdown-icon-modern w-4 h-4 text-gray-500" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
@@ -1077,7 +1515,7 @@
                             <span>Data Mesjid</span>
                         </a>
                         <a href="data-umat.html"
-                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm">
                             <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -1113,27 +1551,27 @@
                     <a href="#" class="menu-item-modern active flex items-center justify-between px-4 py-3.5"
                         onclick="toggleDropdown(event, 'manajemenZakat')">
                         <div class="flex items-center space-x-4">
-                            <svg class="w-5 h-5 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor"
+                            <svg class="w-5 h-5 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                             </svg>
-                            <span class="menu-text text-sm text-gray-700 font-medium">Manajemen Zakat</span>
+                            <span class="menu-text text-sm font-medium" style="color: #223301;">Manajemen Zakat</span>
                         </div>
-                        <svg class="dropdown-icon-modern w-4 h-4 text-gray-500" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24">
+                        <svg class="dropdown-icon-modern w-4 h-4 text-gray-500 rotated" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </a>
                     <div id="manajemenZakat" class="dropdown-menu-modern open">
                         <a href="kelola-zakat-fitrah.html"
-                            class="menu-item-modern active flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
                             <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
-                            <span style="color: #223301; font-weight: 600;">Kelola Zakat Fitrah</span>
+                            <span>Kelola Zakat Fitrah</span>
                         </a>
                         <a href="data-mustahik.html"
                             class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
@@ -1145,7 +1583,7 @@
                             <span>Data Mustahik</span>
                         </a>
                         <a href="perhitungan-kalkulasi.html"
-                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            class="menu-item-modern active flex items-center space-x-3 px-4 py-2.5 text-sm">
                             <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -1327,13 +1765,13 @@
 
         <!-- Main Content -->
         <div class="flex-1 flex flex-col overflow-hidden">
-            <!-- Header -->
+            <!-- Hero Header with bg6.png -->
             <header class="header-hero">
                 <div class="header-hero-content px-8 py-6">
                     <div class="flex justify-between items-center">
                         <div>
-                            <p class="text-white/80 text-sm mb-1">Manajemen Zakat / Kelola Zakat Fitrah</p>
-                            <h1 class="text-3xl font-bold text-white">Kelola Zakat Fitrah</h1>
+                            <h1 class="text-3xl font-bold text-white mb-2">Perhitungan Kalkulasi</h1>
+                            <p class="text-white/80 text-sm">Manajemen Zakat / Perhitungan Kalkulasi</p>
                         </div>
                         <div class="flex items-center space-x-4">
                             <!-- Notification Button -->
@@ -1511,237 +1949,207 @@
 
             <!-- Main Content Area -->
             <main class="main-content-bg flex-1 overflow-y-auto">
-                <div class="p-6 space-y-6">
-                    <!-- Action Buttons -->
-                    <div class="flex flex-wrap items-center justify-between gap-4">
-                        <div class="flex flex-wrap items-center gap-4">
-                            <!-- Search Bar -->
-                            <div class="relative min-w-[300px]">
-                                <input type="text" placeholder="Cari"
-                                    class="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#223301] focus:border-transparent">
-                                <svg class="w-5 h-5 text-gray-400 absolute right-4 top-1/2 transform -translate-y-1/2"
+                <div class="p-6 space-y-6" style="margin-bottom: 100px;">
+                    <!-- Tahun Filter -->
+                    <div class="fade-in-up">
+                        <div class="flex items-center gap-4 mb-6">
+                            <label class="text-sm font-semibold text-gray-700">Tahun:</label>
+                            <div class="relative w-48">
+                                <select id="yearFilter"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#223301] focus:border-transparent bg-white appearance-none pr-10 cursor-pointer">
+                                    <option value="2025" selected>2025</option>
+                                    <option value="2024">2024</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2021">2021</option>
+                                </select>
+                                <svg class="w-5 h-5 text-gray-400 absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none"
                                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                        d="M19 9l-7 7-7-7" />
                                 </svg>
                             </div>
-                            <!-- Filter Button -->
-                            <button id="filterBtn" class="btn-modern secondary">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
-                                </svg>
-                                Filter
-                            </button>
-                        </div>
-                        <!-- Action Buttons -->
-                        <div class="flex flex-wrap items-center gap-3">
-                            <button id="tambahDataMuzakkiBtn" class="btn-modern primary">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M12 4v16m8-8H4" />
-                                </svg>
-                                Tambah Data Muzakki
-                            </button>
-                            <a href="arsip-data-muzakki.html" class="btn-modern accent">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
-                                </svg>
-                                Arsip Data Muzakki
-                            </a>
                         </div>
                     </div>
 
-                    <!-- Data Umat Section -->
-                    <div>
-                        <div class="flex items-center justify-between mb-4">
-                            <h2 class="text-lg font-semibold text-gray-900">Data Umat</h2>
-                            <div class="flex items-center gap-3">
-                                <button id="importBtn" class="btn-modern primary">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-                                    </svg>
-                                    Import
-                                </button>
-                                <button id="exportBtn" class="btn-modern danger">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                                    </svg>
-                                    Export
-                                </button>
+                    <!-- Cards Section -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                        <!-- Card 1: Perhitungan Metode 1 -->
+                        <div class="card-modern fade-in-up-delay-1">
+                            <h3 class="text-lg font-bold text-gray-900 mb-4" style="color: #223301;">Perhitungan Metode
+                                1</h3>
+                            <div class="table-modern">
+                                <table class="w-full border-collapse">
+                                    <thead>
+                                        <tr style="background: linear-gradient(135deg, #223301 0%, #1a2800 100%);">
+                                            <th
+                                                class="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
+                                                Zakat</th>
+                                            <th
+                                                class="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
+                                                Jumlah</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-white">
+                                        <tr class="bg-white hover:bg-gray-50">
+                                            <td
+                                                class="px-4 py-3 text-sm text-gray-700 font-medium border border-gray-200">
+                                                Beras</td>
+                                            <td
+                                                class="px-4 py-3 text-sm text-gray-900 font-semibold border border-gray-200">
+                                                0 Kg</td>
+                                        </tr>
+                                        <tr class="bg-white hover:bg-gray-50">
+                                            <td
+                                                class="px-4 py-3 text-sm text-gray-700 font-medium border border-gray-200">
+                                                Uang</td>
+                                            <td
+                                                class="px-4 py-3 text-sm text-gray-900 font-semibold border border-gray-200">
+                                                Rp0</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
 
-                        <!-- Table -->
+                        <!-- Card 2: Asnaf -->
+                        <div class="card-modern fade-in-up-delay-1">
+                            <h3 class="text-lg font-bold text-gray-900 mb-4" style="color: #223301;">Asnaf</h3>
+                            <div class="table-modern">
+                                <table class="w-full border-collapse">
+                                    <thead>
+                                        <tr style="background: linear-gradient(135deg, #223301 0%, #1a2800 100%);">
+                                            <th
+                                                class="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
+                                                Asnaf</th>
+                                            <th
+                                                class="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
+                                                Jumlah</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-white">
+                                        <tr class="bg-white hover:bg-gray-50">
+                                            <td
+                                                class="px-4 py-3 text-sm text-gray-700 font-medium border border-gray-200">
+                                                Fakir Miskin</td>
+                                            <td
+                                                class="px-4 py-3 text-sm text-gray-900 font-semibold border border-gray-200">
+                                                1 Orang</td>
+                                        </tr>
+                                        <tr class="bg-white hover:bg-gray-50">
+                                            <td
+                                                class="px-4 py-3 text-sm text-gray-700 font-medium border border-gray-200">
+                                                Amilin</td>
+                                            <td
+                                                class="px-4 py-3 text-sm text-gray-900 font-semibold border border-gray-200">
+                                                0 Orang</td>
+                                        </tr>
+                                        <tr class="bg-white hover:bg-gray-50">
+                                            <td
+                                                class="px-4 py-3 text-sm text-gray-700 font-medium border border-gray-200">
+                                                Fisabilillah</td>
+                                            <td
+                                                class="px-4 py-3 text-sm text-gray-900 font-semibold border border-gray-200">
+                                                0 Orang</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main Table: Nama Asnaf -->
+                    <div class="card-modern fade-in-up-delay-2">
+                        <h3 class="text-lg font-bold text-gray-900 mb-4" style="color: #223301;">Nama Asnaf</h3>
                         <div class="table-modern">
-                            <table class="w-full">
+                            <table class="w-full border-collapse">
                                 <thead>
-                                    <tr>
-                                        <th rowspan="2" style="padding: 12px;">No</th>
-                                        <th rowspan="2" style="padding: 12px;">Nama Kepala Keluarga</th>
-                                        <th colspan="2" style="padding: 12px; text-align: center;">Alamat</th>
-                                        <th rowspan="2" style="padding: 12px;">Jumlah Jiwa</th>
-                                        <th colspan="2" style="padding: 12px; text-align: center;">Zakat</th>
-                                        <th rowspan="2" style="padding: 12px;">Zakat Mal</th>
-                                        <th colspan="2" style="padding: 12px; text-align: center;">Infaq/Shadaqoh/Wakaf
-                                        </th>
-                                        <th colspan="2" style="padding: 12px; text-align: center;">Total</th>
-                                        <th rowspan="2" style="padding: 12px;">Aksi</th>
+                                    <tr style="background: linear-gradient(135deg, #223301 0%, #1a2800 100%);">
+                                        <th
+                                            class="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
+                                            Nama Asnaf</th>
+                                        <th colspan="2"
+                                            class="px-4 py-3 text-center text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
+                                            Jumlah</th>
+                                        <th colspan="2"
+                                            class="px-4 py-3 text-center text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
+                                            Perorang</th>
                                     </tr>
-                                    <tr>
-                                        <th style="padding: 8px 12px;">Cluster</th>
-                                        <th style="padding: 8px 12px;">Blok</th>
-                                        <th style="padding: 8px 12px;">Uang</th>
-                                        <th style="padding: 8px 12px;">Beras</th>
-                                        <th style="padding: 8px 12px;">Uang</th>
-                                        <th style="padding: 8px 12px;">Beras</th>
-                                        <th style="padding: 8px 12px;">Uang</th>
-                                        <th style="padding: 8px 12px;">Beras</th>
+                                    <tr style="background: linear-gradient(135deg, #2d4a0a 0%, #223301 100%);">
+                                        <th
+                                            class="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
+                                        </th>
+                                        <th
+                                            class="px-4 py-3 text-center text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
+                                            Beras</th>
+                                        <th
+                                            class="px-4 py-3 text-center text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
+                                            Uang</th>
+                                        <th
+                                            class="px-4 py-3 text-center text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
+                                            Beras</th>
+                                        <th
+                                            class="px-4 py-3 text-center text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
+                                            Uang</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td style="padding: 12px;">1</td>
-                                        <td style="padding: 12px; font-weight: 600;">Lina</td>
-                                        <td style="padding: 12px;">BANDUNG</td>
-                                        <td style="padding: 12px;">M10</td>
-                                        <td style="padding: 12px;">2</td>
-                                        <td style="padding: 12px;">Rp0</td>
-                                        <td style="padding: 12px;">0 Kg</td>
-                                        <td style="padding: 12px;">Rp0</td>
-                                        <td style="padding: 12px;">Rp0</td>
-                                        <td style="padding: 12px;">0 Kg</td>
-                                        <td style="padding: 12px;">Rp0</td>
-                                        <td style="padding: 12px;">0 Kg</td>
-                                        <td style="padding: 12px;">
-                                            <div class="flex items-center gap-2">
-                                                <button
-                                                    class="detail-btn p-2 text-gray-600 hover:text-[#223301] transition"
-                                                    data-id="9" data-nama="Emil" data-alamat="BANDUNG, m4" data-jiwa="2"
-                                                    data-uang="200000" data-fidyah="10000" data-uang-infaq="5000"
-                                                    data-beras-infaq="10" data-total="215000" data-beras-total="10"
-                                                    data-pembayaran="Cash" data-telp="089867967">
-                                                    <svg class="w-5 h-5" fill="none" stroke="currentColor"
-                                                        viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2"
-                                                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                                    </svg>
-                                                </button>
-                                                <button
-                                                    class="edit-btn p-2 text-gray-600 hover:text-[#223301] transition"
-                                                    data-id="9" data-nama="Lina" data-alamat="BANDUNG, M10"
-                                                    data-jiwa="2" data-total-zakat-fitrah="0" data-uang-infaq="0"
-                                                    data-jumlah-ziswaf-uang="0" data-jenis-pembayaran=""
-                                                    data-jenis-zakat-fitrah="" data-zakat-fitrah="0" data-fidyah="0"
-                                                    data-beras-infaq="0" data-jumlah-ziswaf-beras="0"
-                                                    data-nomor-telepon="" data-cluster="bandung" data-blok="M10">
-                                                    <svg class="w-5 h-5" fill="none" stroke="currentColor"
-                                                        viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2"
-                                                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                        </td>
+                                <tbody class="bg-white">
+                                    <tr class="bg-white hover:bg-gray-50">
+                                        <td class="px-4 py-3 text-sm text-gray-700 font-medium border border-gray-200">
+                                            Fakir Miskin</td>
+                                        <td
+                                            class="px-4 py-3 text-sm text-gray-900 font-semibold border border-gray-200 text-center">
+                                            0 Kg</td>
+                                        <td
+                                            class="px-4 py-3 text-sm text-gray-900 font-semibold border border-gray-200 text-center">
+                                            Rp0</td>
+                                        <td
+                                            class="px-4 py-3 text-sm text-gray-900 font-semibold border border-gray-200 text-center">
+                                            0 Kg</td>
+                                        <td
+                                            class="px-4 py-3 text-sm text-gray-900 font-semibold border border-gray-200 text-center">
+                                            Rp0</td>
+                                    </tr>
+                                    <tr class="bg-white hover:bg-gray-50">
+                                        <td class="px-4 py-3 text-sm text-gray-700 font-medium border border-gray-200">
+                                            Amilin</td>
+                                        <td
+                                            class="px-4 py-3 text-sm text-gray-900 font-semibold border border-gray-200 text-center">
+                                            0 Kg</td>
+                                        <td
+                                            class="px-4 py-3 text-sm text-gray-900 font-semibold border border-gray-200 text-center">
+                                            Rp0</td>
+                                        <td
+                                            class="px-4 py-3 text-sm text-gray-900 font-semibold border border-gray-200 text-center">
+                                            0 Kg</td>
+                                        <td
+                                            class="px-4 py-3 text-sm text-gray-900 font-semibold border border-gray-200 text-center">
+                                            Rp0</td>
+                                    </tr>
+                                    <tr class="bg-white hover:bg-gray-50">
+                                        <td class="px-4 py-3 text-sm text-gray-700 font-medium border border-gray-200">
+                                            Fisabilillah</td>
+                                        <td
+                                            class="px-4 py-3 text-sm text-gray-900 font-semibold border border-gray-200 text-center">
+                                            0 Kg</td>
+                                        <td
+                                            class="px-4 py-3 text-sm text-gray-900 font-semibold border border-gray-200 text-center">
+                                            Rp0</td>
+                                        <td
+                                            class="px-4 py-3 text-sm text-gray-900 font-semibold border border-gray-200 text-center">
+                                            0 Kg</td>
+                                        <td
+                                            class="px-4 py-3 text-sm text-gray-900 font-semibold border border-gray-200 text-center">
+                                            Rp0</td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <!-- Pagination -->
-                            <div
-                                class="px-6 py-4 flex items-center justify-between border-t border-gray-200 bg-gray-50">
-                                <div class="flex items-center gap-4">
-                                    <div class="text-sm text-gray-700">
-                                        Halaman <span class="font-semibold">1</span> dari <span
-                                            class="font-semibold">10</span>
-                                    </div>
-                                    <div class="flex items-center gap-2">
-                                        <span class="text-sm text-gray-700">Tampilkan</span>
-                                        <select
-                                            class="px-3 py-1.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#223301]">
-                                            <option value="5" selected>5</option>
-                                            <option value="10">10</option>
-                                            <option value="25">25</option>
-                                            <option value="50">50</option>
-                                        </select>
-                                        <span class="text-sm text-gray-700">item dari total 10</span>
-                                    </div>
-                                </div>
-                                <div class="flex items-center space-x-2">
-                                    <button class="p-2 rounded-lg hover:bg-gray-200 transition disabled:opacity-50"
-                                        disabled>
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
-                                        </svg>
-                                    </button>
-                                    <button class="p-2 rounded-lg hover:bg-gray-200 transition disabled:opacity-50"
-                                        disabled>
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M15 19l-7-7 7-7" />
-                                        </svg>
-                                    </button>
-                                    <button
-                                        class="w-10 h-10 rounded-lg text-white font-semibold text-sm flex items-center justify-center"
-                                        style="background: #223301;">1</button>
-                                    <button class="p-2 rounded-lg hover:bg-gray-200 transition">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M9 5l7 7-7 7" />
-                                        </svg>
-                                    </button>
-                                    <button class="p-2 rounded-lg hover:bg-gray-200 transition">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M13 5l7 7-7 7M5 5l7 7-7 7" />
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
+                <br><br><br><br>
             </main>
-        </div>
-    </div>
-
-    <!-- Modal Import -->
-    <div id="importModal" class="modal-overlay">
-        <div class="import-modal-container">
-            <div class="modal-header">
-                <h2 class="modal-title">Import</h2>
-                <button class="modal-close-btn" id="closeImportModal">
-                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-            <button class="download-format-btn">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                </svg>
-                Download Format
-            </button>
-            <div class="upload-area" id="uploadArea">
-                <svg class="upload-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                </svg>
-                <p class="text-gray-700 font-medium mb-2">Drag & Drop file Anda di sini</p>
-                <p class="text-gray-500 text-sm mb-2">atau</p>
-                <span class="file-browser-link" id="fileBrowserLink">File Browser</span>
-            </div>
-            <input type="file" id="fileInput" class="hidden" multiple accept=".xlsx,.xls,.csv">
-            <div id="fileList" class="space-y-3"></div>
+            </main>
         </div>
     </div>
 
@@ -1850,18 +2258,44 @@
         </div>
     </div>
 
-    <!-- Modal Filter -->
-    <div id="filterModal" class="modal-overlay">
-        <div class="filter-modal-container">
-            <div class="filter-modal-header"
-                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;">
-                <h2 class="filter-modal-title">Filter</h2>
-                <button class="modal-close-btn" id="closeFilterModalBtn">
+    <!-- Modal Import -->
+    <div id="importModal" class="modal-overlay">
+        <div class="import-modal-container">
+            <div class="modal-header">
+                <h2 class="modal-title">Import</h2>
+                <button class="modal-close-btn" id="closeImportModal">
                     <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
+            </div>
+            <button class="download-format-btn">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                Download Format
+            </button>
+            <div class="upload-area" id="uploadArea">
+                <svg class="upload-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                </svg>
+                <p class="text-gray-700 font-medium mb-2">Drag & Drop file Anda di sini</p>
+                <p class="text-gray-500 text-sm mb-2">atau</p>
+                <span class="file-browser-link" id="fileBrowserLink">File Browser</span>
+            </div>
+            <input type="file" id="fileInput" class="hidden" multiple accept=".xlsx,.xls,.csv">
+            <div id="fileList" class="space-y-3"></div>
+        </div>
+    </div>
+
+    <!-- Modal Filter -->
+    <div id="filterModal" class="modal-overlay">
+        <div class="filter-modal-container">
+            <div class="filter-modal-header">
+                <h2 class="filter-modal-title">Filter</h2>
             </div>
             <form id="filterForm">
                 <!-- Tanggal Section -->
@@ -1886,23 +2320,6 @@
                     </div>
                 </div>
 
-                <!-- Cluster Section -->
-                <div class="filter-section">
-                    <label class="filter-label">Cluster</label>
-                    <div class="year-select-wrapper">
-                        <select id="clusterSelect" class="year-select">
-                            <option value="">Pilih Cluster</option>
-                            <option value="bandung" selected>Bandung</option>
-                            <option value="batam">Batam</option>
-                            <option value="jakarta">Jakarta</option>
-                            <option value="surabaya">Surabaya</option>
-                        </select>
-                        <svg class="year-select-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                        </svg>
-                    </div>
-                </div>
-
                 <!-- Tahun Section -->
                 <div class="filter-section">
                     <label class="filter-label">Tahun</label>
@@ -1922,24 +2339,6 @@
                     </div>
                 </div>
 
-                <!-- Semua Section -->
-                <div class="filter-section">
-                    <label class="filter-label">Semua</label>
-                    <div class="year-select-wrapper">
-                        <select id="semuaSelect" class="year-select">
-                            <option value="">Pilih Semua</option>
-                            <option value="fitrah" selected>Fitrah</option>
-                            <option value="mal">Mal</option>
-                            <option value="infaq">Infaq</option>
-                            <option value="shadaqoh">Shadaqoh</option>
-                            <option value="wakaf">Wakaf</option>
-                        </select>
-                        <svg class="year-select-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                        </svg>
-                    </div>
-                </div>
-
                 <!-- Action Buttons -->
                 <div class="filter-actions">
                     <button type="button" id="resetFilterBtn" class="btn-reset">Reset</button>
@@ -1949,111 +2348,13 @@
         </div>
     </div>
 
-    <!-- Modal Detail Data Muzakki -->
-    <div id="detailModal" class="modal-overlay">
-        <div class="detail-modal-container">
-            <div class="detail-modal-header">
-                <h2 class="detail-modal-title" id="detailModalTitle">Detail Data Muzakki</h2>
-                <button class="modal-close-btn" id="closeDetailModal">
-                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-            <div class="detail-content">
-                <!-- Muzakki Information -->
-                <div class="detail-section">
-                    <div class="detail-row">
-                        <span class="detail-label">No</span>
-                        <span class="detail-value" id="detailNo">-</span>
-                    </div>
-                    <div class="detail-row">
-                        <span class="detail-label">Nama Kepala Keluarga</span>
-                        <span class="detail-value" id="detailNama">-</span>
-                    </div>
-                    <div class="detail-row">
-                        <span class="detail-label">ALAMAT</span>
-                        <span class="detail-value" id="detailAlamat">-</span>
-                    </div>
-                    <div class="detail-row">
-                        <span class="detail-label">Jumlah Jiwa</span>
-                        <span class="detail-value" id="detailJiwa">-</span>
-                    </div>
-                </div>
-
-                <!-- ZAKAT FITRAH Section -->
-                <div class="detail-section">
-                    <h3 class="detail-section-title">ZAKAT FITRAH</h3>
-                    <div class="detail-row">
-                        <span class="detail-label">Uang</span>
-                        <span class="detail-value amount" id="detailUang">Rp0</span>
-                    </div>
-                    <div class="detail-row">
-                        <span class="detail-label">Fidyah</span>
-                        <span class="detail-value amount" id="detailFidyah">Rp0</span>
-                    </div>
-                    <div class="detail-row">
-                        <span class="detail-label">Uang Infaq</span>
-                        <span class="detail-value amount" id="detailUangInfaq">Rp0</span>
-                    </div>
-                    <div class="detail-row">
-                        <span class="detail-label">Beras Infaq</span>
-                        <span class="detail-value" id="detailBerasInfaq">0 Kg</span>
-                    </div>
-                </div>
-
-                <!-- JUMLAH ZISWAF Section -->
-                <div class="detail-section">
-                    <h3 class="detail-section-title">JUMLAH ZISWAF</h3>
-                    <div class="detail-row">
-                        <span class="detail-label">Total</span>
-                        <span class="detail-value amount" id="detailTotal">Rp0</span>
-                    </div>
-                    <div class="detail-row">
-                        <span class="detail-label">Kg</span>
-                        <span class="detail-value" id="detailBerasTotal">0 Kg</span>
-                    </div>
-                    <div class="detail-row">
-                        <span class="detail-label">Jenis Pembayaran</span>
-                        <span class="detail-value" id="detailPembayaran">-</span>
-                    </div>
-                </div>
-
-                <!-- DATA TAMBAHAN Section -->
-                <div class="detail-section">
-                    <h3 class="detail-section-title">DATA TAMBAHAN</h3>
-                    <div class="detail-row">
-                        <span class="detail-label">No. Telp</span>
-                        <span class="detail-value" id="detailTelp">-</span>
-                    </div>
-                </div>
-
-                <!-- DATA Peserta Zakat Section -->
-                <div class="detail-section">
-                    <h3 class="detail-section-title">PESERTA ZAKAT</h3>
-                    <div class="detail-row">
-                        <span class="detail-label">NAMA</span>
-                        <span class="detail-value" id="detailPeserta">EMIL</span>
-                    </div>
-                </div>
-
-                <!-- Print Button -->
-                <div class="mt-6 pt-6 border-t border-gray-200">
-                    <button id="printStrukBtn" class="btn-modern accent w-full">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
-                        </svg>
-                        Print Struk
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Scripts -->
+    <!-- SweetAlert2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- jQuery (required for Select2) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <!-- Flatpickr JS -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/id.js"></script>
     <script>
@@ -2075,7 +2376,7 @@
         const sidebar = document.getElementById('sidebar');
         const toggleSidebar = document.getElementById('toggleSidebar');
 
-        toggleSidebar?.addEventListener('click', (e) => {
+        toggleSidebar.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
 
@@ -2168,7 +2469,7 @@
         const notificationBtn = document.getElementById('notificationBtn');
         const notificationDropdown = document.getElementById('notificationDropdown');
 
-        notificationBtn?.addEventListener('click', (e) => {
+        notificationBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             notificationDropdown.classList.toggle('show');
             profileDropdown.classList.remove('show');
@@ -2178,7 +2479,7 @@
         const profileBtn = document.getElementById('profileBtn');
         const profileDropdown = document.getElementById('profileDropdown');
 
-        profileBtn?.addEventListener('click', (e) => {
+        profileBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             profileDropdown.classList.toggle('show');
             notificationDropdown.classList.remove('show');
@@ -2193,6 +2494,88 @@
                 profileDropdown.classList.remove('show');
             }
         });
+
+        // Modal Tambah Data Muzakki (only if elements exist)
+        const tambahDataMuzakkiBtn = document.getElementById('tambahDataMuzakkiBtn');
+        const tambahDataMuzakkiModal = document.getElementById('tambahDataMuzakkiModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const zakatFitrahOption = document.getElementById('zakatFitrahOption');
+        const zakatMalOption = document.getElementById('zakatMalOption');
+
+        // Open modal (only if elements exist)
+        if (tambahDataMuzakkiBtn && tambahDataMuzakkiModal) {
+            tambahDataMuzakkiBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                tambahDataMuzakkiModal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            });
+        }
+
+        // Close modal
+        function closeModal() {
+            if (tambahDataMuzakkiModal) {
+                tambahDataMuzakkiModal.classList.remove('show');
+                document.body.style.overflow = '';
+                // Reset active states
+                if (zakatFitrahOption) zakatFitrahOption.classList.remove('active');
+                if (zakatMalOption) zakatMalOption.classList.remove('active');
+            }
+        }
+
+        if (closeModalBtn && tambahDataMuzakkiModal) {
+            closeModalBtn.addEventListener('click', closeModal);
+
+            // Close modal when clicking overlay
+            tambahDataMuzakkiModal.addEventListener('click', (e) => {
+                if (e.target === tambahDataMuzakkiModal) {
+                    closeModal();
+                }
+            });
+
+            // Close modal with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && tambahDataMuzakkiModal.classList.contains('show')) {
+                    closeModal();
+                }
+            });
+        }
+
+        // Handle option selection (only if elements exist)
+        if (zakatFitrahOption) {
+            zakatFitrahOption.addEventListener('click', () => {
+                zakatFitrahOption.classList.add('active');
+                if (zakatMalOption) zakatMalOption.classList.remove('active');
+                // Here you can add navigation or form opening logic
+                setTimeout(() => {
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Zakat Fitrah',
+                        text: 'Membuka form Zakat Fitrah...',
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                    closeModal();
+                }, 300);
+            });
+        }
+
+        if (zakatMalOption) {
+            zakatMalOption.addEventListener('click', () => {
+                zakatMalOption.classList.add('active');
+                if (zakatFitrahOption) zakatFitrahOption.classList.remove('active');
+                // Here you can add navigation or form opening logic
+                setTimeout(() => {
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Zakat Mal',
+                        text: 'Membuka form Zakat Mal...',
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                    closeModal();
+                }, 300);
+            });
+        }
 
         // Modal Import
         const importModal = document.getElementById('importModal');
@@ -2324,218 +2707,270 @@
             return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
         }
 
-        // Modal Tambah Data Muzakki
-        const tambahDataMuzakkiBtn = document.getElementById('tambahDataMuzakkiBtn');
-        const tambahDataMuzakkiModal = document.getElementById('tambahDataMuzakkiModal');
-        const closeModalBtn = document.getElementById('closeModalBtn');
-        const zakatFitrahOption = document.getElementById('zakatFitrahOption');
-        const zakatMalOption = document.getElementById('zakatMalOption');
-
-        // Open modal
-        tambahDataMuzakkiBtn?.addEventListener('click', (e) => {
-            e.preventDefault();
-            tambahDataMuzakkiModal.classList.add('show');
-            document.body.style.overflow = 'hidden';
-        });
-
-        // Close modal
-        function closeModal() {
-            tambahDataMuzakkiModal.classList.remove('show');
-            document.body.style.overflow = '';
-            // Reset active states
-            zakatFitrahOption?.classList.remove('active');
-            zakatMalOption?.classList.remove('active');
-        }
-
-        closeModalBtn?.addEventListener('click', closeModal);
-
-        // Handle Zakat Fitrah Option Click - Redirect to tambah-data-muzakki.html
-        zakatFitrahOption?.addEventListener('click', () => {
-            closeModal();
-            window.location.href = 'tambah-data-muzakki.html';
-        });
-
-        // Handle Zakat Mal Option Click - Redirect to tambah-data-zakat-mal.html
-        zakatMalOption?.addEventListener('click', () => {
-            closeModal();
-            window.location.href = 'tambah-data-zakat-mal.html';
-        });
-
-        // Handle Edit Button Click - Redirect to tambah-data-muzakki.html with edit mode
-        // Use event delegation to handle dynamically added buttons
-        document.addEventListener('click', (e) => {
-            const editBtn = e.target.closest('.edit-btn');
-            if (editBtn) {
-                e.preventDefault();
-                e.stopPropagation();
-                const dataId = editBtn.getAttribute('data-id');
-                // Redirect to edit page, you can pass ID as query parameter if needed
-                window.location.href = `tambah-data-muzakki.html?edit=${dataId}`;
-            }
-        });
-
-        // Detail Modal
-        const detailModal = document.getElementById('detailModal');
-        const closeDetailModal = document.getElementById('closeDetailModal');
-        const detailModalTitle = document.getElementById('detailModalTitle');
-        const detailBtns = document.querySelectorAll('.detail-btn');
-
-        // Format currency
-        function formatCurrency(amount) {
-            if (!amount || amount === '0' || amount === 0) return 'Rp0';
-            const num = typeof amount === 'string' ? parseFloat(amount.replace(/[^\d]/g, '')) : amount;
-            return new Intl.NumberFormat('id-ID', {
-                style: 'currency',
-                currency: 'IDR',
-                minimumFractionDigits: 0
-            }).format(num);
-        }
-
-        // Format currency with decimals
-        function formatCurrencyDecimal(amount) {
-            if (!amount || amount === '0' || amount === 0) return 'Rp0,00';
-            const num = typeof amount === 'string' ? parseFloat(amount.replace(/[^\d]/g, '')) : amount;
-            return new Intl.NumberFormat('id-ID', {
-                style: 'currency',
-                currency: 'IDR',
-                minimumFractionDigits: 2
-            }).format(num);
-        }
-
-        // Open detail modal
-        detailBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                const data = {
-                    id: btn.getAttribute('data-id'),
-                    nama: btn.getAttribute('data-nama'),
-                    alamat: btn.getAttribute('data-alamat'),
-                    jiwa: btn.getAttribute('data-jiwa'),
-                    uang: btn.getAttribute('data-uang'),
-                    fidyah: btn.getAttribute('data-fidyah'),
-                    uangInfaq: btn.getAttribute('data-uang-infaq'),
-                    berasInfaq: btn.getAttribute('data-beras-infaq'),
-                    total: btn.getAttribute('data-total'),
-                    berasTotal: btn.getAttribute('data-beras-total'),
-                    pembayaran: btn.getAttribute('data-pembayaran'),
-                    telp: btn.getAttribute('data-telp')
-                };
-
-                // Update modal title
-                detailModalTitle.textContent = `Detail Data Muzakki ${data.nama}`;
-
-                // Fill in the data
-                document.getElementById('detailNo').textContent = data.id || '-';
-                document.getElementById('detailNama').textContent = data.nama || '-';
-                document.getElementById('detailAlamat').textContent = data.alamat || '-';
-                document.getElementById('detailJiwa').textContent = data.jiwa || '-';
-                document.getElementById('detailUang').textContent = formatCurrencyDecimal(data.uang);
-                document.getElementById('detailFidyah').textContent = formatCurrency(data.fidyah);
-                document.getElementById('detailUangInfaq').textContent = formatCurrency(data.uangInfaq);
-                document.getElementById('detailBerasInfaq').textContent = data.berasInfaq ? `${data.berasInfaq} Kg` : '0 Kg';
-                document.getElementById('detailTotal').textContent = formatCurrency(data.total);
-                document.getElementById('detailBerasTotal').textContent = data.berasTotal ? `${data.berasTotal} Kg` : '0 Kg';
-                document.getElementById('detailPembayaran').textContent = data.pembayaran || '-';
-                document.getElementById('detailTelp').textContent = data.telp || '-';
-
-                // Show modal
-                detailModal.classList.add('show');
-                document.body.style.overflow = 'hidden';
+        // Close import modal when clicking overlay
+        if (importModal) {
+            importModal.addEventListener('click', (e) => {
+                if (e.target === importModal) {
+                    importModal.classList.remove('show');
+                    document.body.style.overflow = '';
+                }
             });
-        });
 
-        // Close detail modal
-        closeDetailModal?.addEventListener('click', () => {
-            detailModal.classList.remove('show');
-            document.body.style.overflow = '';
-        });
+            // Close modal with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && importModal.classList.contains('show')) {
+                    importModal.classList.remove('show');
+                    document.body.style.overflow = '';
+                }
+            });
+        }
 
-        // Filter Modal
+        // Filter Modal (only if elements exist)
         const filterBtn = document.getElementById('filterBtn');
         const filterModal = document.getElementById('filterModal');
         const resetFilterBtn = document.getElementById('resetFilterBtn');
         const applyFilterBtn = document.getElementById('applyFilterBtn');
-        const closeFilterModalBtn = document.getElementById('closeFilterModalBtn');
+        const dateFrom = document.getElementById('dateFrom');
+        const dateTo = document.getElementById('dateTo');
+        const yearSelect = document.getElementById('yearSelect');
 
-        // Open filter modal
-        filterBtn?.addEventListener('click', () => {
-            filterModal?.classList.add('show');
-            document.body.style.overflow = 'hidden';
+        // Initialize Flatpickr for date inputs
+        let dateFromPicker, dateToPicker;
 
-            // Initialize Flatpickr for date inputs
-            if (typeof flatpickr !== 'undefined') {
-                const dateFrom = document.getElementById('dateFrom');
-                const dateTo = document.getElementById('dateTo');
-
-                if (dateFrom && !dateFrom._flatpickr) {
-                    flatpickr(dateFrom, {
-                        dateFormat: 'd/m/Y',
-                        locale: 'id',
-                        allowInput: true
-                    });
-                }
-
-                if (dateTo && !dateTo._flatpickr) {
-                    flatpickr(dateTo, {
-                        dateFormat: 'd/m/Y',
-                        locale: 'id',
-                        allowInput: true
-                    });
-                }
-            }
-        });
-
-        // Close filter modal
-        function closeFilterModalFunc() {
-            filterModal?.classList.remove('show');
-            document.body.style.overflow = '';
-        }
-
-        // Close modal button
-        closeFilterModalBtn?.addEventListener('click', closeFilterModalFunc);
-
-        // Close modal when clicking overlay
-        filterModal?.addEventListener('click', (e) => {
-            if (e.target === filterModal) {
-                closeFilterModalFunc();
-            }
-        });
-
-        // Reset filter
-        resetFilterBtn?.addEventListener('click', () => {
-            const filterForm = document.getElementById('filterForm');
-            if (filterForm) {
-                filterForm.reset();
-            }
-        });
-
-        // Apply filter
-        applyFilterBtn?.addEventListener('click', () => {
-            // Get filter values
-            const dateFrom = document.getElementById('dateFrom')?.value;
-            const dateTo = document.getElementById('dateTo')?.value;
-            const year = document.getElementById('yearSelect')?.value;
-            const cluster = document.getElementById('clusterSelect')?.value;
-            const semua = document.getElementById('semuaSelect')?.value;
-
-            // Here you can add your filter logic
-            console.log('Filter applied:', { dateFrom, dateTo, year, cluster, semua });
-
-            // Close modal after applying
-            closeFilterModalFunc();
-
-            // You can add notification or reload data here
-            if (typeof Swal !== 'undefined') {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Filter Diterapkan',
-                    text: 'Filter berhasil diterapkan',
-                    confirmButtonColor: '#223301',
-                    timer: 1500,
-                    showConfirmButton: false
+        // Initialize datepickers once
+        function initializeDatePickers() {
+            if (!dateFromPicker && dateFrom) {
+                dateFromPicker = flatpickr(dateFrom, {
+                    dateFormat: "d/m/Y",
+                    placeholder: "dd/mm/yyyy",
+                    locale: "id",
+                    allowInput: false,
+                    clickOpens: true,
+                    maxDate: new Date()
                 });
             }
+
+            if (!dateToPicker && dateTo) {
+                dateToPicker = flatpickr(dateTo, {
+                    dateFormat: "d/m/Y",
+                    placeholder: "dd/mm/yyyy",
+                    locale: "id",
+                    allowInput: false,
+                    clickOpens: true,
+                    maxDate: new Date()
+                });
+            }
+        }
+
+        // Initialize on page load
+        if (typeof flatpickr !== 'undefined') {
+            initializeDatePickers();
+        } else {
+            // Wait for flatpickr to load
+            window.addEventListener('load', () => {
+                setTimeout(initializeDatePickers, 100);
+            });
+        }
+
+        // Initialize Select2
+        function initializeSelect2() {
+            // Initialize Select2 for all select elements
+            if (typeof $ !== 'undefined' && typeof $.fn.select2 !== 'undefined') {
+                $('.form-select, .year-select').select2({
+                    theme: 'bootstrap-5',
+                    width: '100%',
+                    language: {
+                        noResults: function () {
+                            return "Tidak ada hasil ditemukan";
+                        },
+                        searching: function () {
+                            return "Mencari...";
+                        }
+                    }
+                });
+            }
+        }
+
+        // Open Manajemen Zakat dropdown on page load for data-mustahik.html
+        window.addEventListener('DOMContentLoaded', () => {
+            // Initialize Select2
+            initializeSelect2();
+
+            // Close all dropdowns first
+            document.querySelectorAll('.dropdown-menu-modern').forEach(menu => {
+                menu.classList.remove('open');
+            });
+            document.querySelectorAll('.dropdown-icon-modern').forEach(icon => {
+                icon.classList.remove('rotated');
+            });
+
+            // Open only Manajemen Zakat dropdown
+            const manajemenZakatDropdown = document.getElementById('manajemenZakat');
+            const manajemenZakatIcon = document.querySelector('[onclick*="manajemenZakat"] .dropdown-icon-modern');
+            if (manajemenZakatDropdown) {
+                manajemenZakatDropdown.classList.add('open');
+                if (manajemenZakatIcon) {
+                    manajemenZakatIcon.classList.add('rotated');
+                }
+            }
         });
+
+        // Open filter modal (only if elements exist)
+        if (filterBtn && filterModal) {
+            filterBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                filterModal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            });
+        }
+
+        // Close filter modal
+        function closeFilterModal() {
+            if (filterModal) {
+                filterModal.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Close modal when clicking overlay (only if elements exist)
+        if (filterModal) {
+            filterModal.addEventListener('click', (e) => {
+                if (e.target === filterModal) {
+                    closeFilterModal();
+                }
+            });
+
+            // Close modal with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && filterModal.classList.contains('show')) {
+                    closeFilterModal();
+                }
+            });
+        }
+
+        // Reset filter (only if elements exist)
+        if (resetFilterBtn) {
+            resetFilterBtn.addEventListener('click', () => {
+                if (dateFromPicker) dateFromPicker.clear();
+                if (dateToPicker) dateToPicker.clear();
+                if (yearSelect) yearSelect.value = '2025';
+            });
+        }
+
+        // Apply filter (only if elements exist)
+        if (applyFilterBtn) {
+            applyFilterBtn.addEventListener('click', () => {
+                const fromDate = dateFromPicker ? dateFromPicker.selectedDates[0] : null;
+                const toDate = dateToPicker ? dateToPicker.selectedDates[0] : null;
+                const year = yearSelect.value;
+
+                // Here you can add your filter logic
+                console.log('Filter Applied:', {
+                    fromDate: fromDate ? dateFromPicker.formatDate(fromDate, 'd/m/Y') : null,
+                    toDate: toDate ? dateToPicker.formatDate(toDate, 'd/m/Y') : null,
+                    year: year
+                });
+
+                // Close modal after applying
+                closeFilterModal();
+
+                // You can add notification or update data here
+                // alert('Filter diterapkan!');
+            });
+        }
+
+        // Handle page not ready links - Only for links that don't have other handlers
+        // This should not interfere with existing modals and swal dialogs
+        (function () {
+            // Function untuk menampilkan SweetAlert2 info
+            function showPageNotReadyInfo(pageName) {
+                if (typeof Swal !== 'undefined') {
+                    Swal.fire({
+                        icon: 'info',
+                        title: pageName || 'Halaman Belum Tersedia',
+                        html: `<p style="font-size: 16px; color: #64748b; margin-top: 10px;">Halaman <strong>"${pageName || 'ini'}"</strong> sedang dalam pengembangan dan akan segera tersedia.</p><p style="font-size: 14px; color: #94a3b8; margin-top: 8px;">Terima kasih atas pengertian Anda.</p>`,
+                        confirmButtonText: 'Mengerti',
+                        confirmButtonColor: '#223301',
+                        width: '500px',
+                        padding: '2rem',
+                        customClass: {
+                            popup: 'rounded-2xl',
+                            title: 'text-2xl font-bold text-gray-900',
+                            confirmButton: 'px-6 py-3 rounded-lg font-semibold'
+                        }
+                    });
+                } else {
+                    alert(`Halaman "${pageName || 'ini'}" sedang dalam pengembangan dan akan segera tersedia.`);
+                }
+            }
+
+            // Wait for DOM to be fully loaded
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initPageNotReadyHandler);
+            } else {
+                // DOM already loaded, run immediately but after other scripts
+                setTimeout(initPageNotReadyHandler, 100);
+            }
+
+            function initPageNotReadyHandler() {
+                // Handle sidebar links with href="#"
+                const sidebarLinks = document.querySelectorAll('aside.sidebar-modern a[href="#"]');
+                sidebarLinks.forEach(link => {
+                    // Skip if link has onclick (for dropdown toggle)
+                    if (link.hasAttribute('onclick')) return;
+
+                    // Skip if link is inside a modal
+                    if (link.closest('.modal-overlay') || link.closest('.modal')) return;
+
+                    // Add click handler only if link doesn't already have one
+                    if (!link.dataset.pageNotReadyHandler) {
+                        link.dataset.pageNotReadyHandler = 'true';
+                        link.addEventListener('click', function (e) {
+                            // Don't interfere if event was already handled
+                            if (e.defaultPrevented) return;
+
+                            const pageName = this.querySelector('span')?.textContent ||
+                                this.textContent.trim() ||
+                                'Halaman';
+
+                            e.preventDefault();
+                            showPageNotReadyInfo(pageName);
+                        });
+                    }
+                });
+
+                // Handle profile dropdown links with href="#"
+                const profileLinks = document.querySelectorAll('#profileDropdown a[href="#"]');
+                profileLinks.forEach(link => {
+                    // Skip if link is inside a modal
+                    if (link.closest('.modal-overlay') || link.closest('.modal')) return;
+
+                    // Add click handler only if link doesn't already have one
+                    if (!link.dataset.pageNotReadyHandler) {
+                        link.dataset.pageNotReadyHandler = 'true';
+                        link.addEventListener('click', function (e) {
+                            // Don't interfere if event was already handled
+                            if (e.defaultPrevented) return;
+
+                            const pageName = this.querySelector('span')?.textContent ||
+                                this.textContent.trim() ||
+                                'Halaman';
+
+                            e.preventDefault();
+                            showPageNotReadyInfo(pageName);
+
+                            // Close profile dropdown
+                            setTimeout(() => {
+                                const profileDropdown = document.getElementById('profileDropdown');
+                                if (profileDropdown) {
+                                    profileDropdown.classList.remove('show');
+                                }
+                            }, 100);
+                        });
+                    }
+                });
+            }
+        })();
 
     </script>
 </body>

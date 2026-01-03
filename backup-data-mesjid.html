@@ -688,6 +688,7 @@
         .main-content-bg {
             background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
             min-height: 100vh;
+            padding-bottom: 2rem;
         }
 
         /* Modal Styles */
@@ -1446,7 +1447,7 @@
                             </svg>
                             <span>Data Mustahik</span>
                         </a>
-                        <a href="#"
+                        <a href="perhitungan-kalkulasi.html"
                             class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
                             <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
@@ -1455,7 +1456,7 @@
                             </svg>
                             <span>Perhitungan Kalkulasi</span>
                         </a>
-                        <a href="#"
+                        <a href="kalkulasi-pembagian.html"
                             class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
                             <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
@@ -1494,7 +1495,7 @@
                         </svg>
                     </a>
                     <div id="manajemenKurban" class="dropdown-menu-modern">
-                        <a href="#"
+                        <a href="daftar-kurban.html"
                             class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
                             <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
@@ -1583,7 +1584,7 @@
                         </svg>
                     </a>
                     <div id="pengaturan" class="dropdown-menu-modern">
-                        <a href="#"
+                        <a href="bahasa-aplikasi.html"
                             class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
                             <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
@@ -1592,7 +1593,7 @@
                             </svg>
                             <span>Bahasa Aplikasi</span>
                         </a>
-                        <a href="#"
+                        <a href="pencatatan.html"
                             class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
                             <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
@@ -1615,7 +1616,7 @@
 
                 <!-- Wizard -->
                 <div class="mt-auto pt-4 border-t border-gray-200">
-                    <a href="#" class="menu-item-modern flex items-center space-x-4 px-4 py-3.5">
+                    <a href="wizard.html" class="menu-item-modern flex items-center space-x-4 px-4 py-3.5">
                         <svg class="w-5 h-5 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -2369,102 +2370,102 @@
             });
         }
 
-        // Handle page not ready links - Only for links that don't have other handlers
-        // This should not interfere with existing modals and swal dialogs
-        (function() {
-            // Function untuk menampilkan SweetAlert2 info
-            function showPageNotReadyInfo(pageName) {
-                if (typeof Swal !== 'undefined') {
-                    Swal.fire({
-                        icon: 'info',
-                        title: pageName || 'Halaman Belum Tersedia',
-                        html: `<p style="font-size: 16px; color: #64748b; margin-top: 10px;">Halaman <strong>"${pageName || 'ini'}"</strong> sedang dalam pengembangan dan akan segera tersedia.</p><p style="font-size: 14px; color: #94a3b8; margin-top: 8px;">Terima kasih atas pengertian Anda.</p>`,
-                        confirmButtonText: 'Mengerti',
-                        confirmButtonColor: '#223301',
-                        width: '500px',
-                        padding: '2rem',
-                        customClass: {
-                            popup: 'rounded-2xl',
-                            title: 'text-2xl font-bold text-gray-900',
-                            confirmButton: 'px-6 py-3 rounded-lg font-semibold'
-                        }
-                    });
-                } else {
-                    alert(`Halaman "${pageName || 'ini'}" sedang dalam pengembangan dan akan segera tersedia.`);
+        // Handle Zakat Fitrah Option Click - Redirect to tambah-data-muzakki.html
+        if (zakatFitrahOption) {
+            zakatFitrahOption.addEventListener('click', () => {
+                closeModal();
+                window.location.href = 'tambah-data-muzakki.html';
+            });
+        }
+
+        // Handle Zakat Mal Option Click - Redirect to tambah-data-zakat-mal.html
+        if (zakatMalOption) {
+            zakatMalOption.addEventListener('click', () => {
+                closeModal();
+                window.location.href = 'tambah-data-zakat-mal.html';
+            });
+        }
+
+        // Restore Data Function
+        function restoreData(id) {
+            if (typeof Swal !== 'undefined') {
+                Swal.fire({
+                    title: 'Restore Data?',
+                    text: 'Apakah Anda yakin ingin mengembalikan data masjid ini?',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#10b981',
+                    cancelButtonColor: '#6b7280',
+                    confirmButtonText: 'Ya, Restore',
+                    cancelButtonText: 'Batal',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Here you can add your restore logic
+                        console.log('Restoring data with ID:', id);
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Data Dikembalikan',
+                            text: 'Data masjid berhasil dikembalikan',
+                            confirmButtonColor: '#223301',
+                            timer: 2000,
+                            showConfirmButton: false
+                        }).then(() => {
+                            // Reload page or update table
+                            // window.location.reload();
+                        });
+                    }
+                });
+            } else {
+                if (confirm('Apakah Anda yakin ingin mengembalikan data masjid ini?')) {
+                    console.log('Restoring data with ID:', id);
+                    alert('Data masjid berhasil dikembalikan');
                 }
             }
+        }
 
-            // Wait for DOM to be fully loaded
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', initPageNotReadyHandler);
+        // Delete Permanen Function
+        function deletePermanen(id) {
+            if (typeof Swal !== 'undefined') {
+                Swal.fire({
+                    title: 'Hapus Permanen?',
+                    text: 'Data yang dihapus permanen tidak dapat dikembalikan!',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#ef4444',
+                    cancelButtonColor: '#6b7280',
+                    confirmButtonText: 'Ya, Hapus Permanen',
+                    cancelButtonText: 'Batal',
+                    reverseButtons: true,
+                    dangerMode: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Here you can add your delete logic
+                        console.log('Deleting permanently data with ID:', id);
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Data Dihapus',
+                            text: 'Data masjid berhasil dihapus permanen',
+                            confirmButtonColor: '#223301',
+                            timer: 2000,
+                            showConfirmButton: false
+                        }).then(() => {
+                            // Reload page or remove row from table
+                            // window.location.reload();
+                        });
+                    }
+                });
             } else {
-                // DOM already loaded, run immediately but after other scripts
-                setTimeout(initPageNotReadyHandler, 100);
+                if (confirm('Data yang dihapus permanen tidak dapat dikembalikan! Apakah Anda yakin?')) {
+                    console.log('Deleting permanently data with ID:', id);
+                    alert('Data masjid berhasil dihapus permanen');
+                }
             }
-
-            function initPageNotReadyHandler() {
-                // Handle sidebar links with href="#"
-                const sidebarLinks = document.querySelectorAll('aside.sidebar-modern a[href="#"]');
-                sidebarLinks.forEach(link => {
-                    // Skip if link has onclick (for dropdown toggle)
-                    if (link.hasAttribute('onclick')) return;
-                    
-                    // Skip if link is inside a modal
-                    if (link.closest('.modal-overlay') || link.closest('.modal')) return;
-                    
-                    // Add click handler only if link doesn't already have one
-                    if (!link.dataset.pageNotReadyHandler) {
-                        link.dataset.pageNotReadyHandler = 'true';
-                        link.addEventListener('click', function(e) {
-                            // Don't interfere if event was already handled
-                            if (e.defaultPrevented) return;
-                            
-                            const pageName = this.querySelector('span')?.textContent || 
-                                           this.textContent.trim() || 
-                                           'Halaman';
-                            
-                            e.preventDefault();
-                            showPageNotReadyInfo(pageName);
-                        });
-                    }
-                });
-
-                // Handle profile dropdown links with href="#"
-                const profileLinks = document.querySelectorAll('#profileDropdown a[href="#"]');
-                profileLinks.forEach(link => {
-                    // Skip if link is inside a modal
-                    if (link.closest('.modal-overlay') || link.closest('.modal')) return;
-                    
-                    // Add click handler only if link doesn't already have one
-                    if (!link.dataset.pageNotReadyHandler) {
-                        link.dataset.pageNotReadyHandler = 'true';
-                        link.addEventListener('click', function(e) {
-                            // Don't interfere if event was already handled
-                            if (e.defaultPrevented) return;
-                            
-                            const pageName = this.querySelector('span')?.textContent || 
-                                           this.textContent.trim() || 
-                                           'Halaman';
-                            
-                            e.preventDefault();
-                            showPageNotReadyInfo(pageName);
-                            
-                            // Close profile dropdown
-                            setTimeout(() => {
-                                const profileDropdown = document.getElementById('profileDropdown');
-                                if (profileDropdown) {
-                                    profileDropdown.classList.remove('show');
-                                }
-                            }, 100);
-                        });
-                    }
-                });
-            }
-        })();
+        }
 
     </script>
-
-    </div>
 </body>
 
 </html>

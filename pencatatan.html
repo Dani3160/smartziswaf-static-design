@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tambah Data Muzakki - SMART ZISWAF</title>
+    <title>Pencatatan - SMART ZISWAF</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
@@ -23,7 +23,7 @@
             background: #f5f7fa;
         }
 
-        /* Modern Sidebar - Copy from dashboard.html */
+        /* Modern Sidebar */
         .sidebar-modern {
             background: #ffffff;
             box-shadow: 4px 0 30px rgba(0, 0, 0, 0.08);
@@ -177,7 +177,6 @@
             height: 20px !important;
         }
 
-        /* Ensure all icons are visible when collapsed */
         .sidebar-modern.collapsed nav svg {
             opacity: 1 !important;
             visibility: visible !important;
@@ -202,6 +201,103 @@
             top: auto !important;
         }
 
+        .sidebar-modern:not(.collapsed) .dropdown-menu-modern.open {
+            position: static !important;
+            top: auto !important;
+        }
+
+        .sidebar-modern.collapsed .dropdown-menu-modern.open {
+            display: block !important;
+            position: fixed;
+            left: calc(80px + 12px);
+            top: auto;
+            min-width: 220px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15), 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            z-index: 1000;
+            margin-left: 0;
+            padding: 8px 0;
+            border-left: none;
+            opacity: 1 !important;
+            max-height: 500px !important;
+            overflow-y: auto;
+        }
+
+        .sidebar-modern.collapsed .dropdown-menu-modern:not(.open) {
+            display: none !important;
+        }
+
+        .sidebar-modern.collapsed .dropdown-menu-modern.open::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 20px;
+            width: 0;
+            height: 0;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            border-right: 8px solid white;
+            filter: drop-shadow(-2px 0 2px rgba(0, 0, 0, 0.1));
+            z-index: 1;
+        }
+
+        .sidebar-modern .logo-section {
+            background: #ffffff;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 80px;
+        }
+
+        .sidebar-modern:not(.collapsed) .logo-section {
+            justify-content: flex-start;
+        }
+
+        .logo-section::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 40px;
+            background: #fff;
+            z-index: 0;
+        }
+
+        .toggle-btn-header {
+            position: absolute;
+            right: -14px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #223301;
+            border: 2px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .toggle-btn-header:hover {
+            background: #2d4a0a;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .toggle-btn-header svg {
+            width: 16px;
+            height: 16px;
+            color: white;
+        }
+
         .menu-item-modern {
             position: relative;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -215,9 +311,10 @@
         }
 
         .menu-item-modern.active {
-            background: linear-gradient(135deg, rgba(34, 51, 1, 0.12) 0%, rgba(45, 74, 10, 0.08) 100%);
+            background: linear-gradient(135deg, rgba(34, 51, 1, 0.18) 0%, rgba(45, 74, 10, 0.15) 100%);
             border-left: 4px solid #223301;
-            box-shadow: 0 2px 8px rgba(34, 51, 1, 0.15);
+            box-shadow: 0 2px 12px rgba(34, 51, 1, 0.2);
+            border-radius: 12px;
         }
 
         .menu-item-modern.active::before {
@@ -232,7 +329,7 @@
             border-radius: 0 4px 4px 0;
         }
 
-        /* Header */
+        /* Header dengan bg6.png */
         .header-hero {
             background-image: url('images/bg6.png');
             background-size: cover;
@@ -258,6 +355,83 @@
             z-index: 1;
         }
 
+        /* Dropdown Styles */
+        .dropdown-menu-modern {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+            opacity: 0;
+            margin-left: 16px;
+            padding-left: 16px;
+            border-left: 2px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .dropdown-menu-modern.open {
+            max-height: 500px;
+            opacity: 1;
+        }
+
+        .dropdown-menu-modern .menu-item-modern.active {
+            background: linear-gradient(135deg, rgba(34, 51, 1, 0.15) 0%, rgba(45, 74, 10, 0.12) 100%);
+            border-left: 3px solid #223301;
+            border-radius: 8px;
+            margin-left: 8px;
+            margin-right: 8px;
+            font-weight: 600;
+        }
+
+        .dropdown-menu-modern .menu-item-modern.active:hover {
+            background: linear-gradient(135deg, rgba(34, 51, 1, 0.2) 0%, rgba(45, 74, 10, 0.15) 100%);
+        }
+
+        .menu-group {
+            position: relative;
+        }
+
+        .dropdown-icon-modern {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dropdown-icon-modern.rotated {
+            transform: rotate(180deg);
+        }
+
+        /* Notification & Profile Dropdown */
+        .dropdown-panel {
+            position: absolute;
+            top: calc(100% + 12px);
+            right: 0;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px) scale(0.95);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .dropdown-panel.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        .dropdown-panel::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            right: 20px;
+            width: 16px;
+            height: 16px;
+            background: white;
+            transform: rotate(45deg);
+            border-left: 1px solid rgba(226, 232, 240, 0.8);
+            border-top: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        /* Main Content Background */
         .main-content-bg {
             background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
             min-height: 100vh;
@@ -265,11 +439,16 @@
         }
 
         /* Form Styles */
-        .form-container {
+        .form-card {
             background: white;
             border-radius: 16px;
             padding: 32px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .form-group {
+            margin-bottom: 24px;
         }
 
         .form-label {
@@ -297,157 +476,44 @@
             box-shadow: 0 0 0 3px rgba(34, 51, 1, 0.1);
         }
 
-        .form-select {
-            width: 100%;
-            padding: 12px 16px;
-            padding-right: 40px;
-            border: 2px solid #e5e7eb;
+        .form-input::placeholder {
+            color: #9ca3af;
+        }
+
+        .btn-secondary {
+            padding: 12px 24px;
             border-radius: 12px;
+            font-weight: 600;
             font-size: 14px;
-            color: #1e293b;
+            border: 2px solid #e5e7eb;
             background: white;
-            appearance: none;
+            color: #6b7280;
             cursor: pointer;
             transition: all 0.3s ease;
         }
 
-        .form-select:focus {
-            outline: none;
-            border-color: #223301;
-            box-shadow: 0 0 0 3px rgba(34, 51, 1, 0.1);
-        }
-
-        .select-wrapper {
-            position: relative;
-        }
-
-        .select-icon {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 20px;
-            height: 20px;
-            color: #6b7280;
-            pointer-events: none;
-        }
-
-        .checkbox-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 24px;
-        }
-
-        .checkbox-input {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-            accent-color: #223301;
-        }
-
-        .checkbox-label {
-            font-size: 14px;
-            font-weight: 500;
+        .btn-secondary:hover {
+            background: #f9fafb;
+            border-color: #d1d5db;
             color: #374151;
-            cursor: pointer;
         }
 
-        .section-title {
-            font-size: 18px;
-            font-weight: 700;
-            color: #1e293b;
-            margin-bottom: 24px;
-            margin-top: 32px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid #f1f5f9;
-        }
-
-        .section-title:first-child {
-            margin-top: 0;
-        }
-
-        .btn-modern {
+        .btn-primary {
             padding: 12px 24px;
             border-radius: 12px;
-            font-weight: 500;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 600;
+            font-size: 14px;
             border: none;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn-modern.primary {
             background: linear-gradient(135deg, #223301 0%, #2d4a0a 100%);
             color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
             box-shadow: 0 4px 12px rgba(34, 51, 1, 0.3);
         }
 
-        .btn-modern.primary:hover {
+        .btn-primary:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(34, 51, 1, 0.4);
-        }
-
-        .btn-modern.secondary {
-            background: white;
-            color: #1e293b;
-            border: 1px solid #e2e8f0;
-        }
-
-        .btn-modern.secondary:hover {
-            background: #f8fafc;
-            border-color: #cbd5e1;
-        }
-
-        .dropdown-panel {
-            position: absolute;
-            top: calc(100% + 12px);
-            right: 0;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px) scale(0.95);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 1000;
-            border: 1px solid rgba(226, 232, 240, 0.8);
-            max-height: 300px;
-            overflow-y: auto;
-            min-width: 250px;
-        }
-
-        .dropdown-panel.show {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0) scale(1);
-        }
-
-        .dropdown-item {
-            padding: 12px 16px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border-bottom: 1px solid #f1f5f9;
-        }
-
-        .dropdown-item:hover {
-            background: #f8fafc;
-        }
-
-        .dropdown-item:last-child {
-            border-bottom: none;
-        }
-
-        .participant-input-group {
-            display: flex;
-            gap: 12px;
-            align-items: flex-end;
-        }
-
-        .participant-input-group .form-input {
-            flex: 1;
         }
 
         .badge-notification {
@@ -459,59 +525,82 @@
             background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
             border-radius: 50%;
             border: 2px solid white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
-        .dropdown-menu-modern {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
-            opacity: 0;
-            margin-left: 16px;
-            padding-left: 16px;
-            border-left: 2px solid rgba(226, 232, 240, 0.8);
+        .sidebar-logo {
+            transition: all 0.3s ease;
         }
 
-        .dropdown-menu-modern.open {
-            max-height: 500px;
-            opacity: 1;
+        .sidebar-modern.collapsed .sidebar-logo {
+            width: 48px;
+            height: 48px;
         }
 
-        .dropdown-icon-modern {
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        .sidebar-modern.collapsed .sidebar-nav {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            padding: 16px 8px;
         }
 
-        .dropdown-icon-modern.rotated {
-            transform: rotate(180deg);
+        .sidebar-modern.collapsed .menu-group {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 
 <body>
     <div class="flex h-screen overflow-hidden">
-        <!-- Sidebar -->
+        <!-- Modern Sidebar -->
         <aside id="sidebar" class="sidebar-modern w-72 flex flex-col relative z-50">
             <!-- Logo Section -->
-            <div class="logo-section px-6 py-6"
-                style="background: #ffffff; border-bottom: 1px solid rgba(226, 232, 240, 0.8); position: relative;">
+            <div class="logo-section px-6 py-6">
                 <div class="flex items-center space-x-3 relative z-10 w-full">
                     <img src="images/logo-sidebar.png" alt="SMART ZISWAF"
-                        class="w-12 h-12 object-contain flex-shrink-0">
+                        class="w-12 h-12 object-contain flex-shrink-0 sidebar-logo">
                     <div class="logo-text text-gray-900 transition-all duration-300">
                         <div class="text-lg font-bold leading-tight">SMART</div>
                         <div class="text-lg font-bold leading-tight" style="color: #223301;">ZISWAF</div>
                     </div>
                 </div>
-                <button id="toggleSidebar" class="toggle-btn-header"
-                    style="position: absolute; right: -14px; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; border-radius: 50%; background: #223301; border: 2px solid white; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10;">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        style="width: 16px; height: 16px; color: white;">
+                <button id="toggleSidebar" class="toggle-btn-header">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                     </svg>
                 </button>
             </div>
 
             <!-- Navigation -->
-            <nav class="flex flex-col flex-1 px-2 py-6 space-y-2 overflow-y-auto" style="padding: 16px 8px;">
+            <nav class="flex flex-col flex-1 px-2 py-6 space-y-2 overflow-y-auto sidebar-nav">
+                <!-- Beranda -->
                 <a href="dashboard.html" class="menu-item-modern flex items-center space-x-4 px-4 py-3.5">
                     <svg class="w-5 h-5 flex-shrink-0 text-gray-600" fill="none" stroke="currentColor"
                         viewBox="0 0 24 24">
@@ -522,16 +611,16 @@
                 </a>
 
                 <!-- Data Master -->
-                <div class="menu-group" style="position: relative;">
+                <div class="menu-group">
                     <a href="#" class="menu-item-modern flex items-center justify-between px-4 py-3.5"
                         onclick="toggleDropdown(event, 'dataMaster')">
                         <div class="flex items-center space-x-4">
-                            <svg class="w-5 h-5 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor"
+                            <svg class="w-5 h-5 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
                             </svg>
-                            <span class="menu-text text-sm text-gray-700 font-medium">Data Master</span>
+                            <span class="menu-text text-sm font-medium" style="color: #223301;">Data Master</span>
                         </div>
                         <svg class="dropdown-icon-modern w-4 h-4 text-gray-500" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
@@ -549,7 +638,7 @@
                             <span>Data Mesjid</span>
                         </a>
                         <a href="data-umat.html"
-                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm">
                             <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -582,30 +671,30 @@
 
                 <!-- Manajemen Zakat -->
                 <div class="menu-group">
-                    <a href="#" class="menu-item-modern active flex items-center justify-between px-4 py-3.5"
+                    <a href="#" class="menu-item-modern flex items-center justify-between px-4 py-3.5"
                         onclick="toggleDropdown(event, 'manajemenZakat')">
                         <div class="flex items-center space-x-4">
-                            <svg class="w-5 h-5 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor"
+                            <svg class="w-5 h-5 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                             </svg>
-                            <span class="menu-text text-sm text-gray-700 font-medium">Manajemen Zakat</span>
+                            <span class="menu-text text-sm font-medium" style="color: #223301;">Manajemen Zakat</span>
                         </div>
-                        <svg class="dropdown-icon-modern w-4 h-4 text-gray-500" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24">
+                        <svg class="dropdown-icon-modern w-4 h-4 text-gray-500" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </a>
-                    <div id="manajemenZakat" class="dropdown-menu-modern open">
+                    <div id="manajemenZakat" class="dropdown-menu-modern">
                         <a href="kelola-zakat-fitrah.html"
-                            class="menu-item-modern active flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
                             <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
-                            <span style="color: #223301; font-weight: 600;">Kelola Zakat Fitrah</span>
+                            <span>Kelola Zakat Fitrah</span>
                         </a>
                         <a href="data-mustahik.html"
                             class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
@@ -634,7 +723,7 @@
                             </svg>
                             <span>Kalkulasi Pembagian</span>
                         </a>
-                        <a href="#"
+                        <a href="distribusi-zakat.html"
                             class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
                             <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
@@ -694,65 +783,26 @@
                     </div>
                 </div>
 
-                <!-- Catatan -->
-                <div class="menu-group">
-                    <a href="#" class="menu-item-modern flex items-center justify-between px-4 py-3.5"
-                        onclick="toggleDropdown(event, 'catatan')">
-                        <div class="flex items-center space-x-4">
-                            <svg class="w-5 h-5 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                            </svg>
-                            <span class="menu-text text-sm text-gray-700 font-medium">Catatan</span>
-                        </div>
-                        <svg class="dropdown-icon-modern w-4 h-4 text-gray-500" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                        </svg>
-                    </a>
-                    <div id="catatan" class="dropdown-menu-modern">
-                        <a href="#"
-                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
-                            <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                            </svg>
-                            <span>Catatan Pengeluaran</span>
-                        </a>
-                        <a href="#"
-                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
-                            <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-                            </svg>
-                            <span>Kategori Pengeluaran</span>
-                        </a>
-                    </div>
-                </div>
-
                 <!-- Pengaturan -->
                 <div class="menu-group">
-                    <a href="#" class="menu-item-modern flex items-center justify-between px-4 py-3.5"
+                    <a href="#" class="menu-item-modern active flex items-center justify-between px-4 py-3.5"
                         onclick="toggleDropdown(event, 'pengaturan')">
                         <div class="flex items-center space-x-4">
-                            <svg class="w-5 h-5 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor"
+                            <svg class="w-5 h-5 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                             </svg>
-                            <span class="menu-text text-sm text-gray-700 font-medium">Pengaturan</span>
+                            <span class="menu-text text-sm font-medium" style="color: #223301;">Pengaturan</span>
                         </div>
-                        <svg class="dropdown-icon-modern w-4 h-4 text-gray-500" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24">
+                        <svg class="dropdown-icon-modern w-4 h-4 text-gray-500 rotated" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </a>
-                    <div id="pengaturan" class="dropdown-menu-modern">
+                    <div id="pengaturan" class="dropdown-menu-modern open">
                         <a href="bahasa-aplikasi.html"
                             class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
                             <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
@@ -763,7 +813,7 @@
                             <span>Bahasa Aplikasi</span>
                         </a>
                         <a href="pencatatan.html"
-                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            class="menu-item-modern active flex items-center space-x-3 px-4 py-2.5 text-sm">
                             <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -799,14 +849,13 @@
 
         <!-- Main Content -->
         <div class="flex-1 flex flex-col overflow-hidden">
-            <!-- Header -->
+            <!-- Hero Header with bg6.png -->
             <header class="header-hero">
                 <div class="header-hero-content px-8 py-6">
                     <div class="flex justify-between items-center">
                         <div>
-                            <p class="text-white/80 text-sm mb-1">Manajemen Zakat / Kelola Zakat Fitrah / Tambah Data
-                                Muzakki Zakat Fitrah</p>
-                            <h1 class="text-3xl font-bold text-white">Tambah Data Muzakki</h1>
+                            <h1 class="text-3xl font-bold text-white mb-2">Pencatatan</h1>
+                            <p class="text-white/80 text-sm">Pengaturan / Pencatatan</p>
                         </div>
                         <div class="flex items-center space-x-4">
                             <!-- Notification Button -->
@@ -826,8 +875,7 @@
                                         <div class="flex items-center justify-between">
                                             <h3 class="text-lg font-bold text-gray-900">Notifikasi</h3>
                                             <button class="text-sm font-medium hover:opacity-80"
-                                                style="color: #223301;">Tandai
-                                                semua</button>
+                                                style="color: #223301;">Tandai semua</button>
                                         </div>
                                     </div>
                                     <div class="max-h-96 overflow-y-auto">
@@ -852,51 +900,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div
-                                            class="p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer transition bg-blue-50">
-                                            <div class="flex items-start space-x-3">
-                                                <div
-                                                    class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                                                    <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor"
-                                                        viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2"
-                                                            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                                    </svg>
-                                                </div>
-                                                <div class="flex-1">
-                                                    <p class="text-sm font-semibold text-gray-900">Distribusi Selesai
-                                                    </p>
-                                                    <p class="text-xs text-gray-600 mt-1">Distribusi zakat ke 50
-                                                        mustahik</p>
-                                                    <p class="text-xs text-gray-400 mt-1">1 jam yang lalu</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div
-                                            class="p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer transition">
-                                            <div class="flex items-start space-x-3">
-                                                <div
-                                                    class="w-10 h-10 bg-orange-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                                                    <svg class="w-5 h-5 text-orange-600" fill="none"
-                                                        stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2"
-                                                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                                                    </svg>
-                                                </div>
-                                                <div class="flex-1">
-                                                    <p class="text-sm font-semibold text-gray-900">Peringatan Stok</p>
-                                                    <p class="text-xs text-gray-600 mt-1">Stok beras hampir habis</p>
-                                                    <p class="text-xs text-gray-400 mt-1">3 jam yang lalu</p>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                     <div class="p-4 border-t border-gray-200 text-center">
                                         <a href="#" class="text-sm font-medium hover:opacity-80"
-                                            style="color: #223301;">Lihat semua
-                                            notifikasi</a>
+                                            style="color: #223301;">Lihat semua notifikasi</a>
                                     </div>
                                 </div>
                             </div>
@@ -984,415 +991,172 @@
 
             <!-- Main Content Area -->
             <main class="main-content-bg flex-1 overflow-y-auto">
-                <div class="p-6">
-                    <div class="form-container">
-                        <!-- Checkbox untuk ambil data sebelumnya -->
-                        <div class="checkbox-wrapper">
-                            <input type="checkbox" id="ambilDataSebelumnya" class="checkbox-input">
-                            <label for="ambilDataSebelumnya" class="checkbox-label">Ambil data muzakki
-                                sebelumnya</label>
-                        </div>
+                <div class="p-8" style="margin-bottom: 200px;">
+                    <div class="form-card max-w-5xl mx-auto">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-2" style="color: #223301;">Pencatatan</h2>
+                        <p class="text-gray-600 mb-8">Masukkan nominal untuk berbagai jenis zakat dan infaq</p>
 
-                        <!-- Dropdown Muzakki (muncul jika checkbox dicentang) -->
-                        <div id="muzakkiDropdownWrapper" class="mb-6" style="display: none;">
-                            <label class="form-label">Pilih Muzakki</label>
-                            <div class="select-wrapper relative">
-                                <select id="muzakkiSelect" class="form-select">
-                                    <option value="">-- Pilih Muzakki --</option>
-                                    <option value="ahmad-sulaiman">Ahmad Sulaiman</option>
-                                    <option value="budi-santoso">Budi Santoso</option>
-                                    <option value="siti-nurhaliza">Siti Nurhaliza</option>
-                                </select>
-                                <svg class="select-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M19 9l-7 7-7-7" />
-                                </svg>
-                            </div>
-                        </div>
-
-                        <!-- Form Fields -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <!-- Left Column -->
-                            <div class="space-y-6">
-                                <div>
-                                    <label class="form-label">Nama Kepala Keluarga</label>
-                                    <input type="text" id="namaKepalaKeluarga" class="form-input"
-                                        placeholder="Enter your user name">
-                                </div>
-                                <div>
-                                    <label class="form-label">Jumlah Jiwa</label>
-                                    <input type="number" id="jumlahJiwa" class="form-input"
-                                        placeholder="Enter your user name">
-                                </div>
-                                <div>
-                                    <label class="form-label">Total Zakat Fitrah</label>
-                                    <input type="text" id="totalZakatFitrah" class="form-input"
-                                        placeholder="Enter your user name">
-                                </div>
-                                <div>
-                                    <label class="form-label">Uang Infaq</label>
-                                    <input type="text" id="uangInfaq" class="form-input"
-                                        placeholder="Enter your user name">
-                                </div>
-                                <div>
-                                    <label class="form-label">Jumlah Ziswaf Uang</label>
-                                    <input type="text" id="jumlahZiswafUang" class="form-input"
-                                        placeholder="Enter your user name">
-                                </div>
-                                <div>
-                                    <label class="form-label">Jenis Pembayaran</label>
-                                    <div class="select-wrapper relative">
-                                        <select id="jenisPembayaran" class="form-select">
-                                            <option value="">-- Pilih Jenis Pembayaran --</option>
-                                            <option value="tunai">Tunai</option>
-                                            <option value="transfer">Transfer</option>
-                                        </select>
-                                        <svg class="select-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M19 9l-7 7-7-7" />
-                                        </svg>
-                                    </div>
-                                </div>
-
-                                <!-- Data Tambahan Section -->
-                                <div>
-                                    <h3 class="section-title">Data Tambahan</h3>
-                                    <div class="space-y-6">
-                                        <div>
-                                            <label class="form-label">Cluster</label>
-                                            <div class="select-wrapper relative">
-                                                <select id="cluster" class="form-select">
-                                                    <option value="">-- Pilih Cluster --</option>
-                                                    <option value="bandung">Bandung</option>
-                                                    <option value="batam">Batam</option>
-                                                    <option value="jakarta">Jakarta</option>
-                                                    <option value="surabaya">Surabaya</option>
-                                                </select>
-                                                <svg class="select-icon" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2" d="M19 9l-7 7-7-7" />
-                                                </svg>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <label class="form-label">Blok</label>
-                                            <input type="text" id="blok" class="form-input"
-                                                placeholder="Enter your user name">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Nama Peserta Zakat Section -->
-                                <div>
-                                    <h3 class="section-title">Nama Peserta Zakat:</h3>
-                                    <div id="pesertaZakatContainer">
-                                        <div class="participant-input-group mb-4">
-                                            <input type="text" class="form-input" placeholder="Nama Peserta Ke-1"
-                                                name="peserta[]">
-                                        </div>
-                                    </div>
-                                    <button type="button" id="tambahPesertaBtn"
-                                        class="btn-modern secondary text-sm mt-2">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M12 4v16m8-8H4" />
-                                        </svg>
-                                        Tambah Peserta
-                                    </button>
-                                </div>
+                        <!-- Form Inputs -->
+                        <div class="space-y-6">
+                            <!-- Zakat Fitrah -->
+                            <div class="form-group">
+                                <label class="form-label">Zakat Fitrah</label>
+                                <input type="text" class="form-input" placeholder="Masukkan nominal zakat fitrah">
                             </div>
 
-                            <!-- Right Column -->
-                            <div class="space-y-6">
-                                <div>
-                                    <label class="form-label">Jenis Zakat Fitrah</label>
-                                    <div class="select-wrapper relative">
-                                        <select id="jenisZakatFitrah" class="form-select">
-                                            <option value="">-- Pilih Jenis Zakat Fitrah --</option>
-                                            <option value="beras">Beras</option>
-                                            <option value="uang">Uang</option>
-                                        </select>
-                                        <svg class="select-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M19 9l-7 7-7-7" />
-                                        </svg>
-                                    </div>
-                                </div>
-                                <div>
-                                    <label class="form-label">Zakat Fitrah</label>
-                                    <input type="text" id="zakatFitrah" class="form-input"
-                                        placeholder="Enter your user name">
-                                </div>
-                                <div>
-                                    <label class="form-label">Fidyah</label>
-                                    <input type="text" id="fidyah" class="form-input"
-                                        placeholder="Enter your user name">
-                                </div>
-                                <div>
-                                    <label class="form-label">Beras Infaq</label>
-                                    <input type="text" id="berasInfaq" class="form-input"
-                                        placeholder="Enter your user name">
-                                </div>
-                                <div>
-                                    <label class="form-label">Jumlah Ziswaf Beras</label>
-                                    <input type="text" id="jumlahZiswafBeras" class="form-input"
-                                        placeholder="Enter your user name">
-                                </div>
-                                <div>
-                                    <label class="form-label">Nomor Telepon</label>
-                                    <input type="text" id="nomorTelepon" class="form-input"
-                                        placeholder="Enter your user name">
-                                </div>
+                            <!-- Zakat Mal -->
+                            <div class="form-group">
+                                <label class="form-label">Zakat Mal</label>
+                                <input type="text" class="form-input" placeholder="Masukkan nominal zakat mal">
+                            </div>
+
+                            <!-- Infaq -->
+                            <div class="form-group">
+                                <label class="form-label">Infaq</label>
+                                <input type="text" class="form-input" placeholder="Masukkan nominal infaq">
+                            </div>
+
+                            <!-- Fidyah -->
+                            <div class="form-group">
+                                <label class="form-label">Fidyah</label>
+                                <input type="text" class="form-input" placeholder="Masukkan nominal fidyah">
+                            </div>
+
+                            <!-- Wakaf -->
+                            <div class="form-group">
+                                <label class="form-label">Wakaf</label>
+                                <input type="text" class="form-input" placeholder="Masukkan nominal wakaf">
                             </div>
                         </div>
 
                         <!-- Action Buttons -->
-                        <div class="flex justify-end gap-4 mt-8 pt-6 border-t border-gray-200">
-                            <button type="button" id="batalBtn" class="btn-modern secondary">
-                                Batal
-                            </button>
-                            <button type="button" id="simpanBtn" class="btn-modern primary">
-                                Simpan
-                            </button>
+                        <div class="flex justify-end gap-4 pt-6 border-t border-gray-200 mt-8">
+                            <button class="btn-secondary">Batal</button>
+                            <button class="btn-primary">Simpan</button>
                         </div>
                     </div>
                 </div>
-                <br><br><br><br><br><br><br><br>
             </main>
         </div>
     </div>
-    <!-- Scripts -->
+
+    <!-- SweetAlert2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        // Function to close all dropdowns
-        function closeAllDropdowns() {
-            document.querySelectorAll('.dropdown-menu-modern').forEach(menu => {
-                menu.classList.remove('open');
-            });
-            document.querySelectorAll('.dropdown-icon-modern').forEach(icon => {
-                icon.classList.remove('rotated');
+        // Sidebar Toggle
+        const sidebar = document.getElementById('sidebar');
+        const toggleBtn = document.getElementById('toggleSidebar');
+
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', () => {
+                sidebar.classList.toggle('collapsed');
+                const icon = toggleBtn.querySelector('svg');
+                if (sidebar.classList.contains('collapsed')) {
+                    icon.style.transform = 'rotate(180deg)';
+                } else {
+                    icon.style.transform = 'rotate(0deg)';
+                }
             });
         }
 
-        // Toggle Sidebar
-        const sidebar = document.getElementById('sidebar');
-        const toggleSidebar = document.getElementById('toggleSidebar');
-
-        toggleSidebar?.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            closeAllDropdowns();
-            sidebar.classList.toggle('collapsed');
-            const iconPath = toggleSidebar.querySelector('svg path');
-            if (sidebar.classList.contains('collapsed')) {
-                iconPath.setAttribute('d', 'M9 5l7 7-7 7');
-            } else {
-                iconPath.setAttribute('d', 'M15 19l-7-7 7-7');
-            }
-        });
-
-        // Toggle Dropdown
+        // Dropdown Toggle
         function toggleDropdown(event, dropdownId) {
             event.preventDefault();
-            event.stopPropagation();
             const dropdown = document.getElementById(dropdownId);
             const icon = event.currentTarget.querySelector('.dropdown-icon-modern');
-            document.querySelectorAll('.dropdown-menu-modern').forEach(menu => {
-                if (menu.id !== dropdownId && menu.classList.contains('open')) {
+
+            if (dropdown) {
+                const isOpen = dropdown.classList.contains('open');
+
+                // Close all dropdowns
+                document.querySelectorAll('.dropdown-menu-modern').forEach(menu => {
                     menu.classList.remove('open');
-                    const menuGroup = menu.closest('.menu-group');
-                    if (menuGroup) {
-                        const otherIcon = menuGroup.querySelector('.dropdown-icon-modern');
-                        if (otherIcon) otherIcon.classList.remove('rotated');
+                });
+                document.querySelectorAll('.dropdown-icon-modern').forEach(icon => {
+                    icon.classList.remove('rotated');
+                });
+
+                // Open clicked dropdown if it was closed
+                if (!isOpen) {
+                    dropdown.classList.add('open');
+                    if (icon) {
+                        icon.classList.add('rotated');
                     }
                 }
-            });
-            dropdown.classList.toggle('open');
-            if (icon) icon.classList.toggle('rotated');
-        }
-
-        // Checkbox untuk ambil data sebelumnya
-        const ambilDataSebelumnya = document.getElementById('ambilDataSebelumnya');
-        const muzakkiDropdownWrapper = document.getElementById('muzakkiDropdownWrapper');
-        const muzakkiSelect = document.getElementById('muzakkiSelect');
-
-        ambilDataSebelumnya?.addEventListener('change', (e) => {
-            if (e.target.checked) {
-                muzakkiDropdownWrapper.style.display = 'block';
-            } else {
-                muzakkiDropdownWrapper.style.display = 'none';
-                muzakkiSelect.value = '';
-            }
-        });
-
-        // Load data when muzakki is selected
-        muzakkiSelect?.addEventListener('change', (e) => {
-            const selectedValue = e.target.value;
-            if (selectedValue) {
-                // Simulate loading data
-                // In real app, you would fetch data from API
-                const sampleData = {
-                    'ahmad-sulaiman': {
-                        nama: 'Ahmad Sulaiman',
-                        jiwa: '5',
-                        totalZakatFitrah: '75000',
-                        uangInfaq: '50000',
-                        jumlahZiswafUang: '125000',
-                        jenisPembayaran: 'tunai',
-                        jenisZakatFitrah: 'beras',
-                        zakatFitrah: '15000',
-                        fidyah: '0',
-                        berasInfaq: '2',
-                        jumlahZiswafBeras: '2',
-                        nomorTelepon: '081234567890',
-                        cluster: 'bandung',
-                        blok: 'M10'
-                    }
-                };
-
-                const data = sampleData[selectedValue];
-                if (data) {
-                    document.getElementById('namaKepalaKeluarga').value = data.nama;
-                    document.getElementById('jumlahJiwa').value = data.jiwa;
-                    document.getElementById('totalZakatFitrah').value = data.totalZakatFitrah;
-                    document.getElementById('uangInfaq').value = data.uangInfaq;
-                    document.getElementById('jumlahZiswafUang').value = data.jumlahZiswafUang;
-                    document.getElementById('jenisPembayaran').value = data.jenisPembayaran;
-                    document.getElementById('jenisZakatFitrah').value = data.jenisZakatFitrah;
-                    document.getElementById('zakatFitrah').value = data.zakatFitrah;
-                    document.getElementById('fidyah').value = data.fidyah;
-                    document.getElementById('berasInfaq').value = data.berasInfaq;
-                    document.getElementById('jumlahZiswafBeras').value = data.jumlahZiswafBeras;
-                    document.getElementById('nomorTelepon').value = data.nomorTelepon;
-                    document.getElementById('cluster').value = data.cluster;
-                    document.getElementById('blok').value = data.blok;
-                }
-            }
-        });
-
-        // Tambah Peserta Zakat
-        let pesertaCount = 1;
-        const tambahPesertaBtn = document.getElementById('tambahPesertaBtn');
-        const pesertaZakatContainer = document.getElementById('pesertaZakatContainer');
-
-        tambahPesertaBtn?.addEventListener('click', () => {
-            pesertaCount++;
-            const newInput = document.createElement('div');
-            newInput.className = 'participant-input-group mb-4';
-            newInput.innerHTML = `
-                <input type="text" class="form-input" placeholder="Nama Peserta Ke-${pesertaCount}" name="peserta[]">
-                <button type="button" class="btn-modern secondary text-sm" onclick="this.parentElement.remove()">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            `;
-            pesertaZakatContainer.appendChild(newInput);
-        });
-
-        // Load data from URL parameters (for edit mode)
-        const urlParams = new URLSearchParams(window.location.search);
-        const editMode = urlParams.get('edit');
-        const editData = urlParams.get('data');
-
-        if (editMode === 'true' && editData) {
-            try {
-                const data = JSON.parse(decodeURIComponent(editData));
-                // Populate form with data
-                if (data.nama) document.getElementById('namaKepalaKeluarga').value = data.nama;
-                if (data.jiwa) document.getElementById('jumlahJiwa').value = data.jiwa;
-                if (data.totalZakatFitrah) document.getElementById('totalZakatFitrah').value = data.totalZakatFitrah;
-                if (data.uangInfaq) document.getElementById('uangInfaq').value = data.uangInfaq;
-                if (data.jumlahZiswafUang) document.getElementById('jumlahZiswafUang').value = data.jumlahZiswafUang;
-                if (data.jenisPembayaran) document.getElementById('jenisPembayaran').value = data.jenisPembayaran;
-                if (data.jenisZakatFitrah) document.getElementById('jenisZakatFitrah').value = data.jenisZakatFitrah;
-                if (data.zakatFitrah) document.getElementById('zakatFitrah').value = data.zakatFitrah;
-                if (data.fidyah) document.getElementById('fidyah').value = data.fidyah;
-                if (data.berasInfaq) document.getElementById('berasInfaq').value = data.berasInfaq;
-                if (data.jumlahZiswafBeras) document.getElementById('jumlahZiswafBeras').value = data.jumlahZiswafBeras;
-                if (data.nomorTelepon) document.getElementById('nomorTelepon').value = data.nomorTelepon;
-                if (data.cluster) document.getElementById('cluster').value = data.cluster;
-                if (data.blok) document.getElementById('blok').value = data.blok;
-            } catch (e) {
-                console.error('Error parsing edit data:', e);
             }
         }
 
-        // Notification & Profile Dropdown
+        // Notification Dropdown
         const notificationBtn = document.getElementById('notificationBtn');
         const notificationDropdown = document.getElementById('notificationDropdown');
         const profileBtn = document.getElementById('profileBtn');
         const profileDropdown = document.getElementById('profileDropdown');
 
-        notificationBtn?.addEventListener('click', (e) => {
-            e.stopPropagation();
-            notificationDropdown.classList.toggle('show');
-            profileDropdown.classList.remove('show');
-        });
+        if (notificationBtn && notificationDropdown) {
+            notificationBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                notificationDropdown.classList.toggle('show');
+                if (profileDropdown) profileDropdown.classList.remove('show');
+            });
+        }
 
-        // Profile Dropdown
-        profileBtn?.addEventListener('click', (e) => {
-            e.stopPropagation();
-            profileDropdown.classList.toggle('show');
-            notificationDropdown.classList.remove('show');
-        });
+        if (profileBtn && profileDropdown) {
+            profileBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                profileDropdown.classList.toggle('show');
+                if (notificationDropdown) notificationDropdown.classList.remove('show');
+            });
+        }
 
         // Close dropdowns when clicking outside
         document.addEventListener('click', (e) => {
-            if (notificationDropdown && !e.target.closest('#notificationBtn') && !e.target.closest('#notificationDropdown')) {
+            if (notificationDropdown && !notificationBtn.contains(e.target) && !notificationDropdown.contains(e.target)) {
                 notificationDropdown.classList.remove('show');
             }
-            if (profileDropdown && !e.target.closest('#profileBtn') && !e.target.closest('#profileDropdown')) {
+            if (profileDropdown && !profileBtn.contains(e.target) && !profileDropdown.contains(e.target)) {
                 profileDropdown.classList.remove('show');
             }
         });
 
-        // Batal Button
-        const batalBtn = document.getElementById('batalBtn');
-        batalBtn?.addEventListener('click', () => {
-            window.location.href = 'kelola-zakat-fitrah.html';
+        // Open Pengaturan dropdown on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const pengaturanDropdown = document.getElementById('pengaturan');
+            const pengaturanIcon = document.querySelector('[onclick*="pengaturan"] .dropdown-icon-modern');
+            if (pengaturanDropdown) {
+                pengaturanDropdown.classList.add('open');
+                if (pengaturanIcon) {
+                    pengaturanIcon.classList.add('rotated');
+                }
+            }
         });
 
-        // Simpan Button
-        const simpanBtn = document.getElementById('simpanBtn');
-        simpanBtn?.addEventListener('click', () => {
-            // Validate form
-            const namaKepalaKeluarga = document.getElementById('namaKepalaKeluarga').value;
-            const jumlahZiswafBeras = document.getElementById('jumlahZiswafBeras').value;
+        // Handle form submission
+        const saveBtn = document.querySelector('.btn-primary');
+        const cancelBtn = document.querySelector('.btn-secondary');
 
-            if (!namaKepalaKeluarga) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'Nama Kepala Keluarga harus diisi!'
-                });
-                return;
-            }
-
-            if (!jumlahZiswafBeras) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'Jumlah Ziswaf Beras harus diisi!'
-                });
-                return;
-            }
-
-            // Show success message
-            Swal.fire({
-                icon: 'success',
-                title: 'Berhasil',
-                text: 'Data berhasil disimpan!',
-                timer: 2000,
-                showConfirmButton: false
-            }).then(() => {
-                window.location.href = 'kelola-zakat-fitrah.html';
+        if (saveBtn) {
+            saveBtn.addEventListener('click', () => {
+                if (typeof Swal !== 'undefined') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil',
+                        text: 'Data pencatatan berhasil disimpan',
+                        confirmButtonColor: '#223301',
+                        confirmButtonText: 'OK'
+                    });
+                } else {
+                    alert('Data pencatatan berhasil disimpan');
+                }
             });
-        });
-    </script>
+        }
 
-    </div>
+        if (cancelBtn) {
+            cancelBtn.addEventListener('click', () => {
+                window.location.href = 'dashboard.html';
+            });
+        }
+    </script>
 </body>
 
 </html>
+
