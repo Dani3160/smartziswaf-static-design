@@ -4,13 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Distribusi Zakat - SMART ZISWAF</title>
+    <title>Catatan Pengeluaran - SMART ZISWAF</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
+    <!-- Flatpickr CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!-- SweetAlert2 CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css"
+        rel="stylesheet" />
     <style>
         * {
             margin: 0;
@@ -652,6 +658,29 @@
             box-shadow: 0 8px 20px rgba(34, 51, 1, 0.4);
         }
 
+        .btn-modern {
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-modern.secondary {
+            background: white;
+            color: #1e293b;
+            border: 1px solid #e2e8f0;
+        }
+
+        .btn-modern.secondary:hover {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+        }
+
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -667,6 +696,225 @@
 
         ::-webkit-scrollbar-thumb:hover {
             background: #94a3b8;
+        }
+
+        /* Filter Modal Styles */
+        .filter-modal-container {
+            background: white;
+            border-radius: 20px;
+            padding: 32px;
+            max-width: 600px;
+            width: 90%;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transform: scale(0.9) translateY(20px);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .modal-overlay.show .filter-modal-container {
+            transform: scale(1) translateY(0);
+        }
+
+        .filter-modal-header {
+            margin-bottom: 32px;
+        }
+
+        .filter-modal-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1e293b;
+            margin: 0;
+        }
+
+        .filter-section {
+            margin-bottom: 28px;
+        }
+
+        .filter-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 12px;
+        }
+
+        .date-range-container {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .date-input-wrapper {
+            flex: 1;
+            position: relative;
+        }
+
+        .date-input {
+            width: 100%;
+            padding: 12px 16px;
+            padding-right: 40px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 14px;
+            color: #1e293b;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .date-input:focus {
+            outline: none;
+            border-color: #223301;
+            box-shadow: 0 0 0 3px rgba(34, 51, 1, 0.1);
+        }
+
+        .date-input-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            color: #6b7280;
+            pointer-events: none;
+        }
+
+        .date-separator {
+            font-size: 14px;
+            font-weight: 500;
+            color: #6b7280;
+            flex-shrink: 0;
+        }
+
+        .filter-select-wrapper {
+            position: relative;
+        }
+
+        .filter-select {
+            width: 100%;
+            padding: 12px 16px;
+            padding-right: 40px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 14px;
+            color: #1e293b;
+            background: white;
+            appearance: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: #223301;
+            box-shadow: 0 0 0 3px rgba(34, 51, 1, 0.1);
+        }
+
+        .filter-select-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            color: #6b7280;
+            pointer-events: none;
+        }
+
+        .filter-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 2px solid #f1f5f9;
+        }
+
+        .btn-reset {
+            flex: 1;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            border: 2px solid #e5e7eb;
+            background: white;
+            color: #6b7280;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-reset:hover {
+            background: #f9fafb;
+            border-color: #d1d5db;
+            color: #374151;
+        }
+
+        .btn-apply {
+            flex: 1;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            border: none;
+            background: linear-gradient(135deg, #223301 0%, #2d4a0a 100%);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(34, 51, 1, 0.3);
+        }
+
+        .btn-apply:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(34, 51, 1, 0.4);
+        }
+
+        .btn-export {
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            border: none;
+            background: #ef4444;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+        }
+
+        .btn-export:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(239, 68, 68, 0.4);
+        }
+
+        /* Select2 Custom Styles */
+        .select2-container {
+            width: 100% !important;
+        }
+
+        .select2-container--default .select2-selection--single {
+            border: 2px solid #e5e7eb !important;
+            border-radius: 12px !important;
+            height: 48px !important;
+        }
+
+        .select2-container--default.select2-container--focus .select2-selection--single,
+        .select2-container--default.select2-container--open .select2-selection--single {
+            border-color: #223301 !important;
+        }
+
+        /* Fix Select2 z-index for modals */
+        .select2-container {
+            z-index: 10000 !important;
+        }
+
+        .select2-dropdown {
+            z-index: 10000 !important;
+        }
+
+        .select2-search--dropdown {
+            z-index: 10001 !important;
+        }
+
+        .select2-results {
+            z-index: 10001 !important;
         }
     </style>
 </head>
@@ -702,7 +950,7 @@
                     <span class="menu-text text-sm font-medium text-gray-700">Beranda</span>
                 </a>
                 <div class="menu-group">
-                    <a href="laporan-kegiatan.html" class="menu-item-modern flex items-center justify-between px-4 py-3.5"
+                    <a href="#" class="menu-item-modern flex items-center justify-between px-4 py-3.5"
                         onclick="toggleDropdown(event, 'dataMaster')">
                         <div class="flex items-center space-x-4">
                             <svg class="w-5 h-5 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
@@ -759,22 +1007,22 @@
                     </div>
                 </div>
                 <div class="menu-group">
-                    <a href="laporan-kegiatan.html" class="menu-item-modern active flex items-center justify-between px-4 py-3.5"
+                    <a href="#" class="menu-item-modern flex items-center justify-between px-4 py-3.5"
                         onclick="toggleDropdown(event, 'manajemenZakat')">
                         <div class="flex items-center space-x-4">
-                            <svg class="w-5 h-5 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
+                            <svg class="w-5 h-5 flex-shrink-0 text-gray-600" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                             </svg>
-                            <span class="menu-text text-sm font-medium" style="color: #223301;">Manajemen Zakat</span>
+                            <span class="menu-text text-sm font-medium text-gray-700">Manajemen Zakat</span>
                         </div>
-                        <svg class="dropdown-icon-modern w-4 h-4 text-gray-500 rotated" fill="none"
-                            stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="dropdown-icon-modern w-4 h-4 text-gray-500" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </a>
-                    <div id="manajemenZakat" class="dropdown-menu-modern open">
+                    <div id="manajemenZakat" class="dropdown-menu-modern">
                         <a href="kelola-zakat-fitrah.html"
                             class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
                             <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
@@ -823,15 +1071,15 @@
                     </div>
                 </div>
                 <div class="menu-group">
-                    <a href="laporan-kegiatan.html" class="menu-item-modern flex items-center justify-between px-4 py-3.5"
+                    <a href="#" class="menu-item-modern flex items-center justify-between px-4 py-3.5"
                         onclick="toggleDropdown(event, 'manajemenKurban')">
                         <div class="flex items-center space-x-4">
-                            <svg class="w-5 h-5 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor"
+                            <svg class="w-5 h-5 flex-shrink-0 text-gray-600" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                             </svg>
-                            <span class="menu-text text-sm text-gray-700 font-medium">Manajemen Kurban</span>
+                            <span class="menu-text text-sm font-medium text-gray-700">Manajemen Kurban</span>
                         </div>
                         <svg class="dropdown-icon-modern w-4 h-4 text-gray-500" fill="none" stroke="currentColor"
                             viewBox="0 0 24 24">
@@ -849,7 +1097,7 @@
                             <span>Daftar Kurban</span>
                         </a>
                         <a href="distribusi-kurban.html"
-                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            class="menu-item-modern active flex items-center space-x-3 px-4 py-2.5 text-sm">
                             <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -871,24 +1119,24 @@
 
                 <!-- Catatan -->
                 <div class="menu-group">
-                    <a href="kategori-pengeluaran.html" class="menu-item-modern flex items-center justify-between px-4 py-3.5"
+                    <a href="#" class="menu-item-modern active flex items-center justify-between px-4 py-3.5"
                         onclick="toggleDropdown(event, 'catatan')">
                         <div class="flex items-center space-x-4">
-                            <svg class="w-5 h-5 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor"
+                            <svg class="w-5 h-5 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                             </svg>
-                            <span class="menu-text text-sm text-gray-700 font-medium">Catatan</span>
+                            <span class="menu-text text-sm font-medium" style="color: #223301;">Catatan</span>
                         </div>
-                        <svg class="dropdown-icon-modern w-4 h-4 text-gray-500" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24">
+                        <svg class="dropdown-icon-modern w-4 h-4 text-gray-500 rotated" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </a>
-                    <div id="catatan" class="dropdown-menu-modern">
+                    <div id="catatan" class="dropdown-menu-modern open">
                         <a href="catatan-pengeluaran.html"
-                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            class="menu-item-modern active flex items-center space-x-3 px-4 py-2.5 text-sm">
                             <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -977,8 +1225,8 @@
                 <div class="header-hero-content px-8 py-6">
                     <div class="flex justify-between items-center">
                         <div>
-                            <h1 class="text-3xl font-bold text-white mb-2">Distribusi Zakat</h1>
-                            <p class="text-white/80 text-sm">Manajemen Zakat / Distribusi Zakat</p>
+                            <h1 class="text-3xl font-bold text-white mb-2">Catatan Pengeluaran</h1>
+                            <p class="text-white/80 text-sm">Catatan / Catatan Pengeluaran</p>
                         </div>
                         <div class="flex items-center space-x-4">
                             <!-- Notification Button -->
@@ -1124,42 +1372,34 @@
                                         d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                                 </svg>
                             </div>
-                            <div class="relative">
-                                <button id="filterBtn"
-                                    class="px-4 py-3 border border-gray-300 rounded-lg text-sm bg-white hover:bg-gray-50 transition flex items-center gap-2">
-                                    <span>Tipe Zakat</span>
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M19 9l-7 7-7-7" />
-                                    </svg>
-                                </button>
-                                <div id="filterDropdown"
-                                    class="absolute top-full mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10 hidden">
-                                    <div class="p-2">
-                                        <label class="flex items-center px-3 py-2 hover:bg-gray-50 cursor-pointer">
-                                            <input type="checkbox" checked class="mr-2"> Tipe Zakat
-                                        </label>
-                                        <label class="flex items-center px-3 py-2 hover:bg-gray-50 cursor-pointer">
-                                            <input type="checkbox" class="mr-2"> Fitrah
-                                        </label>
-                                        <label class="flex items-center px-3 py-2 hover:bg-gray-50 cursor-pointer">
-                                            <input type="checkbox" class="mr-2"> Mal
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
+                            <button id="filterBtn" class="btn-modern secondary inline-flex items-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                                </svg>
+                                Filter
+                            </button>
                         </div>
-                        <button id="tambahBtn" class="btn-primary inline-flex items-center gap-2">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 4v16m8-8H4" />
-                            </svg>
-                            Tambah Data Distribusi
-                        </button>
+                        <div class="flex gap-3">
+                            <button id="tambahBtn" class="btn-primary inline-flex items-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 4v16m8-8H4" />
+                                </svg>
+                                Tambah Catatan
+                            </button>
+                            <button id="exportBtn" class="btn-export inline-flex items-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                </svg>
+                                Export
+                            </button>
+                        </div>
                     </div>
                     <div class="table-modern">
                         <div class="px-6 py-4 border-b border-gray-200">
-                            <h2 class="text-lg font-semibold text-gray-900">Data Distribusi Zakat</h2>
+                            <h2 class="text-lg font-semibold text-gray-900">Data Catatan Pengeluaran</h2>
                         </div>
                         <table class="w-full border-collapse">
                             <thead>
@@ -1169,41 +1409,25 @@
                                         No</th>
                                     <th
                                         class="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
-                                        Tanggal Distribusi</th>
+                                        Tanggal</th>
                                     <th
                                         class="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
-                                        Tujuan Distribusi</th>
-                                    <th colspan="2"
-                                        class="px-4 py-3 text-center text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
-                                        Data Penerima</th>
-                                    <th colspan="2"
-                                        class="px-4 py-3 text-center text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
-                                        Data Distribusi</th>
+                                        Kategori</th>
                                     <th
                                         class="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
-                                        Keterangan</th>
+                                        Deskripsi</th>
+                                    <th
+                                        class="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
+                                        Jumlah</th>
+                                    <th
+                                        class="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
+                                        File</th>
+                                    <th
+                                        class="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
+                                        Sumber Dana</th>
                                     <th
                                         class="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
                                         Aksi</th>
-                                </tr>
-                                <tr style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);">
-                                    <th class="px-4 py-2 border border-gray-600"></th>
-                                    <th class="px-4 py-2 border border-gray-600"></th>
-                                    <th class="px-4 py-2 border border-gray-600"></th>
-                                    <th
-                                        class="px-4 py-2 text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
-                                        Nama</th>
-                                    <th
-                                        class="px-4 py-2 text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
-                                        No. Telp</th>
-                                    <th
-                                        class="px-4 py-2 text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
-                                        Nama Penyalur</th>
-                                    <th
-                                        class="px-4 py-2 text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
-                                        Jumlah</th>
-                                    <th class="px-4 py-2 border border-gray-600"></th>
-                                    <th class="px-4 py-2 border border-gray-600"></th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white">
@@ -1213,25 +1437,24 @@
                                     <td class="px-4 py-3 text-sm text-gray-700 border border-gray-200">08 September 2025
                                     </td>
                                     <td class="px-4 py-3 text-sm text-gray-700 border border-gray-200">BANDUNG</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700 border border-gray-200">Amir</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700 border border-gray-200">089676876</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700 border border-gray-200">Amilin</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700 border border-gray-200">Rp100.000</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700 border border-gray-200">Selamat</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700 border border-gray-200">M10</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700 border border-gray-200">sapi</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700 border border-gray-200">1</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700 border border-gray-200">2015</td>
                                     <td class="px-4 py-3 text-sm text-gray-700 border border-gray-200">
                                         <div class="flex items-center gap-2">
                                             <button onclick="openEditModal(1)"
-                                                class="p-2 text-[#223301] hover:bg-gray-100 rounded-lg transition">
-                                                <svg class="w-5 h-5" fill="none" stroke="currentColor"
+                                                class="p-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition">
+                                                <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor"
                                                     viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                         stroke-width="2"
                                                         d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                                 </svg>
                                             </button>
-                                            <button onclick="deleteData(1)"
-                                                class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition">
-                                                <svg class="w-5 h-5" fill="none" stroke="currentColor"
+                                            <button onclick="deletePengeluaran(1)"
+                                                class="p-2 bg-red-600 hover:bg-red-700 rounded-lg transition">
+                                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor"
                                                     viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                         stroke-width="2"
@@ -1298,155 +1521,379 @@
             </main>
         </div>
     </div>
+    <!-- Modal Filter -->
+    <div id="filterModal" class="modal-overlay">
+        <div class="filter-modal-container">
+            <div class="filter-modal-header">
+                <h2 class="filter-modal-title">Filter</h2>
+            </div>
+            <form id="filterForm">
+                <!-- Tanggal Section -->
+                <div class="filter-section">
+                    <label class="filter-label">Tanggal</label>
+                    <div class="date-range-container">
+                        <div class="date-input-wrapper">
+                            <input type="text" id="dateFrom" class="date-input" placeholder="dd/mm/yyyy" readonly>
+                            <svg class="date-input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                        <span class="date-separator">to</span>
+                        <div class="date-input-wrapper">
+                            <input type="text" id="dateTo" class="date-input" placeholder="dd/mm/yyyy" readonly>
+                            <svg class="date-input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kategori Pengeluaran Section -->
+                <div class="filter-section">
+                    <label class="filter-label">Kategori Pengeluaran</label>
+                    <select id="kategoriPengeluaranFilter" class="filter-select">
+                        <option value="">Pilih Kategori</option>
+                        <option value="zakat-mal">Zakat Mal</option>
+                        <option value="operasional">Operasional</option>
+                        <option value="pemeliharaan">Pemeliharaan</option>
+                    </select>
+                </div>
+
+                <!-- Sumber Dana Section -->
+                <div class="filter-section">
+                    <label class="filter-label">Sumber Dana</label>
+                    <select id="sumberDanaFilter" class="filter-select">
+                        <option value="">Pilih Sumber Dana</option>
+                        <option value="zakat-fitrah">Zakat Fitrah</option>
+                        <option value="zakat-mal">Zakat Mal</option>
+                        <option value="infaq">Infaq</option>
+                        <option value="shadaqah">Shadaqah</option>
+                    </select>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="filter-actions">
+                    <button type="button" id="resetFilterBtn" class="btn-reset">Reset</button>
+                    <button type="button" id="applyFilterBtn" class="btn-apply">Apply Now</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- Modal Form -->
     <div id="formModal" class="modal-overlay">
         <div class="modal-container">
             <div class="modal-header">
-                <h2 class="modal-title" id="modalTitle">Tambah Data Distribusi</h2>
-                <button class="modal-close-btn" onclick="closeModal()">
+                <h2 class="modal-title" id="modalTitle">Tambah Catatan</h2>
+                <button class="modal-close-btn" id="closeFormModalBtn">
                     <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
             </div>
-            <form id="distribusiForm">
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label class="form-label">Tanggal Distribusi</label>
-                        <input type="text" id="tanggalDistribusi" class="form-input" placeholder="Pilih tanggal"
-                            required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Tujuan Distribusi</label>
-                        <input type="text" id="tujuanDistribusi" class="form-input" placeholder="Masukkan tujuan"
-                            required>
-                    </div>
+            <form id="pengeluaranForm">
+                <div class="form-group">
+                    <label class="form-label">Tanggal</label>
+                    <input type="text" id="tanggalPengeluaran" class="form-input" placeholder="Pilih tanggal" required>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Nama Penerima</label>
-                    <input type="text" id="namaPenerima" class="form-input" placeholder="Masukkan nama penerima"
-                        required>
+                    <label class="form-label">Kategori Pengeluaran</label>
+                    <select id="kategoriPengeluaran" class="form-select" required>
+                        <option value="">Pilih Kategori</option>
+                        <option value="zakat-mal">Zakat Mal</option>
+                        <option value="operasional">Operasional</option>
+                        <option value="pemeliharaan">Pemeliharaan</option>
+                    </select>
                 </div>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label class="form-label">No. Telp Penerima</label>
-                        <input type="text" id="noTelp" class="form-input" placeholder="Masukkan nomor telepon" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Nama Penyalur</label>
-                        <input type="text" id="namaPenyalur" class="form-input" placeholder="Masukkan nama penyalur"
-                            required>
-                    </div>
+                <div class="form-group">
+                    <label class="form-label">Deskripsi</label>
+                    <input type="text" id="deskripsi" class="form-input" placeholder="Masukkan deskripsi" required>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Jumlah</label>
-                    <input type="text" id="jumlah" class="form-input" placeholder="Rp ..." required>
+                    <input type="text" id="jumlah" class="form-input" placeholder="Masukkan jumlah" required>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Keterangan</label>
-                    <textarea id="keterangan" class="form-input" rows="3" placeholder="Masukkan keterangan"></textarea>
+                    <label class="form-label">File</label>
+                    <input type="file" id="filePengeluaran" class="form-input" accept="image/*,.pdf">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Sumber Dana</label>
+                    <select id="sumberDana" class="form-select" required>
+                        <option value="">Pilih Sumber Dana</option>
+                        <option value="zakat-fitrah">Zakat Fitrah</option>
+                        <option value="zakat-mal">Zakat Mal</option>
+                        <option value="infaq">Infaq</option>
+                        <option value="shadaqah">Shadaqah</option>
+                    </select>
                 </div>
                 <div class="form-actions">
-                    <button type="button" class="btn-cancel" onclick="closeModal()">Batal</button>
+                    <button type="button" class="btn-cancel" id="cancelFormBtn">Batal</button>
                     <button type="submit" class="btn-submit">Simpan</button>
                 </div>
             </form>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <!-- SweetAlert2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- jQuery (required for Select2) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/id.js"></script>
     <script>
+        // Toggle Sidebar
         const sidebar = document.getElementById('sidebar');
         const toggleBtn = document.getElementById('toggleSidebar');
         if (toggleBtn) {
             toggleBtn.addEventListener('click', () => {
                 sidebar.classList.toggle('collapsed');
-                const icon = toggleBtn.querySelector('svg');
+                const icon = toggleBtn.querySelector('svg path');
                 if (sidebar.classList.contains('collapsed')) {
-                    icon.style.transform = 'rotate(180deg)';
+                    icon.setAttribute('d', 'M9 5l7 7-7 7');
                 } else {
-                    icon.style.transform = 'rotate(0deg)';
+                    icon.setAttribute('d', 'M15 19l-7-7 7-7');
                 }
             });
         }
+
+        // Toggle Dropdown
         function toggleDropdown(event, dropdownId) {
             event.preventDefault();
+            event.stopPropagation();
             const dropdown = document.getElementById(dropdownId);
             const icon = event.currentTarget.querySelector('.dropdown-icon-modern');
             if (dropdown) {
                 const isOpen = dropdown.classList.contains('open');
-                document.querySelectorAll('.dropdown-menu-modern').forEach(menu => menu.classList.remove('open'));
-                document.querySelectorAll('.dropdown-icon-modern').forEach(icon => icon.classList.remove('rotated'));
+                document.querySelectorAll('.dropdown-menu-modern').forEach(menu => {
+                    if (menu.id !== dropdownId) menu.classList.remove('open');
+                });
+                document.querySelectorAll('.dropdown-icon-modern').forEach(i => {
+                    if (i !== icon) i.classList.remove('rotated');
+                });
                 if (!isOpen) {
                     dropdown.classList.add('open');
                     if (icon) icon.classList.add('rotated');
+                } else {
+                    dropdown.classList.remove('open');
+                    if (icon) icon.classList.remove('rotated');
                 }
             }
         }
-        const filterBtn = document.getElementById('filterBtn');
-        const filterDropdown = document.getElementById('filterDropdown');
-        if (filterBtn) {
-            filterBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                filterDropdown.classList.toggle('hidden');
+
+        // Initialize Flatpickr for date inputs
+        let dateFromPicker, dateToPicker, tanggalPengeluaranPicker;
+
+        // Initialize date pickers
+        if (document.getElementById('dateFrom')) {
+            dateFromPicker = flatpickr("#dateFrom", {
+                dateFormat: "d/m/Y",
+                locale: "id"
             });
-            document.addEventListener('click', (e) => {
-                if (!filterBtn.contains(e.target) && !filterDropdown.contains(e.target)) {
-                    filterDropdown.classList.add('hidden');
+        }
+        if (document.getElementById('dateTo')) {
+            dateToPicker = flatpickr("#dateTo", {
+                dateFormat: "d/m/Y",
+                locale: "id"
+            });
+        }
+        if (document.getElementById('tanggalPengeluaran')) {
+            tanggalPengeluaranPicker = flatpickr("#tanggalPengeluaran", {
+                dateFormat: "d F Y",
+                locale: "id"
+            });
+        }
+
+        // Initialize Select2
+        $(document).ready(function () {
+            // Select2 for filter modal
+            $('#kategoriPengeluaranFilter, #sumberDanaFilter').select2({
+                theme: 'bootstrap-5',
+                width: '100%',
+                dropdownParent: $('#filterModal'),
+                language: {
+                    noResults: function () {
+                        return "Tidak ada hasil ditemukan";
+                    }
+                }
+            });
+
+            // Select2 for form modal
+            $('#kategoriPengeluaran, #sumberDana').select2({
+                theme: 'bootstrap-5',
+                width: '100%',
+                dropdownParent: $('#formModal'),
+                language: {
+                    noResults: function () {
+                        return "Tidak ada hasil ditemukan";
+                    }
+                }
+            });
+        });
+
+        // Form Modal
+        const formModal = document.getElementById('formModal');
+        const tambahBtn = document.getElementById('tambahBtn');
+        const closeFormModalBtn = document.getElementById('closeFormModalBtn');
+        const cancelFormBtn = document.getElementById('cancelFormBtn');
+        const pengeluaranForm = document.getElementById('pengeluaranForm');
+
+        function closeFormModal() {
+            if (formModal) {
+                formModal.classList.remove('show');
+                document.body.style.overflow = '';
+                if (pengeluaranForm) pengeluaranForm.reset();
+            }
+        }
+
+        if (tambahBtn) {
+            tambahBtn.addEventListener('click', () => {
+                document.getElementById('modalTitle').textContent = 'Tambah Catatan';
+                if (pengeluaranForm) pengeluaranForm.reset();
+                if (formModal) {
+                    formModal.classList.add('show');
+                    document.body.style.overflow = 'hidden';
                 }
             });
         }
-        flatpickr("#tanggalDistribusi", { dateFormat: "d F Y", locale: "id" });
-        const formModal = document.getElementById('formModal');
-        const tambahBtn = document.getElementById('tambahBtn');
-        if (tambahBtn) {
-            tambahBtn.addEventListener('click', () => {
-                document.getElementById('modalTitle').textContent = 'Tambah Data Distribusi';
-                document.getElementById('distribusiForm').reset();
-                formModal.classList.add('show');
+
+        if (closeFormModalBtn) {
+            closeFormModalBtn.addEventListener('click', closeFormModal);
+        }
+
+        if (cancelFormBtn) {
+            cancelFormBtn.addEventListener('click', closeFormModal);
+        }
+
+        if (formModal) {
+            formModal.addEventListener('click', (e) => {
+                if (e.target === formModal) closeFormModal();
             });
         }
-        function closeModal() {
-            formModal.classList.remove('show');
-        }
+
         function openEditModal(id) {
-            document.getElementById('modalTitle').textContent = 'Edit Data Distribusi';
-            document.getElementById('distribusiForm').reset();
-            formModal.classList.add('show');
+            document.getElementById('modalTitle').textContent = 'Edit Catatan';
+            if (pengeluaranForm) pengeluaranForm.reset();
+            if (formModal) {
+                formModal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            }
         }
-        function deleteData(id) {
+
+        // Delete Function
+        function deletePengeluaran(id) {
             Swal.fire({
-                title: 'Apakah Anda yakin?',
-                text: "Data yang dihapus tidak dapat dikembalikan!",
+                title: 'Hapus Catatan Pengeluaran?',
+                text: 'Apakah Anda yakin ingin menghapus catatan pengeluaran ini?',
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#223301',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya, hapus!',
+                confirmButtonColor: '#ef4444',
+                cancelButtonColor: '#6b7280',
+                confirmButtonText: 'Ya, Hapus',
                 cancelButtonText: 'Batal'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Swal.fire('Terhapus!', 'Data berhasil dihapus.', 'success');
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Terhapus!',
+                        text: 'Catatan pengeluaran berhasil dihapus.',
+                        confirmButtonColor: '#223301',
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
                 }
             });
         }
-        document.getElementById('distribusiForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            Swal.fire({
-                icon: 'success',
-                title: 'Berhasil',
-                text: 'Data distribusi berhasil disimpan',
-                confirmButtonColor: '#223301',
-                confirmButtonText: 'OK'
-            }).then(() => {
-                closeModal();
+
+        // Form Submit
+        if (pengeluaranForm) {
+            pengeluaranForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    text: 'Catatan pengeluaran berhasil disimpan',
+                    confirmButtonColor: '#223301',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    closeFormModal();
+                });
             });
-        });
-        formModal.addEventListener('click', (e) => {
-            if (e.target === formModal) closeModal();
-        });
-        // Notification Dropdown
+        }
+
+        // Filter Modal
+        const filterModal = document.getElementById('filterModal');
+        const filterBtn = document.getElementById('filterBtn');
+        const resetFilterBtn = document.getElementById('resetFilterBtn');
+        const applyFilterBtn = document.getElementById('applyFilterBtn');
+
+        function closeFilterModal() {
+            if (filterModal) {
+                filterModal.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+        }
+
+        if (filterBtn) {
+            filterBtn.addEventListener('click', () => {
+                if (filterModal) {
+                    filterModal.classList.add('show');
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+        }
+
+        if (resetFilterBtn) {
+            resetFilterBtn.addEventListener('click', () => {
+                const filterForm = document.getElementById('filterForm');
+                if (filterForm) {
+                    filterForm.reset();
+                    if (dateFromPicker) dateFromPicker.clear();
+                    if (dateToPicker) dateToPicker.clear();
+                    $('#kategoriPengeluaranFilter, #sumberDanaFilter').val(null).trigger('change');
+                }
+            });
+        }
+
+        if (applyFilterBtn) {
+            applyFilterBtn.addEventListener('click', () => {
+                closeFilterModal();
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Filter Diterapkan',
+                    text: 'Filter berhasil diterapkan',
+                    confirmButtonColor: '#223301',
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+            });
+        }
+
+        if (filterModal) {
+            filterModal.addEventListener('click', (e) => {
+                if (e.target === filterModal) closeFilterModal();
+            });
+        }
+
+        // Export Button
+        const exportBtn = document.getElementById('exportBtn');
+        if (exportBtn) {
+            exportBtn.addEventListener('click', () => {
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Export Data',
+                    text: 'Fungsi export sedang dalam pengembangan',
+                    confirmButtonColor: '#223301'
+                });
+            });
+        }
+
+        // Notification & Profile Dropdown
         const notificationBtn = document.getElementById('notificationBtn');
         const notificationDropdown = document.getElementById('notificationDropdown');
         const profileBtn = document.getElementById('profileBtn');
@@ -1468,7 +1915,6 @@
             });
         }
 
-        // Close dropdowns when clicking outside
         document.addEventListener('click', (e) => {
             if (notificationDropdown && !notificationBtn.contains(e.target) && !notificationDropdown.contains(e.target)) {
                 notificationDropdown.classList.remove('show');
@@ -1478,12 +1924,13 @@
             }
         });
 
+        // Open Catatan dropdown on page load
         window.addEventListener('DOMContentLoaded', () => {
-            const manajemenZakatDropdown = document.getElementById('manajemenZakat');
-            const manajemenZakatIcon = document.querySelector('[onclick*="manajemenZakat"] .dropdown-icon-modern');
-            if (manajemenZakatDropdown) {
-                manajemenZakatDropdown.classList.add('open');
-                if (manajemenZakatIcon) manajemenZakatIcon.classList.add('rotated');
+            const catatanDropdown = document.getElementById('catatan');
+            const catatanIcon = document.querySelector('[onclick*="catatan"] .dropdown-icon-modern');
+            if (catatanDropdown) {
+                catatanDropdown.classList.add('open');
+                if (catatanIcon) catatanIcon.classList.add('rotated');
             }
         });
     </script>

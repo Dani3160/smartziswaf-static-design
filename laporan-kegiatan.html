@@ -4,13 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Distribusi Zakat - SMART ZISWAF</title>
+    <title>Laporan Kurban - SMART ZISWAF</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <style>
         * {
             margin: 0;
@@ -702,7 +700,7 @@
                     <span class="menu-text text-sm font-medium text-gray-700">Beranda</span>
                 </a>
                 <div class="menu-group">
-                    <a href="laporan-kegiatan.html" class="menu-item-modern flex items-center justify-between px-4 py-3.5"
+                    <a href="kategori-pengeluaran.html" class="menu-item-modern flex items-center justify-between px-4 py-3.5"
                         onclick="toggleDropdown(event, 'dataMaster')">
                         <div class="flex items-center space-x-4">
                             <svg class="w-5 h-5 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
@@ -759,22 +757,22 @@
                     </div>
                 </div>
                 <div class="menu-group">
-                    <a href="laporan-kegiatan.html" class="menu-item-modern active flex items-center justify-between px-4 py-3.5"
+                    <a href="kategori-pengeluaran.html" class="menu-item-modern flex items-center justify-between px-4 py-3.5"
                         onclick="toggleDropdown(event, 'manajemenZakat')">
                         <div class="flex items-center space-x-4">
-                            <svg class="w-5 h-5 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
+                            <svg class="w-5 h-5 flex-shrink-0 text-gray-600" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                             </svg>
-                            <span class="menu-text text-sm font-medium" style="color: #223301;">Manajemen Zakat</span>
+                            <span class="menu-text text-sm font-medium text-gray-700">Manajemen Zakat</span>
                         </div>
-                        <svg class="dropdown-icon-modern w-4 h-4 text-gray-500 rotated" fill="none"
-                            stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="dropdown-icon-modern w-4 h-4 text-gray-500" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </a>
-                    <div id="manajemenZakat" class="dropdown-menu-modern open">
+                    <div id="manajemenZakat" class="dropdown-menu-modern">
                         <a href="kelola-zakat-fitrah.html"
                             class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
                             <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
@@ -823,22 +821,22 @@
                     </div>
                 </div>
                 <div class="menu-group">
-                    <a href="laporan-kegiatan.html" class="menu-item-modern flex items-center justify-between px-4 py-3.5"
+                    <a href="kategori-pengeluaran.html" class="menu-item-modern active flex items-center justify-between px-4 py-3.5"
                         onclick="toggleDropdown(event, 'manajemenKurban')">
                         <div class="flex items-center space-x-4">
-                            <svg class="w-5 h-5 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor"
+                            <svg class="w-5 h-5 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                             </svg>
-                            <span class="menu-text text-sm text-gray-700 font-medium">Manajemen Kurban</span>
+                            <span class="menu-text text-sm font-medium" style="color: #223301;">Manajemen Kurban</span>
                         </div>
-                        <svg class="dropdown-icon-modern w-4 h-4 text-gray-500" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24">
+                        <svg class="dropdown-icon-modern w-4 h-4 text-gray-500 rotated" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </a>
-                    <div id="manajemenKurban" class="dropdown-menu-modern">
+                    <div id="manajemenKurban" class="dropdown-menu-modern open">
                         <a href="daftar-kurban.html"
                             class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
                             <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
@@ -858,7 +856,7 @@
                             <span>Distribusi Kurban</span>
                         </a>
                         <a href="laporan-kegiatan.html"
-                            class="menu-item-modern flex items-center space-x-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900">
+                            class="menu-item-modern active flex items-center space-x-3 px-4 py-2.5 text-sm">
                             <svg class="w-4 h-4 flex-shrink-0" style="color: #223301;" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -977,8 +975,8 @@
                 <div class="header-hero-content px-8 py-6">
                     <div class="flex justify-between items-center">
                         <div>
-                            <h1 class="text-3xl font-bold text-white mb-2">Distribusi Zakat</h1>
-                            <p class="text-white/80 text-sm">Manajemen Zakat / Distribusi Zakat</p>
+                            <h1 class="text-3xl font-bold text-white mb-2">Laporan Kurban</h1>
+                            <p class="text-white/80 text-sm">Manajemen Kurban / Laporan Kegiatan</p>
                         </div>
                         <div class="flex items-center space-x-4">
                             <!-- Notification Button -->
@@ -1113,133 +1111,67 @@
             </header>
             <main class="main-content-bg flex-1 overflow-y-auto">
                 <div class="p-8">
-                    <div class="mb-6 flex flex-col md:flex-row gap-4 items-center justify-between">
-                        <div class="flex flex-1 gap-4">
-                            <div class="relative flex-1">
-                                <input type="text" placeholder="Cari"
-                                    class="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#223301] focus:border-transparent">
-                                <svg class="w-5 h-5 text-gray-400 absolute right-4 top-1/2 transform -translate-y-1/2"
-                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                </svg>
-                            </div>
-                            <div class="relative">
-                                <button id="filterBtn"
-                                    class="px-4 py-3 border border-gray-300 rounded-lg text-sm bg-white hover:bg-gray-50 transition flex items-center gap-2">
-                                    <span>Tipe Zakat</span>
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M19 9l-7 7-7-7" />
-                                    </svg>
-                                </button>
-                                <div id="filterDropdown"
-                                    class="absolute top-full mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10 hidden">
-                                    <div class="p-2">
-                                        <label class="flex items-center px-3 py-2 hover:bg-gray-50 cursor-pointer">
-                                            <input type="checkbox" checked class="mr-2"> Tipe Zakat
-                                        </label>
-                                        <label class="flex items-center px-3 py-2 hover:bg-gray-50 cursor-pointer">
-                                            <input type="checkbox" class="mr-2"> Fitrah
-                                        </label>
-                                        <label class="flex items-center px-3 py-2 hover:bg-gray-50 cursor-pointer">
-                                            <input type="checkbox" class="mr-2"> Mal
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="mb-6 flex flex-col md:flex-row gap-4 items-center justify-end">
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-medium text-gray-700">Tahun:</label>
+                            <select
+                                class="px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#223301] focus:border-transparent bg-white">
+                                <option value="2025" selected>2025</option>
+                                <option value="2024">2024</option>
+                                <option value="2023">2023</option>
+                                <option value="2022">2022</option>
+                            </select>
                         </div>
-                        <button id="tambahBtn" class="btn-primary inline-flex items-center gap-2">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 4v16m8-8H4" />
-                            </svg>
-                            Tambah Data Distribusi
-                        </button>
                     </div>
                     <div class="table-modern">
                         <div class="px-6 py-4 border-b border-gray-200">
-                            <h2 class="text-lg font-semibold text-gray-900">Data Distribusi Zakat</h2>
+                            <h2 class="text-lg font-semibold text-gray-900">Laporan Kegiatan</h2>
                         </div>
                         <table class="w-full border-collapse">
                             <thead>
                                 <tr style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);">
                                     <th
-                                        class="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
-                                        No</th>
-                                    <th
-                                        class="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
-                                        Tanggal Distribusi</th>
-                                    <th
-                                        class="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
-                                        Tujuan Distribusi</th>
+                                        class="px-4 py-3 text-center text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
+                                        Jumlah Pengurban</th>
                                     <th colspan="2"
                                         class="px-4 py-3 text-center text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
-                                        Data Penerima</th>
-                                    <th colspan="2"
+                                        Data Kurban</th>
+                                    <th colspan="3"
                                         class="px-4 py-3 text-center text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
-                                        Data Distribusi</th>
+                                        Total Uang Terkumpul</th>
                                     <th
-                                        class="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
-                                        Keterangan</th>
-                                    <th
-                                        class="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
-                                        Aksi</th>
+                                        class="px-4 py-3 text-center text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
+                                        Jumlah Penerima Kurban</th>
                                 </tr>
                                 <tr style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);">
                                     <th class="px-4 py-2 border border-gray-600"></th>
-                                    <th class="px-4 py-2 border border-gray-600"></th>
-                                    <th class="px-4 py-2 border border-gray-600"></th>
                                     <th
                                         class="px-4 py-2 text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
-                                        Nama</th>
+                                        Jumlah Sapi</th>
                                     <th
                                         class="px-4 py-2 text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
-                                        No. Telp</th>
+                                        Jumlah Kambing</th>
                                     <th
                                         class="px-4 py-2 text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
-                                        Nama Penyalur</th>
+                                        Uang Terkumpul</th>
                                     <th
                                         class="px-4 py-2 text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
-                                        Jumlah</th>
-                                    <th class="px-4 py-2 border border-gray-600"></th>
+                                        Uang Sapi</th>
+                                    <th
+                                        class="px-4 py-2 text-xs font-bold text-white uppercase tracking-wider border border-gray-600">
+                                        Uang Kambing</th>
                                     <th class="px-4 py-2 border border-gray-600"></th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white">
                                 <tr class="bg-white hover:bg-gray-50">
-                                    <td class="px-4 py-3 text-sm text-gray-700 font-medium border border-gray-200">1
-                                    </td>
-                                    <td class="px-4 py-3 text-sm text-gray-700 border border-gray-200">08 September 2025
-                                    </td>
-                                    <td class="px-4 py-3 text-sm text-gray-700 border border-gray-200">BANDUNG</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700 border border-gray-200">Amir</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700 border border-gray-200">089676876</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700 border border-gray-200">Amilin</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700 border border-gray-200">Rp100.000</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700 border border-gray-200">Selamat</td>
-                                    <td class="px-4 py-3 text-sm text-gray-700 border border-gray-200">
-                                        <div class="flex items-center gap-2">
-                                            <button onclick="openEditModal(1)"
-                                                class="p-2 text-[#223301] hover:bg-gray-100 rounded-lg transition">
-                                                <svg class="w-5 h-5" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                                </svg>
-                                            </button>
-                                            <button onclick="deleteData(1)"
-                                                class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition">
-                                                <svg class="w-5 h-5" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </td>
+                                    <td class="px-4 py-3 text-sm text-gray-700 font-medium text-center border border-gray-200">1</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700 text-center border border-gray-200">1</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700 text-center border border-gray-200">1</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700 text-center border border-gray-200">Rp0</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700 text-center border border-gray-200">Rp0</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700 text-center border border-gray-200">Rp0</td>
+                                    <td class="px-4 py-3 text-sm text-gray-700 font-medium text-center border border-gray-200">1</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -1298,64 +1230,6 @@
             </main>
         </div>
     </div>
-    <!-- Modal Form -->
-    <div id="formModal" class="modal-overlay">
-        <div class="modal-container">
-            <div class="modal-header">
-                <h2 class="modal-title" id="modalTitle">Tambah Data Distribusi</h2>
-                <button class="modal-close-btn" onclick="closeModal()">
-                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-            <form id="distribusiForm">
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label class="form-label">Tanggal Distribusi</label>
-                        <input type="text" id="tanggalDistribusi" class="form-input" placeholder="Pilih tanggal"
-                            required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Tujuan Distribusi</label>
-                        <input type="text" id="tujuanDistribusi" class="form-input" placeholder="Masukkan tujuan"
-                            required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Nama Penerima</label>
-                    <input type="text" id="namaPenerima" class="form-input" placeholder="Masukkan nama penerima"
-                        required>
-                </div>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label class="form-label">No. Telp Penerima</label>
-                        <input type="text" id="noTelp" class="form-input" placeholder="Masukkan nomor telepon" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Nama Penyalur</label>
-                        <input type="text" id="namaPenyalur" class="form-input" placeholder="Masukkan nama penyalur"
-                            required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Jumlah</label>
-                    <input type="text" id="jumlah" class="form-input" placeholder="Rp ..." required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Keterangan</label>
-                    <textarea id="keterangan" class="form-input" rows="3" placeholder="Masukkan keterangan"></textarea>
-                </div>
-                <div class="form-actions">
-                    <button type="button" class="btn-cancel" onclick="closeModal()">Batal</button>
-                    <button type="submit" class="btn-submit">Simpan</button>
-                </div>
-            </form>
-        </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         const sidebar = document.getElementById('sidebar');
         const toggleBtn = document.getElementById('toggleSidebar');
@@ -1384,68 +1258,6 @@
                 }
             }
         }
-        const filterBtn = document.getElementById('filterBtn');
-        const filterDropdown = document.getElementById('filterDropdown');
-        if (filterBtn) {
-            filterBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                filterDropdown.classList.toggle('hidden');
-            });
-            document.addEventListener('click', (e) => {
-                if (!filterBtn.contains(e.target) && !filterDropdown.contains(e.target)) {
-                    filterDropdown.classList.add('hidden');
-                }
-            });
-        }
-        flatpickr("#tanggalDistribusi", { dateFormat: "d F Y", locale: "id" });
-        const formModal = document.getElementById('formModal');
-        const tambahBtn = document.getElementById('tambahBtn');
-        if (tambahBtn) {
-            tambahBtn.addEventListener('click', () => {
-                document.getElementById('modalTitle').textContent = 'Tambah Data Distribusi';
-                document.getElementById('distribusiForm').reset();
-                formModal.classList.add('show');
-            });
-        }
-        function closeModal() {
-            formModal.classList.remove('show');
-        }
-        function openEditModal(id) {
-            document.getElementById('modalTitle').textContent = 'Edit Data Distribusi';
-            document.getElementById('distribusiForm').reset();
-            formModal.classList.add('show');
-        }
-        function deleteData(id) {
-            Swal.fire({
-                title: 'Apakah Anda yakin?',
-                text: "Data yang dihapus tidak dapat dikembalikan!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#223301',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya, hapus!',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire('Terhapus!', 'Data berhasil dihapus.', 'success');
-                }
-            });
-        }
-        document.getElementById('distribusiForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            Swal.fire({
-                icon: 'success',
-                title: 'Berhasil',
-                text: 'Data distribusi berhasil disimpan',
-                confirmButtonColor: '#223301',
-                confirmButtonText: 'OK'
-            }).then(() => {
-                closeModal();
-            });
-        });
-        formModal.addEventListener('click', (e) => {
-            if (e.target === formModal) closeModal();
-        });
         // Notification Dropdown
         const notificationBtn = document.getElementById('notificationBtn');
         const notificationDropdown = document.getElementById('notificationDropdown');
@@ -1479,11 +1291,11 @@
         });
 
         window.addEventListener('DOMContentLoaded', () => {
-            const manajemenZakatDropdown = document.getElementById('manajemenZakat');
-            const manajemenZakatIcon = document.querySelector('[onclick*="manajemenZakat"] .dropdown-icon-modern');
-            if (manajemenZakatDropdown) {
-                manajemenZakatDropdown.classList.add('open');
-                if (manajemenZakatIcon) manajemenZakatIcon.classList.add('rotated');
+            const manajemenKurbanDropdown = document.getElementById('manajemenKurban');
+            const manajemenKurbanIcon = document.querySelector('[onclick*="manajemenKurban"] .dropdown-icon-modern');
+            if (manajemenKurbanDropdown) {
+                manajemenKurbanDropdown.classList.add('open');
+                if (manajemenKurbanIcon) manajemenKurbanIcon.classList.add('rotated');
             }
         });
     </script>
