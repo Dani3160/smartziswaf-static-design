@@ -595,7 +595,8 @@
 
         .main-content-bg {
             background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-            min-height: 100vh;
+            /* min-height: 100vh; */
+            min-height: auto;
             padding-bottom: 2rem;
         }
 
@@ -1011,10 +1012,409 @@
         .detail-value.amount {
             color: #223301;
         }
+
+        /* Mobile Header */
+        .mobile-header {
+            display: none;
+            background: #ffffff;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+            padding: 12px 16px;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .mobile-header-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .mobile-header-logo img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        .mobile-header-logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-header-logo-text .text-sm {
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .mobile-toggle-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: #223301;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-toggle-btn:hover {
+            background: #2d4a0a;
+            transform: scale(1.05);
+        }
+
+        .mobile-toggle-btn svg {
+            width: 20px;
+            height: 20px;
+            color: white;
+        }
+
+        /* Mobile Sidebar Overlay */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .sidebar-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1024px) {
+            html {
+                overflow-x: hidden !important;
+            }
+
+            body {
+                overflow-x: hidden !important;
+            }
+
+            .mobile-header {
+                display: flex;
+            }
+
+            .sidebar-overlay {
+                display: none !important;
+            }
+
+            .sidebar-modern {
+                position: fixed !important;
+                left: 0;
+                top: 64px !important;
+                bottom: 0;
+                z-index: 999 !important;
+                width: 288px !important;
+                transform: translateX(-100%);
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                margin: 0 !important;
+                padding: 0 !important;
+                min-width: 288px !important;
+                max-width: 288px !important;
+            }
+
+            .sidebar-modern:not(.mobile-open) {
+                box-shadow: none !important;
+                border-right: none !important;
+                background: transparent !important;
+                pointer-events: none !important;
+            }
+
+            .sidebar-modern:not(.mobile-open) .menu-item-modern.active {
+                border-left: none !important;
+                background: transparent !important;
+                box-shadow: none !important;
+            }
+
+            .sidebar-modern:not(.mobile-open) .menu-item-modern.active::before {
+                display: none !important;
+            }
+
+            .sidebar-modern.mobile-open {
+                transform: translateX(0) !important;
+                width: 288px !important;
+                min-width: 288px !important;
+                max-width: 288px !important;
+                background: #ffffff !important;
+                box-shadow: 4px 0 30px rgba(0, 0, 0, 0.15) !important;
+                border-right: 1px solid rgba(226, 232, 240, 0.8) !important;
+                pointer-events: auto !important;
+            }
+
+            .sidebar-modern .logo-section {
+                display: none !important;
+            }
+
+            .sidebar-modern .toggle-btn-header {
+                display: none !important;
+            }
+
+            .sidebar-modern .sidebar-nav {
+                padding-top: 12px;
+                padding-bottom: 16px;
+                margin-top: 0;
+                overflow-y: auto;
+                overflow-x: hidden;
+                max-height: calc(100vh - 64px);
+            }
+
+            .sidebar-modern {
+                padding-top: 0;
+            }
+
+            .sidebar-modern .sidebar-nav>*:first-child {
+                margin-top: 0;
+            }
+
+            body>div.flex>.sidebar-modern:not(.mobile-open) {
+                flex: 0 0 0 !important;
+                width: 0 !important;
+                min-width: 0 !important;
+                max-width: 0 !important;
+            }
+
+            body>div.flex>.sidebar-modern.mobile-open,
+            .sidebar-modern.mobile-open {
+                width: 288px !important;
+                min-width: 288px !important;
+                max-width: 288px !important;
+                transform: translateX(0) !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+            }
+
+            .main-content-wrapper {
+                width: 100% !important;
+                max-width: 100% !important;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+                flex: 1 1 100% !important;
+                min-width: 0 !important;
+            }
+
+            body>div.flex {
+                position: relative;
+                overflow-x: hidden !important;
+            }
+
+            .sidebar-modern.mobile-open .dropdown-menu-modern {
+                position: static !important;
+                top: auto !important;
+                left: auto !important;
+            }
+
+            .sidebar-modern.mobile-open {
+                overflow-y: auto !important;
+                overflow-x: hidden !important;
+            }
+
+            body.sidebar-mobile-open {
+                overflow: hidden !important;
+                position: fixed !important;
+                width: 100% !important;
+            }
+
+            /* Close dropdowns by default on mobile to prevent scrollbar - only when sidebar is not open */
+            .sidebar-modern:not(.mobile-open) .dropdown-menu-modern.open {
+                max-height: 0 !important;
+                opacity: 0 !important;
+            }
+
+            .sidebar-modern:not(.mobile-open) .dropdown-menu-modern.open .menu-item-modern {
+                display: none !important;
+            }
+
+            .sidebar-modern:not(.mobile-open) .dropdown-icon-modern.rotated {
+                transform: rotate(0deg) !important;
+            }
+        }
+
+        @media (min-width: 1025px) {
+            .mobile-header {
+                display: none !important;
+            }
+
+            .sidebar-overlay {
+                display: none !important;
+            }
+
+            .sidebar-modern {
+                transform: translateX(0) !important;
+            }
+
+            .sidebar-modern .logo-section {
+                display: flex !important;
+            }
+
+            .sidebar-modern .toggle-btn-header {
+                display: flex !important;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .header-hero {
+                margin-top: 0;
+            }
+
+            body>div.flex {
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                gap: 0 !important;
+            }
+
+            body>div.flex>.sidebar-modern {
+                flex: 0 0 0 !important;
+                width: 0 !important;
+                min-width: 0 !important;
+                max-width: 0 !important;
+            }
+
+            .main-content-wrapper {
+                padding-top: 0;
+                width: 100% !important;
+                max-width: 100% !important;
+                flex: 1 1 100% !important;
+                min-width: 0 !important;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+
+            .main-content-wrapper>* {
+                width: 100%;
+            }
+
+            /* Responsive Notification & Profile Buttons */
+            .header-hero-content .flex.items-center.space-x-4 {
+                gap: 8px !important;
+            }
+
+            /* Hide profile name and role text on mobile */
+            #profileBtn .text-left {
+                display: none !important;
+            }
+
+            /* Make profile button compact - only avatar and dropdown icon */
+            #profileBtn {
+                padding: 8px !important;
+                gap: 6px !important;
+            }
+
+            /* Adjust notification button padding on mobile */
+            #notificationBtn {
+                padding: 8px !important;
+            }
+
+            /* Hide divider on mobile for cleaner look */
+            .header-hero-content .h-8.w-px {
+                display: none !important;
+            }
+
+            /* Responsive Dropdown Positioning */
+            .dropdown-panel {
+                position: fixed !important;
+                max-width: calc(100vw - 32px) !important;
+                width: auto !important;
+                min-width: 240px !important;
+                max-height: calc(100vh - 100px) !important;
+                overflow-y: auto !important;
+                overflow-x: hidden !important;
+                z-index: 1001 !important;
+            }
+
+            /* Notification dropdown responsive width */
+            #notificationDropdown {
+                width: calc(100vw - 32px) !important;
+                max-width: 400px !important;
+            }
+
+            /* Profile dropdown responsive width - positioned to stay in viewport */
+            #profileDropdown {
+                width: calc(100vw - 32px) !important;
+                max-width: 280px !important;
+            }
+
+            /* Adjust dropdown arrow position on mobile */
+            .dropdown-panel::before {
+                right: 20px !important;
+            }
+
+            /* Ensure dropdowns don't overflow on mobile */
+            @media (max-width: 640px) {
+                .dropdown-panel {
+                    max-width: calc(100vw - 16px) !important;
+                    min-width: 200px !important;
+                }
+
+                #notificationDropdown {
+                    width: calc(100vw - 16px) !important;
+                    max-width: calc(100vw - 16px) !important;
+                }
+
+                #profileDropdown {
+                    width: calc(100vw - 16px) !important;
+                    max-width: calc(100vw - 16px) !important;
+                }
+
+                .dropdown-panel::before {
+                    right: 16px !important;
+                }
+            }
+
+            /* For very small screens */
+            @media (max-width: 375px) {
+                #profileDropdown {
+                    width: calc(100vw - 16px) !important;
+                    min-width: 180px !important;
+                }
+
+                #notificationDropdown {
+                    width: calc(100vw - 16px) !important;
+                    min-width: 180px !important;
+                }
+            }
+        }
     </style>
 </head>
 
 <body>
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <div class="mobile-header-logo">
+            <img src="images/logo-sidebar.png" alt="SMART ZISWAF">
+            <div class="mobile-header-logo-text">
+                <div class="text-sm text-gray-900">SMART</div>
+                <div class="text-sm" style="color: #223301;">ZISWAF</div>
+            </div>
+        </div>
+        <button id="mobileToggleBtn" class="mobile-toggle-btn">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+        </button>
+    </header>
+
+    <!-- Sidebar Overlay for Mobile -->
+    <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
     <div class="flex h-screen overflow-hidden">
         <!-- Sidebar - Similar to dashboard.html -->
         <aside id="sidebar" class="sidebar-modern w-72 flex flex-col relative z-50">
@@ -1051,7 +1451,8 @@
 
                 <!-- Data Master -->
                 <div class="menu-group" style="position: relative;">
-                    <a href="laporan-kegiatan.html" class="menu-item-modern flex items-center justify-between px-4 py-3.5"
+                    <a href="laporan-kegiatan.html"
+                        class="menu-item-modern flex items-center justify-between px-4 py-3.5"
                         onclick="toggleDropdown(event, 'dataMaster')">
                         <div class="flex items-center space-x-4">
                             <svg class="w-5 h-5 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor"
@@ -1110,7 +1511,7 @@
 
                 <!-- Manajemen Zakat -->
                 <div class="menu-group">
-                    <a href="laporan-kegiatan.html" class="menu-item-modern active flex items-center justify-between px-4 py-3.5"
+                    <a href="#" class="menu-item-modern active flex items-center justify-between px-4 py-3.5"
                         onclick="toggleDropdown(event, 'manajemenZakat')">
                         <div class="flex items-center space-x-4">
                             <svg class="w-5 h-5 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor"
@@ -1176,7 +1577,8 @@
 
                 <!-- Manajemen Kurban -->
                 <div class="menu-group">
-                    <a href="laporan-kegiatan.html" class="menu-item-modern flex items-center justify-between px-4 py-3.5"
+                    <a href="laporan-kegiatan.html"
+                        class="menu-item-modern flex items-center justify-between px-4 py-3.5"
                         onclick="toggleDropdown(event, 'manajemenKurban')">
                         <div class="flex items-center space-x-4">
                             <svg class="w-5 h-5 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor"
@@ -1224,7 +1626,8 @@
 
                 <!-- Catatan -->
                 <div class="menu-group">
-                    <a href="kategori-pengeluaran.html" class="menu-item-modern flex items-center justify-between px-4 py-3.5"
+                    <a href="kategori-pengeluaran.html"
+                        class="menu-item-modern flex items-center justify-between px-4 py-3.5"
                         onclick="toggleDropdown(event, 'catatan')">
                         <div class="flex items-center space-x-4">
                             <svg class="w-5 h-5 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor"
@@ -1302,7 +1705,7 @@
                     </div>
                 </div>
 
-                <a href="#" class="menu-item-modern flex items-center space-x-4 px-4 py-3.5">
+                <a href="laporan.html" class="menu-item-modern flex items-center space-x-4 px-4 py-3.5">
                     <svg class="w-5 h-5 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor"
                         viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -1326,7 +1729,7 @@
         </aside>
 
         <!-- Main Content -->
-        <div class="flex-1 flex flex-col overflow-hidden">
+        <div class="main-content-wrapper flex-1 flex flex-col overflow-hidden">
             <!-- Header -->
             <header class="header-hero">
                 <div class="header-hero-content px-8 py-6">
@@ -1577,86 +1980,90 @@
 
                         <!-- Table -->
                         <div class="table-modern">
-                            <table class="w-full">
-                                <thead>
-                                    <tr>
-                                        <th rowspan="2" style="padding: 12px;">No</th>
-                                        <th rowspan="2" style="padding: 12px;">Nama Kepala Keluarga</th>
-                                        <th colspan="2" style="padding: 12px; text-align: center;">Alamat</th>
-                                        <th rowspan="2" style="padding: 12px;">Jumlah Jiwa</th>
-                                        <th colspan="2" style="padding: 12px; text-align: center;">Zakat</th>
-                                        <th rowspan="2" style="padding: 12px;">Zakat Mal</th>
-                                        <th colspan="2" style="padding: 12px; text-align: center;">Infaq/Shadaqoh/Wakaf
-                                        </th>
-                                        <th colspan="2" style="padding: 12px; text-align: center;">Total</th>
-                                        <th rowspan="2" style="padding: 12px;">Aksi</th>
-                                    </tr>
-                                    <tr>
-                                        <th style="padding: 8px 12px;">Cluster</th>
-                                        <th style="padding: 8px 12px;">Blok</th>
-                                        <th style="padding: 8px 12px;">Uang</th>
-                                        <th style="padding: 8px 12px;">Beras</th>
-                                        <th style="padding: 8px 12px;">Uang</th>
-                                        <th style="padding: 8px 12px;">Beras</th>
-                                        <th style="padding: 8px 12px;">Uang</th>
-                                        <th style="padding: 8px 12px;">Beras</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td style="padding: 12px;">1</td>
-                                        <td style="padding: 12px; font-weight: 600;">Lina</td>
-                                        <td style="padding: 12px;">BANDUNG</td>
-                                        <td style="padding: 12px;">M10</td>
-                                        <td style="padding: 12px;">2</td>
-                                        <td style="padding: 12px;">Rp0</td>
-                                        <td style="padding: 12px;">0 Kg</td>
-                                        <td style="padding: 12px;">Rp0</td>
-                                        <td style="padding: 12px;">Rp0</td>
-                                        <td style="padding: 12px;">0 Kg</td>
-                                        <td style="padding: 12px;">Rp0</td>
-                                        <td style="padding: 12px;">0 Kg</td>
-                                        <td style="padding: 12px;">
-                                            <div class="flex items-center gap-2">
-                                                <button
-                                                    class="detail-btn p-2 text-gray-600 hover:text-[#223301] transition"
-                                                    data-id="9" data-nama="Emil" data-alamat="BANDUNG, m4" data-jiwa="2"
-                                                    data-uang="200000" data-fidyah="10000" data-uang-infaq="5000"
-                                                    data-beras-infaq="10" data-total="215000" data-beras-total="10"
-                                                    data-pembayaran="Cash" data-telp="089867967">
-                                                    <svg class="w-5 h-5" fill="none" stroke="currentColor"
-                                                        viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2"
-                                                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                                    </svg>
-                                                </button>
-                                                <button
-                                                    class="edit-btn p-2 text-gray-600 hover:text-[#223301] transition"
-                                                    data-id="9" data-nama="Lina" data-alamat="BANDUNG, M10"
-                                                    data-jiwa="2" data-total-zakat-fitrah="0" data-uang-infaq="0"
-                                                    data-jumlah-ziswaf-uang="0" data-jenis-pembayaran=""
-                                                    data-jenis-zakat-fitrah="" data-zakat-fitrah="0" data-fidyah="0"
-                                                    data-beras-infaq="0" data-jumlah-ziswaf-beras="0"
-                                                    data-nomor-telepon="" data-cluster="bandung" data-blok="M10">
-                                                    <svg class="w-5 h-5" fill="none" stroke="currentColor"
-                                                        viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2"
-                                                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="overflow-x-auto">
+                                <table class="w-full">
+                                    <thead>
+                                        <tr>
+                                            <th rowspan="2" style="padding: 12px;">No</th>
+                                            <th rowspan="2" style="padding: 12px;">Nama Kepala Keluarga</th>
+                                            <th colspan="2" style="padding: 12px; text-align: center;">Alamat</th>
+                                            <th rowspan="2" style="padding: 12px;">Jumlah Jiwa</th>
+                                            <th colspan="2" style="padding: 12px; text-align: center;">Zakat</th>
+                                            <th rowspan="2" style="padding: 12px;">Zakat Mal</th>
+                                            <th colspan="2" style="padding: 12px; text-align: center;">
+                                                Infaq/Shadaqoh/Wakaf
+                                            </th>
+                                            <th colspan="2" style="padding: 12px; text-align: center;">Total</th>
+                                            <th rowspan="2" style="padding: 12px;">Aksi</th>
+                                        </tr>
+                                        <tr>
+                                            <th style="padding: 8px 12px;">Cluster</th>
+                                            <th style="padding: 8px 12px;">Blok</th>
+                                            <th style="padding: 8px 12px;">Uang</th>
+                                            <th style="padding: 8px 12px;">Beras</th>
+                                            <th style="padding: 8px 12px;">Uang</th>
+                                            <th style="padding: 8px 12px;">Beras</th>
+                                            <th style="padding: 8px 12px;">Uang</th>
+                                            <th style="padding: 8px 12px;">Beras</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="padding: 12px;">1</td>
+                                            <td style="padding: 12px; font-weight: 600;">Lina</td>
+                                            <td style="padding: 12px;">BANDUNG</td>
+                                            <td style="padding: 12px;">M10</td>
+                                            <td style="padding: 12px;">2</td>
+                                            <td style="padding: 12px;">Rp0</td>
+                                            <td style="padding: 12px;">0 Kg</td>
+                                            <td style="padding: 12px;">Rp0</td>
+                                            <td style="padding: 12px;">Rp0</td>
+                                            <td style="padding: 12px;">0 Kg</td>
+                                            <td style="padding: 12px;">Rp0</td>
+                                            <td style="padding: 12px;">0 Kg</td>
+                                            <td style="padding: 12px;">
+                                                <div class="flex items-center gap-2">
+                                                    <button
+                                                        class="detail-btn p-2 text-gray-600 hover:text-[#223301] transition"
+                                                        data-id="9" data-nama="Emil" data-alamat="BANDUNG, m4"
+                                                        data-jiwa="2" data-uang="200000" data-fidyah="10000"
+                                                        data-uang-infaq="5000" data-beras-infaq="10" data-total="215000"
+                                                        data-beras-total="10" data-pembayaran="Cash"
+                                                        data-telp="089867967">
+                                                        <svg class="w-5 h-5" fill="none" stroke="currentColor"
+                                                            viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                                        </svg>
+                                                    </button>
+                                                    <button
+                                                        class="edit-btn p-2 text-gray-600 hover:text-[#223301] transition"
+                                                        data-id="9" data-nama="Lina" data-alamat="BANDUNG, M10"
+                                                        data-jiwa="2" data-total-zakat-fitrah="0" data-uang-infaq="0"
+                                                        data-jumlah-ziswaf-uang="0" data-jenis-pembayaran=""
+                                                        data-jenis-zakat-fitrah="" data-zakat-fitrah="0" data-fidyah="0"
+                                                        data-beras-infaq="0" data-jumlah-ziswaf-beras="0"
+                                                        data-nomor-telepon="" data-cluster="bandung" data-blok="M10">
+                                                        <svg class="w-5 h-5" fill="none" stroke="currentColor"
+                                                            viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                             <!-- Pagination -->
                             <div
-                                class="px-6 py-4 flex items-center justify-between border-t border-gray-200 bg-gray-50">
-                                <div class="flex items-center gap-4">
+                                class="px-4 md:px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-4 border-t border-gray-200 bg-gray-50">
+                                <div class="flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
                                     <div class="text-sm text-gray-700">
                                         Halaman <span class="font-semibold">1</span> dari <span
                                             class="font-semibold">10</span>
@@ -2071,30 +2478,93 @@
             });
         }
 
+        // Check if mobile view
+        function isMobileView() {
+            return window.innerWidth <= 1024;
+        }
+
+        // Close all dropdowns on page load if in mobile view
+        function closeDropdownsOnMobileLoad() {
+            if (isMobileView()) {
+                document.querySelectorAll('.dropdown-menu-modern').forEach(menu => {
+                    menu.classList.remove('open');
+                });
+                document.querySelectorAll('.dropdown-icon-modern').forEach(icon => {
+                    icon.classList.remove('rotated');
+                });
+            }
+        }
+
+        // Run on page load
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', closeDropdownsOnMobileLoad);
+        } else {
+            closeDropdownsOnMobileLoad();
+        }
+
+        // Also run on window resize
+        window.addEventListener('resize', closeDropdownsOnMobileLoad);
+
         // Toggle Sidebar
         const sidebar = document.getElementById('sidebar');
         const toggleSidebar = document.getElementById('toggleSidebar');
+        const mobileToggleBtn = document.getElementById('mobileToggleBtn');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
 
-        toggleSidebar?.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
+        // Desktop toggle (collapse/expand)
+        if (toggleSidebar) {
+            toggleSidebar.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
 
-            // Close all dropdowns before toggling
-            closeAllDropdowns();
+                // Only work on desktop
+                if (isMobileView()) return;
 
-            sidebar.classList.toggle('collapsed');
+                // Close all dropdowns before toggling
+                closeAllDropdowns();
 
-            // Update button icon based on state
-            const iconPath = toggleSidebar.querySelector('svg path');
+                sidebar.classList.toggle('collapsed');
 
-            if (sidebar.classList.contains('collapsed')) {
-                // Show right arrow (expand icon)
-                iconPath.setAttribute('d', 'M9 5l7 7-7 7');
+                // Update button icon based on state
+                const iconPath = toggleSidebar.querySelector('svg path');
+
+                if (sidebar.classList.contains('collapsed')) {
+                    // Show right arrow (expand icon)
+                    iconPath.setAttribute('d', 'M9 5l7 7-7 7');
+                } else {
+                    // Show left arrow (collapse icon)
+                    iconPath.setAttribute('d', 'M15 19l-7-7 7-7');
+                }
+            });
+        }
+
+        // Mobile toggle (show/hide)
+        function toggleMobileSidebar() {
+            if (!isMobileView()) return;
+
+            const isOpen = sidebar.classList.contains('mobile-open');
+
+            if (isOpen) {
+                closeAllDropdowns();
+                sidebar.classList.remove('mobile-open');
+                document.body.classList.remove('sidebar-mobile-open');
+                document.body.style.overflow = '';
+                document.body.style.position = '';
+                document.body.style.width = '';
             } else {
-                // Show left arrow (collapse icon)
-                iconPath.setAttribute('d', 'M15 19l-7-7 7-7');
+                sidebar.classList.add('mobile-open');
+                document.body.classList.add('sidebar-mobile-open');
+                closeAllDropdowns();
             }
-        });
+        }
+
+        if (mobileToggleBtn) {
+            mobileToggleBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                toggleMobileSidebar();
+            });
+        }
 
         // Toggle Dropdown
         function toggleDropdown(event, dropdownId) {
@@ -2104,6 +2574,8 @@
             const icon = event.currentTarget.querySelector('.dropdown-icon-modern');
             const sidebar = document.getElementById('sidebar');
             const isCollapsed = sidebar.classList.contains('collapsed');
+            const isMobile = isMobileView();
+            const isMobileOpen = sidebar.classList.contains('mobile-open');
 
             // Close other dropdowns
             document.querySelectorAll('.dropdown-menu-modern').forEach(menu => {
@@ -2134,12 +2606,32 @@
                 dropdown.style.top = 'auto';
                 dropdown.style.position = 'static';
             }
+
+            // On mobile, ensure sidebar stays open when clicking dropdown
+            if (isMobile && isMobileOpen) {
+                sidebar.classList.add('mobile-open');
+            }
         }
 
         // Close sidebar dropdowns when clicking outside
         document.addEventListener('click', (e) => {
             const sidebar = document.getElementById('sidebar');
             const isCollapsed = sidebar.classList.contains('collapsed');
+            const isMobile = isMobileView();
+            const isMobileOpen = sidebar.classList.contains('mobile-open');
+
+            // Don't handle dropdown closing if clicking inside mobile sidebar
+            if (isMobile && isMobileOpen && e.target.closest('.sidebar-modern')) {
+                if (!e.target.closest('.menu-group')) {
+                    document.querySelectorAll('.dropdown-menu-modern').forEach(menu => {
+                        menu.classList.remove('open');
+                    });
+                    document.querySelectorAll('.dropdown-icon-modern').forEach(icon => {
+                        icon.classList.remove('rotated');
+                    });
+                }
+                return;
+            }
 
             if (isCollapsed) {
                 // When collapsed, close dropdowns if clicking outside the menu group
@@ -2168,20 +2660,131 @@
         const notificationBtn = document.getElementById('notificationBtn');
         const notificationDropdown = document.getElementById('notificationDropdown');
 
+        // Profile Dropdown
+        const profileBtn = document.getElementById('profileBtn');
+        const profileDropdown = document.getElementById('profileDropdown');
+
+        // Function to position dropdown within viewport
+        function positionDropdown(button, dropdown) {
+            if (window.innerWidth <= 1024) {
+                const rect = button.getBoundingClientRect();
+                const dropdownWidth = dropdown.offsetWidth || 280;
+                const dropdownHeight = dropdown.offsetHeight || 300;
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
+                const scrollY = window.scrollY || window.pageYOffset;
+
+                // Calculate horizontal position
+                let left = rect.right - dropdownWidth;
+                if (left < 8) {
+                    left = 8;
+                }
+                if (left + dropdownWidth > viewportWidth - 8) {
+                    left = viewportWidth - dropdownWidth - 8;
+                }
+
+                // Calculate vertical position
+                let top = rect.bottom + 12 + scrollY;
+                const spaceBelow = viewportHeight - rect.bottom;
+                const spaceAbove = rect.top;
+
+                // If not enough space below, position above
+                if (spaceBelow < dropdownHeight && spaceAbove > dropdownHeight) {
+                    top = rect.top + scrollY - dropdownHeight - 12;
+                    dropdown.style.top = top + 'px';
+                    dropdown.style.bottom = 'auto';
+                } else {
+                    dropdown.style.top = top + 'px';
+                    dropdown.style.bottom = 'auto';
+                }
+
+                // Ensure dropdown doesn't go below viewport
+                const maxTop = viewportHeight + scrollY - dropdownHeight - 8;
+                if (parseInt(dropdown.style.top) > maxTop) {
+                    dropdown.style.top = maxTop + 'px';
+                }
+
+                dropdown.style.left = left + 'px';
+                dropdown.style.right = 'auto';
+            }
+        }
+
         notificationBtn?.addEventListener('click', (e) => {
             e.stopPropagation();
             notificationDropdown.classList.toggle('show');
             profileDropdown.classList.remove('show');
-        });
 
-        // Profile Dropdown
-        const profileBtn = document.getElementById('profileBtn');
-        const profileDropdown = document.getElementById('profileDropdown');
+            // Position dropdown after showing
+            if (notificationDropdown.classList.contains('show')) {
+                setTimeout(() => {
+                    positionDropdown(notificationBtn, notificationDropdown);
+                }, 10);
+            }
+        });
 
         profileBtn?.addEventListener('click', (e) => {
             e.stopPropagation();
             profileDropdown.classList.toggle('show');
             notificationDropdown.classList.remove('show');
+
+            // Position dropdown after showing
+            if (profileDropdown.classList.contains('show')) {
+                setTimeout(() => {
+                    positionDropdown(profileBtn, profileDropdown);
+                }, 10);
+            }
+        });
+
+        // Reposition dropdowns on window resize
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                if (profileDropdown && profileDropdown.classList.contains('show')) {
+                    positionDropdown(profileBtn, profileDropdown);
+                }
+                if (notificationDropdown && notificationDropdown.classList.contains('show')) {
+                    positionDropdown(notificationBtn, notificationDropdown);
+                }
+            }, 250);
+        });
+
+        // Close mobile sidebar when clicking a menu item (but not dropdown toggles)
+        document.querySelectorAll('.sidebar-modern a[href]:not([href="#"]):not([href="javascript:void(0)"])').forEach(link => {
+            link.addEventListener('click', () => {
+                if (isMobileView()) {
+                    const isDropdownToggle = link.hasAttribute('onclick') && link.getAttribute('onclick').includes('toggleDropdown');
+                    if (!isDropdownToggle) {
+                        setTimeout(() => {
+                            sidebar.classList.remove('mobile-open');
+                            document.body.classList.remove('sidebar-mobile-open');
+                            document.body.style.overflow = '';
+                            document.body.style.position = '';
+                            document.body.style.width = '';
+                        }, 100);
+                    }
+                }
+            });
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                if (!isMobileView()) {
+                    sidebar.classList.remove('mobile-open');
+                    document.body.classList.remove('sidebar-mobile-open');
+                    document.body.style.overflow = '';
+                    document.body.style.position = '';
+                    document.body.style.width = '';
+                } else {
+                    sidebar.classList.remove('mobile-open');
+                    document.body.classList.remove('sidebar-mobile-open');
+                    document.body.style.overflow = '';
+                    document.body.style.position = '';
+                    document.body.style.width = '';
+                }
+            }, 250);
         });
 
         // Close dropdowns when clicking outside
