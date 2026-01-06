@@ -1382,6 +1382,42 @@
                 }
             }
         }
+
+        /* Fix scroll chaining issue on responsive tables */
+        .overflow-x-auto {
+            overscroll-behavior-x: contain;
+            overscroll-behavior-y: contain;
+        }
+
+        .table-modern .overflow-x-auto {
+            overscroll-behavior: contain;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Responsive table scroll - only show when content is wider than container */
+        .table-modern .overflow-x-auto {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Hide scrollbar when not needed */
+        .table-modern .overflow-x-auto::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .table-modern .overflow-x-auto::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
+        }
+
+        .table-modern .overflow-x-auto::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        .table-modern .overflow-x-auto::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
     </style>
 </head>
 
@@ -3175,6 +3211,14 @@
                 // Add active class to clicked button and corresponding content
                 button.classList.add('active');
                 document.getElementById(`tab-${tabName}`).classList.add('active');
+
+                // Re-initialize table scroll for the newly active tab
+                // Use setTimeout to ensure tab content is visible before checking
+                setTimeout(() => {
+                    if (typeof initTableScroll === 'function') {
+                        initTableScroll();
+                    }
+                }, 100);
             });
         });
 
@@ -3562,6 +3606,117 @@
                 locale: "id"
             });
         }
+
+        // Fix scroll chaining issue on responsive tables and enable scroll only when needed
+        (function () {
+            // Store initialized containers to avoid duplicate event listeners
+            const initializedContainers = new WeakSet();
+
+            function initTableScroll() {
+                const tableContainers = document.querySelectorAll('.table-modern .overflow-x-auto');
+
+                tableContainers.forEach(container => {
+                    const table = container.querySelector('table');
+                    if (!table) return;
+
+                    // Skip if already initialized
+                    if (initializedContainers.has(container)) {
+                        // Just update scroll settings, don't re-add listeners
+                        updateScrollSettings(container, table);
+                        return;
+                    }
+
+                    // Mark as initialized
+                    initializedContainers.add(container);
+
+                    // Check if table content is wider than container
+                    function checkScrollNeeded() {
+                        updateScrollSettings(container, table);
+                    }
+
+                    function updateScrollSettings(container, table) {
+                        // Force reflow to get accurate measurements
+                        const containerWidth = container.offsetWidth || container.clientWidth;
+                        const tableWidth = table.scrollWidth;
+
+                        // Enable scroll when content is wider than container (both desktop and mobile)
+                        if (tableWidth > containerWidth && containerWidth > 0) {
+                            container.style.overflowX = 'auto';
+                        } else {
+                            container.style.overflowX = 'hidden';
+                        }
+                    }
+
+                    // Initial check with delay to handle hidden tables
+                    setTimeout(() => {
+                        checkScrollNeeded();
+                    }, 50);
+
+                    // Check on resize
+                    const resizeHandler = () => {
+                        checkScrollNeeded();
+                    };
+                    window.addEventListener('resize', resizeHandler);
+
+                    let scrollStartX = 0;
+                    let scrollStartY = 0;
+
+                    // Prevent vertical scroll when scrolling horizontally
+                    container.addEventListener('wheel', function (e) {
+                        const deltaX = Math.abs(e.deltaX);
+                        const deltaY = Math.abs(e.deltaY);
+
+                        // If horizontal scroll is greater than vertical, prevent vertical scroll
+                        if (deltaX > deltaY && container.scrollWidth > container.clientWidth) {
+                            e.preventDefault();
+                            container.scrollLeft += e.deltaX;
+                        }
+                    }, { passive: false });
+
+                    // Prevent touch scroll propagation
+                    container.addEventListener('touchstart', function (e) {
+                        scrollStartX = e.touches[0].clientX;
+                        scrollStartY = e.touches[0].clientY;
+                    }, { passive: true });
+
+                    container.addEventListener('touchmove', function (e) {
+                        if (!scrollStartX || !scrollStartY) return;
+
+                        const scrollEndX = e.touches[0].clientX;
+                        const scrollEndY = e.touches[0].clientY;
+                        const scrollDiffX = scrollStartX - scrollEndX;
+                        const scrollDiffY = scrollStartY - scrollEndY;
+
+                        // If horizontal scroll is greater than vertical and table can scroll, prevent vertical scroll
+                        if (Math.abs(scrollDiffX) > Math.abs(scrollDiffY) && container.scrollWidth > container.clientWidth) {
+                            e.preventDefault();
+                            container.scrollLeft += scrollDiffX;
+                            scrollStartX = scrollEndX;
+                            scrollStartY = scrollEndY;
+                        }
+                    }, { passive: false });
+                });
+            }
+
+            // Initialize on DOM ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', () => {
+                    setTimeout(initTableScroll, 100);
+                });
+            } else {
+                setTimeout(initTableScroll, 100);
+            }
+
+            // Re-initialize on window resize
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(initTableScroll, 250);
+            });
+
+            // Make initTableScroll available globally for tab switching
+            window.initTableScroll = initTableScroll;
+        })();
 
     </script>
 </body>

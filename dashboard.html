@@ -1463,6 +1463,48 @@
                 }
             }
         }
+
+        /* Fix scroll chaining issue on responsive tables */
+        .overflow-x-auto {
+            overscroll-behavior-x: contain;
+            overscroll-behavior-y: contain;
+        }
+
+        .table-modern .overflow-x-auto {
+            overscroll-behavior: contain;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Responsive table scroll - only show when content is wider than container */
+        .table-modern .overflow-x-auto {
+            overflow-x: visible;
+        }
+
+        @media (max-width: 1024px) {
+            .table-modern .overflow-x-auto {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+        }
+
+        /* Hide scrollbar when not needed */
+        .table-modern .overflow-x-auto::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .table-modern .overflow-x-auto::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
+        }
+
+        .table-modern .overflow-x-auto::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        .table-modern .overflow-x-auto::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
     </style>
 </head>
 
@@ -2983,6 +3025,88 @@
                     }
                 });
             }
+        })();
+
+        // Fix scroll chaining issue on responsive tables and enable scroll only when needed
+        (function () {
+            function initTableScroll() {
+                const tableContainers = document.querySelectorAll('.table-modern .overflow-x-auto');
+
+                tableContainers.forEach(container => {
+                    const table = container.querySelector('table');
+                    if (!table) return;
+
+                    // Check if table content is wider than container
+                    function checkScrollNeeded() {
+                        const containerWidth = container.clientWidth;
+                        const tableWidth = table.scrollWidth;
+                        const isMobile = window.innerWidth <= 1024;
+
+                        // Only enable scroll on mobile/responsive and when content is wider
+                        if (isMobile && tableWidth > containerWidth) {
+                            container.style.overflowX = 'auto';
+                        } else {
+                            container.style.overflowX = 'visible';
+                        }
+                    }
+
+                    // Check on load and resize
+                    checkScrollNeeded();
+                    window.addEventListener('resize', checkScrollNeeded);
+
+                    let scrollStartX = 0;
+                    let scrollStartY = 0;
+
+                    // Prevent vertical scroll when scrolling horizontally
+                    container.addEventListener('wheel', function (e) {
+                        const deltaX = Math.abs(e.deltaX);
+                        const deltaY = Math.abs(e.deltaY);
+
+                        // If horizontal scroll is greater than vertical, prevent vertical scroll
+                        if (deltaX > deltaY && container.scrollWidth > container.clientWidth) {
+                            e.preventDefault();
+                            container.scrollLeft += e.deltaX;
+                        }
+                    }, { passive: false });
+
+                    // Prevent touch scroll propagation
+                    container.addEventListener('touchstart', function (e) {
+                        scrollStartX = e.touches[0].clientX;
+                        scrollStartY = e.touches[0].clientY;
+                    }, { passive: true });
+
+                    container.addEventListener('touchmove', function (e) {
+                        if (!scrollStartX || !scrollStartY) return;
+
+                        const scrollEndX = e.touches[0].clientX;
+                        const scrollEndY = e.touches[0].clientY;
+                        const scrollDiffX = scrollStartX - scrollEndX;
+                        const scrollDiffY = scrollStartY - scrollEndY;
+
+                        // If horizontal scroll is greater than vertical and table can scroll, prevent vertical scroll
+                        if (Math.abs(scrollDiffX) > Math.abs(scrollDiffY) && container.scrollWidth > container.clientWidth) {
+                            e.preventDefault();
+                            container.scrollLeft += scrollDiffX;
+                            scrollStartX = scrollEndX;
+                            scrollStartY = scrollEndY;
+                        }
+                    }, { passive: false });
+                });
+            }
+
+            // Initialize on DOM ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initTableScroll);
+            } else {
+                initTableScroll();
+            }
+
+            // Re-initialize on window resize
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(initTableScroll, 250);
+            });
         })();
 
     </script>
